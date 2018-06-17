@@ -132,11 +132,11 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="tea_tikuguanli" class="list-group-item">题库管理</a>
-            <a href="tea_kaoshiguanli" class="list-group-item">考试管理</a>
-            <a href="#" class="list-group-item">批改试卷</a>
-            <a href="#" class="list-group-item">考试信息</a>
-            <a href="#" class="list-group-item">答疑功能</a>
+            <a href="tea_kaoshiguanli" class="list-group-item active" >考试管理</a>
+            <a href="tea_chakankaoshi" class="list-group-item">查看考试</a>
+            <a href="tea_addkaoshi" class="list-group-item">添加考试</a>
+            <a href="#" class="list-group-item">Link</a>
+            <a href="#" class="list-group-item">Link</a>
             <a href="#" class="list-group-item">Link</a>
             <a href="#" class="list-group-item">Link</a>
             <a href="#" class="list-group-item">Link</a>
@@ -154,38 +154,32 @@ $(document).ready(function () {
             <h1>欢迎使用在线考试系统</h1>
             <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
           </div>
-          <div class="row">
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-          </div><!--/row-->
+                    <div class="panel panel-default">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading">考试信息</div>
+			  <!-- Table -->
+			  <table class="table">
+			   <thead>
+			      <tr>
+			         <th>编号</th>
+			         <th>名称</th>
+			         <th>开始日期</th>
+			         <th>结束日期</th>
+			      </tr>
+			   </thead>
+			   <tbody>
+			   <c:if test="${!empty kaoshi}"> 
+               		<c:forEach items="${tikuxinxi}" var="u">
+			      		<tr>
+			         		<td>${u.tiku_ID}</td>
+			         		<td>${u.tiku_name}</td>
+			         		<td><button type="button" class="btn btn-danger" onclick="location.href='tea_dangetikuguanli?tiku_ID=${u.tiku_ID}'">管理</button></td>
+			      		</tr>
+			      	</c:forEach>
+              </c:if>
+			   </tbody>
+			</table>
+			</div>
         </div><!--/.col-xs-12.col-sm-9-->
 
       </div><!--/row-->

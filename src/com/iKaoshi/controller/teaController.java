@@ -1,18 +1,31 @@
  package com.iKaoshi.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.iKaoshi.bean.Question;
 import com.iKaoshi.bean.Tikuxinxi;
 import com.iKaoshi.service.studentService;
 import com.iKaoshi.service.teacherService;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 
 @Controller
 public class teaController {
@@ -440,6 +453,7 @@ public class teaController {
         return new ModelAndView("tea_adddati","tiku_ID",tiku_Id);
 	}
 	//根据题库号 题号删除某一试题
+	//create by lcq 2018年6月17日19:16:43
 	@RequestMapping("/tea_delquestion")
 	public ModelAndView tea_delquestion_f(HttpServletRequest request,Model model)
 	{
@@ -448,14 +462,156 @@ public class teaController {
 		String question_Idd= request.getParameter("question_Id");
 		int question_Id=Integer.parseInt(question_Idd);
 		teacherService.delquestion(question_Id, tiku_Id);
-		
-		
-		
+
 		//显示相关的代码
 		List<Question> q=null;
 		q=teacherService.quaryQuestionbytikuID(tiku_Id);
 		System.out.println(q.size());
 		model.addAttribute("question", q);
     	return new ModelAndView("tea_dangetikuguanli","tiku_ID",tiku_Id);
+	}
+	//跳转到导入题库界面
+	//create by lcq 2018年6月17日19:24:00
+	@RequestMapping("/tea_daorutiku")
+	public ModelAndView tea_daorutiku(HttpServletRequest request,Model model)
+	{
+		String tiku_ID = request.getParameter("tiku_ID");
+		int tiku_Id=Integer.parseInt(tiku_ID);
+		return new ModelAndView("tea_daorutiku","tiku_ID",tiku_Id);
+	}
+	@RequestMapping(value = "/tea_daorutiku_f", method = RequestMethod.POST)
+    public ModelAndView batchimport(@RequestParam(value="filename") MultipartFile file,
+            HttpServletRequest request,HttpServletResponse response) throws IOException{
+        
+		String tiku_ID = request.getParameter("tiku_ID");
+		int tiku_Id=Integer.parseInt(tiku_ID);
+        //判断文件是否为空
+        if(file==null) return null;
+        //获取文件名
+        String name=file.getOriginalFilename();
+        //进一步判断文件是否为空（即判断其大小是否为0或其名称是否为null）
+        long size=file.getSize();
+        if(name==null || ("").equals(name) && size==0) return null;
+        System.out.println(name);
+        //批量导入。参数：文件名，文件。
+        //也可以用request获取上传文件  
+        //MultipartFile  fileFile = request.getFile("file"); //这里是页面的name属性   
+        //转换成输入流  
+       try { InputStream is = file.getInputStream();  
+        //得到excel  
+        Workbook workbook = Workbook.getWorkbook(is);  
+        //得到sheet  
+        Sheet sheet = workbook.getSheet(0);  
+        //得到列数  
+        int colsNum = sheet.getColumns();  
+        //得到行数  
+        int rowsNum = sheet.getRows();  
+        //单元格  
+        Cell cell;  
+        Map<Integer, String> map = new HashMap<Integer, String>();  
+        for (int i = 1; i < rowsNum; i++) {//我的excel第一行是标题,所以 i从1开始   
+        		
+        		Question q=new Question();
+                
+                cell = sheet.getCell(0, i);//get question_conten  
+                String str=cell.getContents();
+                q.setQuestion_content(str);
+                
+                cell = sheet.getCell(1, i);//get_type
+                str=cell.getContents();
+                int question_type=0;
+                if(str.equals("1")) {
+                	question_type=1;
+                }else if(str.equals("2")) {
+                	question_type=2;
+                }
+                else if(str.equals("3")) {
+                	question_type=3;
+                }
+                q.setQuestion_type(question_type);
+                
+                cell = sheet.getCell(2, i);//get choice_A
+                str=cell.getContents();
+                q.setChoice_A(str);
+                
+                cell = sheet.getCell(3, i);//get choice_B
+                str=cell.getContents();
+                q.setChoice_B(str);
+                
+                cell = sheet.getCell(4, i);//get choice_C
+                str=cell.getContents();
+                q.setChoice_C(str);
+                
+                cell = sheet.getCell(5, i);//get choice_D
+                str=cell.getContents();
+                q.setChoice_D(str);
+                
+                cell = sheet.getCell(6, i);//get answer
+                str=cell.getContents();
+                System.out.println("answer"+str);
+                if(str.equals("A")) {
+                	q.setAnswer(1);
+                }else if(str.equals("B")) {
+                	q.setAnswer(2);
+                }else if(str.equals("C")) {
+                	q.setAnswer(3);
+                }else if(str.equals("D")) {
+                	q.setAnswer(4);
+                }
+                
+                cell = sheet.getCell(7, i);//get question_level
+                str=cell.getContents();
+                int lable=0;
+                if(str.equals("1")) {
+                	lable=1;
+                }else if(str.equals("2")) {
+                	lable=2;
+                }
+                else if(str.equals("3")) {
+                	lable=3;
+                }
+                q.setLable(lable);
+                q.setTiku_Id(tiku_Id);
+                q.setQuestion_Id(teacherService.getMaxquestion(tiku_Id)+1);
+                System.out.println(q.toString());
+                
+                //teacherService.addquestion(q);
+        }  
+        //做你需要的操作  
+        System.out.println(map);  
+    } catch (IOException e) {  
+        e.printStackTrace();  
+    } catch (BiffException e) {  
+        e.printStackTrace();  
+    }  
+
+       return new ModelAndView("tea_daorutiku","tiku_ID",tiku_Id);
+    }
+	//跳转到考试管理界面
+	//create by lcq 2018年6月17日23:41:38
+	@RequestMapping("/tea_kaoshiguanli")
+	public ModelAndView tea_kaoshiguanli(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+
+		return new ModelAndView("tea_kaoshiguanli","tea_id",tea_id);
+	}
+	//跳转到查看考试界面
+	//create by lcq 2018年6月17日23:52:38
+	@RequestMapping("/tea_chakankaoshi")
+	public ModelAndView tea_chakankaoshi(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+
+		return new ModelAndView("tea_chakankaoshi","tea_id",tea_id);
+	}
+	//跳转到添加考试界面
+	//create by lcq 2018年6月17日23:54:09
+	@RequestMapping("/tea_addkaoshi")
+	public ModelAndView tea_addkaoshi(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+
+		return new ModelAndView("tea_addkaoshi","tea_id",tea_id);
 	}
 }

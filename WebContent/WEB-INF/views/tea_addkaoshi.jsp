@@ -132,11 +132,11 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="tea_tikuguanli" class="list-group-item">题库管理</a>
-            <a href="tea_kaoshiguanli" class="list-group-item">考试管理</a>
-            <a href="#" class="list-group-item">批改试卷</a>
-            <a href="#" class="list-group-item">考试信息</a>
-            <a href="#" class="list-group-item">答疑功能</a>
+            <a href="tea_kaoshiguanli" class="list-group-item active" >考试管理</a>
+            <a href="tea_chakankaoshi" class="list-group-item">查看考试</a>
+            <a href="tea_addkaoshi" class="list-group-item">添加考试</a>
+            <a href="#" class="list-group-item">Link</a>
+            <a href="#" class="list-group-item">Link</a>
             <a href="#" class="list-group-item">Link</a>
             <a href="#" class="list-group-item">Link</a>
             <a href="#" class="list-group-item">Link</a>
@@ -154,38 +154,38 @@ $(document).ready(function () {
             <h1>欢迎使用在线考试系统</h1>
             <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
           </div>
-          <div class="row">
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-            <div class="col-xs-6 col-lg-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
-          </div><!--/row-->
+			    <form action="tea_addkaoshi_f?question_Id=${question_Id}&tiku_ID=${tiku_ID}" method = "post" role="form">
+							<div class="form-group">
+                                 <label for="exampleInputEmail1">题库编号</label><input class="form-control" placeholder="${tiku_ID}" id="exampleInputName1" type = "text" name = "tiku_ID" disabled="disabled" readonly="readonly" />
+                            </div>   
+                            <div class="form-group">
+                                 <label for="exampleInputEmail1">题目编号</label><input class="form-control" placeholder="${question_Id}" id="exampleInputName1" type = "text" name = "question_Id" disabled="disabled" readonly="readonly" />
+                            </div>
+                            <div class="form-group">
+                                 <label for="exampleInputEmail1">题目类型</label><input class="form-control" placeholder="单选" id="exampleInputName1" type = "text" name = "question_type" disabled="disabled" readonly="readonly" />
+                            </div>
+                            <div class="form-group">
+                                 <label for="exampleInputEmail1">题干</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "question_content" />
+                            </div>
+                             
+                            <div class="form-group">
+                                 <label for="exampleInputEmail1">难度</label><select class="form-control" id="exampleInputyuanxi1" type = "text" name = "lable">
+							      <option>1</option>
+							      <option>2</option>
+							      <option>3</option>
+							    </select>
+                            </div>
+                                                     
+                            <div class="row clearfix">
+                                <div class="col-md-5 column">
+                                    </div> </h1><input type = "submit" value = "提交" class="btn btn-primary btn-lg"  ></a>
+                                </div>
+                                <div class="col-md-4 column">   
+                                </div>
+                                <div class="col-md-4 column">
+                                </div>
+                            </div>
+                </form>
         </div><!--/.col-xs-12.col-sm-9-->
 
       </div><!--/row-->

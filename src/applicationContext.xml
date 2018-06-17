@@ -14,7 +14,7 @@
       <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
       <!--数据库访问地址-->
        
-      <property name="url" value="jdbc:mysql://localhost:3306/ikaoshi?useUnicode=true&amp;characterEncoding=UTF-8"></property>
+      <property name="url" value="jdbc:mysql://123.206.83.147:3306/ikaoshi?useUnicode=true&amp;characterEncoding=UTF-8"></property>
       <!--数据库访问用户名-->
       <property name="username" value="ruanjian"></property>
       <!--数据库访问密码-->

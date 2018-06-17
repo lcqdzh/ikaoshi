@@ -132,11 +132,11 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="tea_tikuguanli" class="list-group-item">题库管理</a>
-            <a href="tea_kaoshiguanli" class="list-group-item">考试管理</a>
-            <a href="#" class="list-group-item">批改试卷</a>
-            <a href="#" class="list-group-item">考试信息</a>
-            <a href="#" class="list-group-item">答疑功能</a>
+            <a href="tea_kaoshiguanli" class="list-group-item active" >考试管理</a>
+            <a href="tea_chakankaoshi" class="list-group-item">查看考试</a>
+            <a href="tea_addkaoshi" class="list-group-item">添加考试</a>
+            <a href="#" class="list-group-item">Link</a>
+            <a href="#" class="list-group-item">Link</a>
             <a href="#" class="list-group-item">Link</a>
             <a href="#" class="list-group-item">Link</a>
             <a href="#" class="list-group-item">Link</a>
