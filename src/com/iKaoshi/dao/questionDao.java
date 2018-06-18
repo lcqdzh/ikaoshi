@@ -44,15 +44,31 @@ public class questionDao {
 	{
 		return jdbcTemplate.queryForInt("SELECT MAX(question_Id) FROM ikaoshi.question where tiku_Id="+tiku_Id+";");
 	}
+	//create by lcq 2018年6月19日01:36:17
+	public boolean addQuestionkg(int stu_id,int test_id,int question_id,int tiku_id) {
+	String sql = "insert into ikaoshi.shijuan_keguan(stu_Id,test_Id,question_Id,tiku_Id)"
+			+ " values(?,?,?,?)";
+	//System.out.println(2);
+	return jdbcTemplate.update(sql,
+	new Object[] { stu_id,test_id,question_id,tiku_id}) == 1;
+	}
+	//create by lcq 2018年6月19日01:27:13
+	public boolean addQuestionzg(int stu_id,int test_id,int question_id,int tiku_id) {
+		String sql = "insert into ikaoshi.shijuan_zhuguan(stu_Id,test_Id,question_Id,tiku_Id)"
+				+ " values(?,?,?,?)";
+		//System.out.println(2);
+		return jdbcTemplate.update(sql,
+		new Object[] { stu_id,test_id,question_id,tiku_id}) == 1;
+		}
 	//根据试题号与题库号添加到题库中
 	//create by lcq 2018年6月17日16:56:07
 	public boolean addQuestion(Question q) {
-	String sql = "insert into ikaoshi.question(question_Id,tiku_Id,question_content,question_type,choice_A,choice_B,choice_C,choice_D,answer,question_level)"
-			+ " values(?,?,?,?,?,?,?,?,?,?)";
-	//System.out.println(2);
-	return jdbcTemplate.update(sql,
-	new Object[] { q.getQuestion_Id(),q.getTiku_Id(),q.getQuestion_content(),q.getQuestion_type(),q.getChoice_A(),q.getChoice_B(),q.getChoice_C(),q.getChoice_D(),q.getAnswer(),q.getLable()}) == 1;
-	}
+		String sql = "insert into ikaoshi.question(question_Id,tiku_Id,question_content,question_type,choice_A,choice_B,choice_C,choice_D,answer,question_level)"
+				+ " values(?,?,?,?,?,?,?,?,?,?)";
+		//System.out.println(2);
+		return jdbcTemplate.update(sql,
+		new Object[] { q.getQuestion_Id(),q.getTiku_Id(),q.getQuestion_content(),q.getQuestion_type(),q.getChoice_A(),q.getChoice_B(),q.getChoice_C(),q.getChoice_D(),q.getAnswer(),q.getLable()}) == 1;
+		}
 	//根据试题号与题库号删除某一道题
 	//create by lcq 2018年6月17日17:23:58
 	public boolean delateQuestion(int question_Id,int tiku_Id) {
@@ -69,6 +85,11 @@ public class questionDao {
 	  }
 	public List<Question> quarybyquestionIdandtikuId(int question_Id,int tiku_Id){
 		  String sql = "select * from ikaoshi.question where question_Id="+question_Id+" and tiku_Id="+tiku_Id;
+		  System.out.println(sql);
+		  return jdbcTemplate.query(sql, new QuestionMapper());
+	  }
+	public List<Question> quarybytikuidquestiontypelable(int tiku_Id,int question_type,int question_level){
+		  String sql = "select * from ikaoshi.question where question_type="+question_type+" and question_level="+question_level+" and tiku_Id="+tiku_Id;
 		  System.out.println(sql);
 		  return jdbcTemplate.query(sql, new QuestionMapper());
 	  }

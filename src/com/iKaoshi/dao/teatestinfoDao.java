@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.iKaoshi.bean.Question;
 import com.iKaoshi.bean.TeaTestInfo;
 import com.iKaoshi.bean.Tikuxinxi;
 import com.iKaoshi.dao.tikuDao.TikuxinxiMapper;
@@ -37,7 +38,17 @@ public class teatestinfoDao {
 		  String sql = "select * from ikaoshi.tea_test_info where test_Id="+test_id;
 		  return jdbcTemplate.query(sql, new teatestinfoMapper());
 	  }
-	
+	//修改根据考试号修改老师发布的考试
+	//create by lcq 2018年6月18日20:49:51
+	public boolean updateteatestinfobyone(TeaTestInfo t) {
+		  String sql = "update ikaoshi.tea_test_info set test_name=?,tiku_Id=?,tea_Id=?,begin_Time=?," + 
+		  		"end_Time=?,time_Long=?,dx_easy=?,dx_medium=?,dx_hard=?,pd_easy=?,pd_medium=?,pd_hard=?,dt_easy=?,"
+		  		+ "dt_medium=?,dt_hard=?,dx_score=?,pd_score=?,dt_score=? where test_Id=?;";
+		System.out.println("sql"+t.toString());
+		 return jdbcTemplate.update(sql,new Object[] {t.getTest_name(),t.getTiku_id(),t.getTea_id(),t.getBegin_time(),
+				 t.getEnd_time(),t.getTime_long(),t.getDx_easy(),t.getDx_medium(),t.getDx_hard(),t.getPd_easy(),t.getPd_medium(),t.getPd_hard(),t.getDt_easy()
+				 ,t.getDt_medium(),t.getDt_hard(),t.getDx_score(),t.getPd_score(),t.getDt_score(),t.getTest_id()}) == 1;
+		  }
 	
 	//插入一条考试信息
 	//create by lcq 2018年6月18日15:56:08
@@ -72,8 +83,8 @@ public class teatestinfoDao {
 		    t.setPd_easy(rs.getInt(11));
 		    t.setPd_medium(rs.getInt(12));
 		    t.setPd_hard(rs.getInt(13));
-		    t.setDt_hard(rs.getInt(14));
-		    t.setPd_medium(rs.getInt(15));
+		    t.setDt_easy(rs.getInt(14));
+		    t.setDt_medium(rs.getInt(15));
 		    t.setDt_hard(rs.getInt(16));
 		    t.setDx_score(rs.getInt(17));
 		    t.setPd_score(rs.getInt(18));

@@ -724,5 +724,108 @@ public class teaController {
 		model.addAttribute("tikuxinxi",tikuxinxi);
 		return new ModelAndView("tea_dangekaoshiguanli","tea_id",tea_id);
 	}
+	//修改具体的某一个试题的动作
+	//create by lcq 2018年6月18日21:09:00 tea_dangekaoshiguanli_f
+	@RequestMapping("/tea_dangekaoshiguanli_f")
+	public ModelAndView tea_dangekaoshiguanli_f(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		List<TeaTestInfo> t=null;
+		System.out.println(test_id);
+		t=teacherService.quaryTestinfobytestid(test_id);
+		TeaTestInfo nt=new TeaTestInfo();
+		System.out.println("size="+t.size());
+		if(t.size()!=0)
+		{
+			System.out.println(t.get(0));
+			nt=t.get(0);
+		}
+		System.out.println(nt.toString());
+
+		String test_name = request.getParameter("test_name");
+		String tiku_IDname = request.getParameter("tiku_IDname");String tiku_Idd=tiku_IDname.substring(0, tiku_IDname.indexOf(':'));int tiku_id=tiku_Idd.isEmpty()?0:Integer.parseInt(tiku_Idd);
+		String begin_timee = request.getParameter("begin_Time");//Timestamp begin_time= new Timestamp(System.currentTimeMillis());begin_time=Timestamp.valueOf("begin_timee");
+		System.out.println("1");
+		Date d1 = null;
+		System.out.println("2"+begin_timee);
+		if(!begin_timee.isEmpty()) {
+			try {
+				d1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(begin_timee);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Timestamp begin_time= new Timestamp(d1.getTime());
+			nt.setBegin_time(begin_time);
+		}
+		
+		String end_timee = request.getParameter("end_Time");//Timestamp end_time= new Timestamp(System.currentTimeMillis());end_time.valueOf("end_timee");
+		Date d2 = null;
+		if(!end_timee.isEmpty()) {
+			try {
+				d2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(begin_timee);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Timestamp end_time= new Timestamp(d2.getTime());
+			nt.setEnd_time(end_time);
+		}
+		
+		String time_longg = request.getParameter("time_long");int time_long=time_longg.isEmpty()?0:Integer.parseInt(time_longg);
+		String dx_scoree = request.getParameter("dx_score");int dx_score=dx_scoree.isEmpty()?0:Integer.parseInt(dx_scoree);
+		String dx_easyy = request.getParameter("dx_easy");int dx_easy=dx_easyy.isEmpty()?0:Integer.parseInt(dx_easyy);
+		String dx_mediumm = request.getParameter("dx_medium");int dx_medium=dx_mediumm.isEmpty()?0:Integer.parseInt(dx_mediumm);
+		String dx_hardd = request.getParameter("dx_hard");int dx_hard=dx_hardd.isEmpty()?0:Integer.parseInt(dx_hardd);
+		String pd_scoree = request.getParameter("pd_score");int pd_score=pd_scoree.isEmpty()?0:Integer.parseInt(pd_scoree);
+		String pd_easyy = request.getParameter("pd_easy");int pd_easy=pd_easyy.isEmpty()?0:Integer.parseInt(pd_easyy);
+		String pd_mediumm = request.getParameter("pd_medium");int pd_medium=pd_mediumm.isEmpty()?0:Integer.parseInt(pd_mediumm);
+		String pd_hardd = request.getParameter("pd_hard");int pd_hard=pd_hardd.isEmpty()?0:Integer.parseInt(pd_hardd);
+		String dt_scoree = request.getParameter("dt_score");int dt_score=dt_scoree.isEmpty()?0:Integer.parseInt(dt_scoree);
+		String dt_easyy = request.getParameter("dt_easy");int dt_easy=dt_easyy.isEmpty()?0:Integer.parseInt(dt_easyy);
+		String dt_mediumm = request.getParameter("dt_medium");int dt_medium=dt_mediumm.isEmpty()?0:Integer.parseInt(dt_mediumm);
+		String dt_hardd = request.getParameter("dt_hard");int dt_hard=dt_hardd.isEmpty()?0:Integer.parseInt(dt_hardd);
+		System.out.println("dx_hard="+dx_hard);
+		if(!test_name.isEmpty()) nt.setTest_name(test_name);
+		if(tiku_id!=nt.getTiku_id()) nt.setTiku_id(tiku_id);
+		//if(!begin_timee.isEmpty()) nt.setBegin_time(begin_time);
+		//if(!end_timee.isEmpty()) nt.setEnd_time(end_time);
+		if(!time_longg.isEmpty()) nt.setTime_long(time_long);
+		if(!dx_scoree.isEmpty()) nt.setDx_score(dx_score);
+		if(!dx_easyy.isEmpty()) nt.setDx_easy(dx_easy);
+		if(!dx_mediumm.isEmpty()) nt.setDx_medium(dx_medium);
+		if(!dx_hardd.isEmpty()) nt.setDx_hard(dx_hard);
+		if(!pd_scoree.isEmpty()) nt.setPd_score(pd_score);
+		if(!pd_easyy.isEmpty()) nt.setPd_easy(pd_easy);
+		if(!pd_mediumm.isEmpty()) nt.setPd_medium(pd_medium);
+		if(!pd_hardd.isEmpty()) nt.setPd_hard(pd_hard);		
+		if(!dt_scoree.isEmpty()) nt.setDt_score(dt_score);
+		if(!dt_easyy.isEmpty()) nt.setDt_easy(dt_easy);
+		if(!dt_mediumm.isEmpty()) nt.setDt_medium(dt_medium);
+		if(!dt_hardd.isEmpty()) nt.setDt_hard(dt_hard);		
+		System.out.println(nt);
+		
+		
+		
+		teacherService.updateteatestinfobyone(nt);
+		model.addAttribute("teatestinfo", nt);
+		
+		
+		
+		List<Tikuxinxi> tikuxinxi=null;
+		System.out.println("tea_id:"+tea_id);
+		tikuxinxi=teacherService.quary(tea_id);
+		model.addAttribute("tikuxinxi",tikuxinxi);
+		return new ModelAndView("tea_dangekaoshiguanli","tea_id",tea_id);
+	}
+	//用来测试
 	
+	@RequestMapping("/ttt")
+	public String ttt(HttpServletRequest request)
+	{
+		teacherService.getkaoshi(10, 2);
+		return "hellow";
+	}
 }

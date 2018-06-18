@@ -24,13 +24,13 @@
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- Custom styles for this template -->
     
-    <!-- 日起相关的js引用 -->
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>  
-	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">  
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
-    <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>  
-	<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">  
-	<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>  
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>  
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">  
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+  
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>  
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">  
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script> 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -157,7 +157,10 @@ footer {
             <h1>欢迎使用在线考试系统</h1>
             <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
           </div>
-			    <form action="tea_addkaoshi_f" method = "post" role="form">
+			    <form action="tea_dangekaoshiguanli_f?test_id=${teatestinfo.test_id}" method = "post" role="form">
+			    			<div class="form-group">
+                                 <label for="exampleInputEmail1">考试编号</label><input class="form-control" placeholder="${ teatestinfo.test_id}" id="exampleInputName1" type = "text" name = "test_id1" disabled="disabled" readonly="readonly"/>
+                            </div>  
 							<div class="form-group">
                                  <label for="exampleInputEmail1">考试名称</label><input class="form-control" placeholder="${ teatestinfo.test_name}" id="exampleInputName1" type = "text" name = "test_name" />
                             </div>   
@@ -184,7 +187,7 @@ footer {
 						            <label>开始时间：</label>  
 						            <!--指定 date标记-->  
 						            <div class='input-group date' id='datetimepicker1'>  
-						                <input type='text' class="form-control" name="begin_Time" placeholder=${ teatestinfo.begin_time}/>  
+						                <input type='text' class="form-control" name="begin_Time" placeholder="${ teatestinfo.begin_time}" />  
 						                <span class="input-group-addon">  
 						                    <span class="glyphicon glyphicon-calendar"></span>  
 						                </span>  
@@ -196,7 +199,7 @@ footer {
 						            <label>结束时间：</label>  
 						            <!--指定 date标记-->  
 						            <div class='input-group date' id='datetimepicker2'>  
-						                <input type='text' class="form-control" name="end_Time" placeholder=${ teatestinfo.end_time}/>  
+						                <input type='text' class="form-control" name="end_Time" placeholder="${ teatestinfo.end_time}" />  
 						                <span class="input-group-addon">  
 						                    <span class="glyphicon glyphicon-calendar"></span>  
 						                </span>  
