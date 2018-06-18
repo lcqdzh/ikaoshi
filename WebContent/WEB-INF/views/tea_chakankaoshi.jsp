@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html>
 <html>
   <head>
@@ -165,15 +166,18 @@ $(document).ready(function () {
 			         <th>名称</th>
 			         <th>开始日期</th>
 			         <th>结束日期</th>
+			         <th>管理</th>
 			      </tr>
 			   </thead>
 			   <tbody>
-			   <c:if test="${!empty kaoshi}"> 
-               		<c:forEach items="${tikuxinxi}" var="u">
+			   <c:if test="${!empty teatestinfo}"> 
+               		<c:forEach items="${teatestinfo}" var="u">
 			      		<tr>
-			         		<td>${u.tiku_ID}</td>
-			         		<td>${u.tiku_name}</td>
-			         		<td><button type="button" class="btn btn-danger" onclick="location.href='tea_dangetikuguanli?tiku_ID=${u.tiku_ID}'">管理</button></td>
+			         		<td>${u.test_id}</td>
+			         		<td>${u.test_name}</td>
+			         		<td>${u.begin_time}</td>
+			         		<td>${u.end_time}</td>
+			         		<td><button type="button" class="btn btn-danger" onclick="location.href='tea_dangekaoshiguanli?test_id=${u.test_id}'">管理</button></td>
 			      		</tr>
 			      	</c:forEach>
               </c:if>

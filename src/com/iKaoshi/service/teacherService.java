@@ -7,11 +7,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.iKaoshi.bean.Question;
 import com.iKaoshi.bean.Student;
+import com.iKaoshi.bean.TeaTestInfo;
 import com.iKaoshi.bean.Teacher;
 import com.iKaoshi.bean.Tikuxinxi;
 import com.iKaoshi.dao.questionDao;
 import com.iKaoshi.dao.studentDao;
 import com.iKaoshi.dao.teacherDao;
+import com.iKaoshi.dao.teatestinfoDao;
 import com.iKaoshi.dao.tikuDao;
 
 public class teacherService {
@@ -117,5 +119,45 @@ public class teacherService {
 		 //从ioc容器中获取dao
 		 questionDao qdao = (questionDao) context.getBean("questionDao"); 
 		 return qdao.delateQuestion(question_Id, tiku_Id);
+	 }
+	 //教师添加考试信息
+	 //create by lcq 2018年6月18日16:21:06
+	 public static boolean addteatestinfo(TeaTestInfo t)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		teatestinfoDao tdao = (teatestinfoDao) context.getBean("teatestinfoDao");
+		//System.out.println("max"+qdao.getMaxquestionidBytikuid(1));
+		return tdao.addTeatestinfo(t);
+	 }
+	 //获取最大的考试号
+	 //create by lcq 2018年6月17日16:11:44
+	 public static int getMaxtestid()
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		 teatestinfoDao tdao = (teatestinfoDao) context.getBean("teatestinfoDao");
+		//System.out.println("max"+qdao.getMaxquestionidBytikuid(1));
+		return tdao.getMaxtestid();
+	 }
+	 //根据老师工号查看其所发布的考试
+	 //create by lcq 2018年6月18日17:03:44
+	 public static List<TeaTestInfo> quaryTestinfobyteaid(int tea_id)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		 teatestinfoDao tdao = (teatestinfoDao) context.getBean("teatestinfoDao");
+		//System.out.println("max"+qdao.getMaxquestionidBytikuid(1));
+		return tdao.quarybyteaid(tea_id);
+	 }
+	 //根据考试编号获取考试信息
+	 //create by lcq 2018年6月18日20:10:43
+	 public static List<TeaTestInfo> quaryTestinfobytestid(int test_id)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		 teatestinfoDao tdao = (teatestinfoDao) context.getBean("teatestinfoDao");
+		//System.out.println("max"+qdao.getMaxquestionidBytikuid(1));
+		return tdao.quarybytestid(test_id);
 	 }
 }

@@ -102,52 +102,10 @@ footer {
     
    
   </head>
-<script type="text/javascript">
-$(document).ready(function () {
-	  $('[data-toggle="offcanvas"]').click(function () {
-	    $('.row-offcanvas').toggleClass('active')
-	  });
-	});
-</script>
-<script>
-$(function () {  
-
-    var picker1 = $('#datetimepicker1').datetimepicker({  
-
-        format: 'YYYY-MM-DD HH:mm:ss',  
-        locale: moment.locale('zh-cn'),  
-        //minDate: '2016-7-1'  
-    });  
-    var picker2 = $('#datetimepicker2').datetimepicker({  
-        format: 'YYYY-MM-DD HH:mm:ss',  
-        locale: moment.locale('zh-cn')  
-    });  
-    //动态设置最小值  
-    picker1.on('dp.change', function (e) {  
-        var date = new Date();
-        var seperator1 = "-";
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var strDate = date.getDate();
-        if (month >= 1 && month <= 9) {
-            month = "0" + month;
-        }
-        if (strDate >= 0 && strDate <= 9) {
-            strDate = "0" + strDate;
-        }
-        var currentdate = year + seperator1 + month + seperator1 + strDate;
-        picker1.data('DateTimePicker').minDate(currentdate);  
-        picker2.data('DateTimePicker').minDate(e.date);  
-    });  
-    //动态设置最大值  
-    picker2.on('dp.change', function (e) {  
-        picker1.data('DateTimePicker').maxDate(e.date);  
-    });  
-});
-</script>
 
 
-  <body>
+
+  <body >
     <nav class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
         <div class="navbar-header">
@@ -201,7 +159,7 @@ $(function () {
           </div>
 			    <form action="tea_addkaoshi_f" method = "post" role="form">
 							<div class="form-group">
-                                 <label for="exampleInputEmail1">考试名称</label><input class="form-control" placeholder="" id="exampleInputName1" type = "text" name = "test_name" />
+                                 <label for="exampleInputEmail1">考试名称</label><input class="form-control" placeholder="${ teatestinfo.test_name}" id="exampleInputName1" type = "text" name = "test_name" />
                             </div>   
                             <div class="form-group">
                                   <label for="exampleInputEmail1">题库名称及编号
@@ -209,7 +167,12 @@ $(function () {
                                   <select class="form-control" id="exampleInputyuanxi1" type = "text" name = "tiku_IDname">
 							      <c:if test="${!empty tikuxinxi}"> 
                							<c:forEach items="${tikuxinxi}" var="u">
+               							<c:if test="${u.tiku_ID==teatestinfo.test_id}">
+							      				<option  selected = "selected">${u.tiku_ID}:${u.tiku_name}</option>
+							      		</c:if>
+							      		<c:if test="${u.tiku_ID!=teatestinfo.test_id}">
 							      				<option>${u.tiku_ID}:${u.tiku_name}</option>
+							      		</c:if>
 							      		</c:forEach>
 							      </c:if>
 							    </select>
@@ -221,19 +184,19 @@ $(function () {
 						            <label>开始时间：</label>  
 						            <!--指定 date标记-->  
 						            <div class='input-group date' id='datetimepicker1'>  
-						                <input type='text' class="form-control" name="begin_Time"/>  
+						                <input type='text' class="form-control" name="begin_Time" placeholder=${ teatestinfo.begin_time}/>  
 						                <span class="input-group-addon">  
 						                    <span class="glyphicon glyphicon-calendar"></span>  
 						                </span>  
 						            </div>  
 						        </div>  
 						    </div>  
-						    <div class='col-sm-6'>  
+					    <div class='col-sm-6'>  
 						        <div class="form-group">  
 						            <label>结束时间：</label>  
 						            <!--指定 date标记-->  
 						            <div class='input-group date' id='datetimepicker2'>  
-						                <input type='text' class="form-control" name="end_Time"/>  
+						                <input type='text' class="form-control" name="end_Time" placeholder=${ teatestinfo.end_time}/>  
 						                <span class="input-group-addon">  
 						                    <span class="glyphicon glyphicon-calendar"></span>  
 						                </span>  
@@ -241,45 +204,97 @@ $(function () {
 						        </div>  
 						    </div>  
 						</div>  
-
+  <script>
+$(function () {  
+    var picker1 = $('#datetimepicker1').datetimepicker({  
+	
+        format: 'YYYY-MM-DD HH:mm:ss',  
+        locale: moment.locale('zh-cn'),  
+        //minDate: '2016-7-1'  
+    });  
+    var picker2 = $('#datetimepicker2').datetimepicker({  
+        format: 'YYYY-MM-DD HH:mm:ss',  
+        locale: moment.locale('zh-cn') ,
+        //defaultDate: "1990-1-1"
+    });  
+    //动态设置最小值  
+    picker1.on('dp.change', function (e) {  
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        picker1.data('DateTimePicker').minDate(currentdate);  
+        if(currentdate<e.date){
+        	picker2.data('DateTimePicker').minDate(currentdate);  
+        }else{
+        	 picker2.data('DateTimePicker').minDate(e.date); 
+        }
+    });  
+    //动态设置最大值  
+    picker2.on('dp.change', function (e) {  
+    	var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        picker2.data('DateTimePicker').minDate(currentdate);  
+        picker1.data('DateTimePicker').maxDate(e.date);  
+    });  
+});
+</script>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">考试时长</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "time_long" />
+                                 <label for="exampleInputEmail1">考试时长</label><input class="form-control" placeholder="${ teatestinfo.time_long}"  id="exampleInputzhuanye1" type = "text" name = "time_long" />
                             </div>
                              <div class="form-group">
-                                 <label for="exampleInputEmail1">选择分值</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dx_score" />
+                                 <label for="exampleInputEmail1">选择分值</label><input class="form-control" placeholder="${ teatestinfo.dx_score}"  id="exampleInputzhuanye1" type = "text" name = "dx_score" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">选择简单题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dx_easy" />
+                                 <label for="exampleInputEmail1">选择简单题个数</label><input class="form-control" placeholder="${ teatestinfo.dx_easy}"  id="exampleInputzhuanye1" type = "text" name = "dx_easy" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">选择中等题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dx_medium" />
+                                 <label for="exampleInputEmail1">选择中等题个数</label><input class="form-control" placeholder="${ teatestinfo.dx_medium}"  id="exampleInputzhuanye1" type = "text" name = "dx_medium" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">选择困难题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dx_hard" />
+                                 <label for="exampleInputEmail1">选择困难题个数</label><input class="form-control" placeholder="${ teatestinfo.dx_hard}"  id="exampleInputzhuanye1" type = "text" name = "dx_hard" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">判断分值</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "pd_score" />
+                                 <label for="exampleInputEmail1">判断分值</label><input class="form-control" placeholder="${ teatestinfo.pd_score}"  id="exampleInputzhuanye1" type = "text" name = "pd_score" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">判断简单题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "pd_easy" />
+                                 <label for="exampleInputEmail1">判断简单题个数</label><input class="form-control" placeholder="${ teatestinfo.pd_easy}"  id="exampleInputzhuanye1" type = "text" name = "pd_easy" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">判断中等题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "pd_medium" />
+                                 <label for="exampleInputEmail1">判断中等题个数</label><input class="form-control" placeholder="${ teatestinfo.pd_medium}"  id="exampleInputzhuanye1" type = "text" name = "pd_medium" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">判断困难题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "pd_hard" />
+                                 <label for="exampleInputEmail1">判断困难题个数</label><input class="form-control" placeholder="${ teatestinfo.pd_hard}"  id="exampleInputzhuanye1" type = "text" name = "pd_hard" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">大题分值</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dt_score" />
+                                 <label for="exampleInputEmail1">大题分值</label><input class="form-control" placeholder="${ teatestinfo.dt_score}"  id="exampleInputzhuanye1" type = "text" name = "dt_score" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">大题简单题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dt_easy" />
+                                 <label for="exampleInputEmail1">大题简单题个数</label><input class="form-control" placeholder="${ teatestinfo.dt_easy}"  id="exampleInputzhuanye1" type = "text" name = "dt_easy" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">大题中等题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dt_medium" />
+                                 <label for="exampleInputEmail1">大题中等题个数</label><input class="form-control" placeholder="${ teatestinfo.dt_medium}"  id="exampleInputzhuanye1" type = "text" name = "dt_medium" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">大题困难题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dt_hard" />
+                                 <label for="exampleInputEmail1">大题困难题个数</label><input class="form-control" placeholder="${ teatestinfo.dt_hard}"  id="exampleInputzhuanye1" type = "text" name = "dt_hard" />
                             </div>                        
                             <div class="row clearfix">
                                 <div class="col-md-5 column">
@@ -314,4 +329,5 @@ $(function () {
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="offcanvas.js"></script>
   </body>
+
 </html>

@@ -2,6 +2,10 @@
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.iKaoshi.bean.Question;
+import com.iKaoshi.bean.TeaTestInfo;
 import com.iKaoshi.bean.Tikuxinxi;
 import com.iKaoshi.service.studentService;
 import com.iKaoshi.service.teacherService;
@@ -602,7 +607,9 @@ public class teaController {
 	public ModelAndView tea_chakankaoshi(HttpServletRequest request,Model model)
 	{
 		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
-
+		List<TeaTestInfo> t=null;
+		t=teacherService.quaryTestinfobyteaid(tea_id);
+		model.addAttribute("teatestinfo",t );
 		return new ModelAndView("tea_chakankaoshi","tea_id",tea_id);
 	}
 	//跳转到添加考试界面
@@ -611,7 +618,111 @@ public class teaController {
 	public ModelAndView tea_addkaoshi(HttpServletRequest request,Model model)
 	{
 		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
-
+		List<Tikuxinxi> tikuxinxi=null;
+		System.out.println("tea_id:"+tea_id);
+		tikuxinxi=teacherService.quary(tea_id);
+		model.addAttribute("tikuxinxi",tikuxinxi);
 		return new ModelAndView("tea_addkaoshi","tea_id",tea_id);
 	}
+	//获取教师添加考试的相关信息
+	//create by lcq 2018年6月18日10:11:52
+	@RequestMapping("/tea_addkaoshi_f")
+	public ModelAndView tea_addkaoshi_f(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		String test_name = request.getParameter("test_name");
+		String tiku_IDname = request.getParameter("tiku_IDname");String tiku_Idd=tiku_IDname.substring(0, tiku_IDname.indexOf(':'));int tiku_id=tiku_Idd.isEmpty()?0:Integer.parseInt(tiku_Idd);
+		String begin_timee = request.getParameter("begin_Time");//Timestamp begin_time= new Timestamp(System.currentTimeMillis());begin_time=Timestamp.valueOf("begin_timee");
+		
+		Date d1 = null;
+		try {
+			d1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(begin_timee);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Timestamp begin_time= new Timestamp(d1.getTime());
+		String end_timee = request.getParameter("end_Time");//Timestamp end_time= new Timestamp(System.currentTimeMillis());end_time.valueOf("end_timee");
+		Date d2 = null;
+		try {
+			d2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(begin_timee);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Timestamp end_time= new Timestamp(d2.getTime());
+		String time_longg = request.getParameter("time_long");int time_long=time_longg.isEmpty()?0:Integer.parseInt(time_longg);
+		String dx_scoree = request.getParameter("dx_score");int dx_score=dx_scoree.isEmpty()?0:Integer.parseInt(dx_scoree);
+		String dx_easyy = request.getParameter("dx_easy");int dx_easy=dx_easyy.isEmpty()?0:Integer.parseInt(dx_easyy);
+		String dx_mediumm = request.getParameter("dx_medium");int dx_medium=dx_mediumm.isEmpty()?0:Integer.parseInt(dx_mediumm);
+		String dx_hardd = request.getParameter("dx_hard");int dx_hard=dx_hardd.isEmpty()?0:Integer.parseInt(dx_hardd);
+		String pd_scoree = request.getParameter("pd_score");int pd_score=pd_scoree.isEmpty()?0:Integer.parseInt(pd_scoree);
+		String pd_easyy = request.getParameter("pd_easy");int pd_easy=pd_easyy.isEmpty()?0:Integer.parseInt(pd_easyy);
+		String pd_mediumm = request.getParameter("pd_medium");int pd_medium=pd_mediumm.isEmpty()?0:Integer.parseInt(pd_mediumm);
+		String pd_hardd = request.getParameter("pd_hard");int pd_hard=pd_hardd.isEmpty()?0:Integer.parseInt(pd_hardd);
+		String dt_scoree = request.getParameter("dt_score");int dt_score=dt_scoree.isEmpty()?0:Integer.parseInt(dt_scoree);
+		String dt_easyy = request.getParameter("dt_easy");int dt_easy=dt_easyy.isEmpty()?0:Integer.parseInt(dt_easyy);
+		String dt_mediumm = request.getParameter("dt_medium");int dt_medium=dt_mediumm.isEmpty()?0:Integer.parseInt(dt_mediumm);
+		String dt_hardd = request.getParameter("dt_hard");int dt_hard=dt_hardd.isEmpty()?0:Integer.parseInt(dt_hardd);
+		//应该先判断是否满足添加的条件
+		int test_id=teacherService.getMaxtestid()+1;
+		TeaTestInfo t=new TeaTestInfo();
+		t.setTea_id(tea_id);t.setTest_id(test_id);t.setTest_name(test_name);t.setTiku_id(tiku_id);
+		t.setBegin_time(begin_time);t.setEnd_time(end_time);t.setTime_long(time_long);
+		t.setDx_easy(dx_easy);t.setDx_medium(dx_medium);t.setDx_hard(dx_hard);t.setDx_score(dx_score);
+		t.setPd_easy(pd_easy);t.setPd_medium(pd_medium);t.setPd_hard(pd_hard);t.setPd_score(pd_score);
+		t.setDt_easy(dt_easy);t.setDt_medium(dt_medium);t.setDt_hard(dt_hard);t.setDt_score(dt_score);
+		System.out.println(t.toString());
+		teacherService.addteatestinfo(t);
+		/*
+		System.out.println("test_name=" + test_name+
+				" tiku_IDname=" + tiku_IDname+
+				" begin_time=" + begin_time+
+				" end_time=" + end_time+
+				" time_long=" + time_long+
+				" dx_score=" + dx_score+
+				" dx_easy=" + dx_easy+
+				" dx_medium=" + dx_medium+
+				" dx_hard=" + dx_hard+
+				" pd_score=" + pd_score+
+				" pd_easy=" + pd_easy+
+				" pd_medium=" + pd_medium+
+				" pd_hard=" + pd_hard+
+				" dt_score=" + dt_score+
+				" dt_easy=" + dt_easy+
+				" dt_medium=" + dt_medium+
+				" dt_hard="+dt_hard);
+				*/
+		return new ModelAndView("tea_addkaoshi","tea_id",tea_id);
+	}
+	//跳转到单个考试信息修改界面
+	//create by lcq 2018年6月18日19:13:28
+	@RequestMapping("/tea_dangekaoshiguanli")
+	public ModelAndView tea_dangekaoshiguanli(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		List<TeaTestInfo> t=null;
+		System.out.println(test_id);
+		t=teacherService.quaryTestinfobytestid(test_id);
+		TeaTestInfo nt=new TeaTestInfo();
+		System.out.println("size="+t.size());
+		if(t.size()!=0)
+		{
+			System.out.println(t.get(0));
+			nt=t.get(0);
+		}
+		System.out.println(nt.toString());
+		model.addAttribute("teatestinfo", nt);
+		
+		
+		
+		List<Tikuxinxi> tikuxinxi=null;
+		System.out.println("tea_id:"+tea_id);
+		tikuxinxi=teacherService.quary(tea_id);
+		model.addAttribute("tikuxinxi",tikuxinxi);
+		return new ModelAndView("tea_dangekaoshiguanli","tea_id",tea_id);
+	}
+	
 }
