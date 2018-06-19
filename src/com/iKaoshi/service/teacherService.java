@@ -1,4 +1,5 @@
 package com.iKaoshi.service;
+import java.sql.Timestamp;
 // create by lcq
 import java.util.List;
 import java.util.Random;
@@ -7,10 +8,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.iKaoshi.bean.Question;
+import com.iKaoshi.bean.Shijuanzhuguan;
 import com.iKaoshi.bean.Student;
 import com.iKaoshi.bean.TeaTestInfo;
 import com.iKaoshi.bean.Teacher;
 import com.iKaoshi.bean.Tikuxinxi;
+import com.iKaoshi.dao.pigaiDao;
 import com.iKaoshi.dao.questionDao;
 import com.iKaoshi.dao.studentDao;
 import com.iKaoshi.dao.teacherDao;
@@ -333,5 +336,35 @@ public class teacherService {
 
 		
 		 return true;
+	 }
+	 //根据教师id与日期查看已经结束的考试
+	 //create by lcq 2018年6月19日10:52:01
+	 public static List<TeaTestInfo> quaryOverbyteaiddate(int tea_id,Timestamp today)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		 teatestinfoDao tdao = (teatestinfoDao) context.getBean("teatestinfoDao");
+		//System.out.println("max"+qdao.getMaxquestionidBytikuid(1));
+		return tdao.quaryOverbyteaiddate(tea_id, today);
+	 }
+	 //根据教师id与日期查看未结束的考试
+	 //create by lcq 2018年6月19日10:54:57
+	 public static List<TeaTestInfo> quaryNOverbyteaiddate(int tea_id,Timestamp today)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		 teatestinfoDao tdao = (teatestinfoDao) context.getBean("teatestinfoDao");
+		//System.out.println("max"+qdao.getMaxquestionidBytikuid(1));
+		return tdao.quaryNOverbyteaiddate(tea_id, today);
+	 }
+	 //根据考试编号查看学生作答的主观题
+	 //create by lcq 2018年6月19日15:40:35
+	 public static List<Shijuanzhuguan> quaryBytestid(int test_id)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		 pigaiDao pdao = (pigaiDao) context.getBean("pigaiDao");
+		//System.out.println("max"+qdao.getMaxquestionidBytikuid(1));
+		return pdao.quaryBytestid(test_id);
 	 }
 }

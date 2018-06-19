@@ -133,12 +133,11 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="tea_dangetikuguanli?tiku_ID=${tiku_ID}" class="list-group-item active">${tiku_name}具体题库管理</a>
-            <a href="tea_daorutiku?tiku_ID=${tiku_ID}" class="list-group-item">导入题库</a>
-            <a href="tea_dangetikuguanli?tiku_ID=${tiku_ID}" class="list-group-item">管理题库</a>
-            <a href="tea_addxuanze?tiku_ID=${tiku_ID}" class="list-group-item">添加选择</a>
-            <a href="tea_addpanduan?tiku_ID=${tiku_ID}" class="list-group-item">添加判断</a>
-            <a href="tea_adddati?tiku_ID=${tiku_ID}" class="list-group-item">添加大题</a>
+            <a href="tea_tikuguanli" class="list-group-item">题库管理</a>
+            <a href="tea_kaoshiguanli" class="list-group-item">考试管理</a>
+            <a href="tea_pigai_kaoshi" class="list-group-item">批改试卷</a>
+            <a href="#" class="list-group-item">考试信息</a>
+            <a href="ttt" class="list-group-item">ttt</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -151,63 +150,37 @@ $(document).ready(function () {
             <h1>欢迎使用在线考试系统</h1>
             <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
           </div>
-
-          <div class="panel panel-default">
-
-			    <form action="tea_addxuanze_f?question_Id=${question_Id}&tiku_ID=${tiku_ID}" method = "post" role="form">
-   
-  							<div class="form-group">
-                                 <label for="exampleInputEmail1">题库编号</label><input class="form-control" placeholder="${tiku_ID}" id="exampleInputName1" type = "text" name = "tiku_ID1" disabled="disabled" readonly="readonly" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">题目编号</label><input class="form-control" placeholder="${question_Id}" id="exampleInputName1" type = "text" name = "question_Id1" disabled="disabled" readonly="readonly" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">题目类型</label><input class="form-control" placeholder="单选" id="exampleInputName1" type = "text" name = "question_type" disabled="disabled" readonly="readonly" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">题干</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "question_content" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">选项A</label><input class="form-control" placeholder=""  id="exampleInputclass1" type = "text" name = "choice_A" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">选项B</label><input class="form-control" placeholder=""  id="exampleInputMail1" type = "text" name = "choice_B" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">选项C</label><input class="form-control" placeholder=""  id="exampleInputXinyu1" type = "text" name = "choice_C"   />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">选项D</label><input class="form-control" placeholder=""  id="exampleInputXinyu1" type = "text" name = "choice_D"   />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">答案</label><select class="form-control" id="exampleInputyuanxi1" type = "text" name = "answer">
-							      <option>A</option>
-							      <option>B</option>
-							      <option>C</option>
-							      <option>D</option>
-							    </select>
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">难度</label><select class="form-control" id="exampleInputyuanxi1" type = "text" name = "lable">
-							      <option>1</option>
-							      <option>2</option>
-							      <option>3</option>
-							    </select>
-                            </div>                          
-                            <div class="row clearfix">
-                                <div class="col-md-5 column">
-                                    </div> </h1><input type = "submit" value = "提交" class="btn btn-primary btn-lg"  ></a>
-                                </div>
-                                <div class="col-md-4 column">   
-                                </div>
-                                <div class="col-md-4 column">
-                                </div>
-                            </div>
-                </form>
+          <div class="row">
+          <c:if test="${!empty overt}"> 
+          	<c:forEach items="${overt}" var="u">
+	            <div class="col-xs-6 col-lg-4">
+	              <h2>考试名称:${u.test_name }</h2>
+	              <p>考试编号:${u.test_id}</p>
+	              <p>开始日期:${u.begin_time}</p>
+	              <p>结束日期:${u.end_time}</p>
+	              <p>考试状态:已完成考试</p>
+	              <p>主观题个数:${u.dt_easy+u.dt_medium+u.dt_hard}</p>
+	              <p><a class="btn btn-default" href="tea_pigai_stugn?test_id=${u.test_id }" role="button">批改试卷 &raquo;</a></p>
+	            </div><!--/.col-xs-6.col-lg-4-->
+            </c:forEach>
+          </c:if>
+          
+          <c:if test="${!empty novert}"> 
+          	<c:forEach items="${novert}" var="u">
+	            <div class="col-xs-6 col-lg-4">
+	              <h2>考试名称:${u.test_name }</h2>
+	              <p>考试编号:${u.test_id}</p>
+	              <p>开始日期:${u.begin_time}</p>
+	              <p>结束日期:${u.end_time}</p>
+	              <p>考试状态:未完成考试</p>
+	              <p>主观题个数:${u.dt_easy+u.dt_medium+u.dt_hard}</p>
+	              <p><a class="btn btn-default" href="tea_pigai_stugn?test_id=${u.test_id }" role="button" disabled="disabled">批改试卷 &raquo;</a></p>
+	            </div><!--/.col-xs-6.col-lg-4-->
+            </c:forEach>
+          </c:if>
+          </div><!--/row-->
         </div><!--/.col-xs-12.col-sm-9-->
-        
-			
+
       </div><!--/row-->
 
       <hr>

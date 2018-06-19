@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.iKaoshi.bean.Question;
+import com.iKaoshi.bean.Shijuanzhuguan;
 import com.iKaoshi.bean.TeaTestInfo;
 import com.iKaoshi.bean.Tikuxinxi;
 import com.iKaoshi.service.studentService;
@@ -34,6 +35,15 @@ import jxl.read.biff.BiffException;
 
 @Controller
 public class teaController {
+	//跳转到教室登录界面
+	//create by lcq 2018年6月19日09:02:21
+	@RequestMapping("/tea_login_s")
+	public ModelAndView tea_login_s(HttpServletRequest request)
+	{
+		String str="123";
+        return new ModelAndView("tea_login","error",str);
+	}
+	
 	@RequestMapping("/tea_info")
 	public ModelAndView stu_info(HttpServletRequest request)
 	{
@@ -52,9 +62,10 @@ public class teaController {
         String str="123";
         if(teacherService.login(id, password))
         {
+        	
         	return new ModelAndView("tea_home","error",str);
         }
-        return new ModelAndView("tea_info","error",str);
+        return new ModelAndView("default","error",str);
 	}
 	@RequestMapping("/tea_home")
 	public ModelAndView stu_home(HttpServletRequest request)
@@ -554,13 +565,13 @@ public class teaController {
                 cell = sheet.getCell(6, i);//get answer
                 str=cell.getContents();
                 System.out.println("answer"+str);
-                if(str.equals("A")) {
+                if(str.equals("1")) {
                 	q.setAnswer(1);
-                }else if(str.equals("B")) {
+                }else if(str.equals("2")) {
                 	q.setAnswer(2);
-                }else if(str.equals("C")) {
+                }else if(str.equals("3")) {
                 	q.setAnswer(3);
-                }else if(str.equals("D")) {
+                }else if(str.equals("4")) {
                 	q.setAnswer(4);
                 }
                 
@@ -580,7 +591,7 @@ public class teaController {
                 q.setQuestion_Id(teacherService.getMaxquestion(tiku_Id)+1);
                 System.out.println(q.toString());
                 
-                //teacherService.addquestion(q);
+                teacherService.addquestion(q);
         }  
         //做你需要的操作  
         System.out.println(map);  
@@ -645,7 +656,7 @@ public class teaController {
 		String end_timee = request.getParameter("end_Time");//Timestamp end_time= new Timestamp(System.currentTimeMillis());end_time.valueOf("end_timee");
 		Date d2 = null;
 		try {
-			d2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(begin_timee);
+			d2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(end_timee);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -765,7 +776,7 @@ public class teaController {
 		Date d2 = null;
 		if(!end_timee.isEmpty()) {
 			try {
-				d2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(begin_timee);
+				d2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(end_timee);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -827,5 +838,49 @@ public class teaController {
 	{
 		teacherService.getkaoshi(10, 2);
 		return "hellow";
+	}
+	//老师进行批改 首先进入查看考试信息的界面
+	//create by lcq 2018年6月19日10:42:49
+	@RequestMapping("/tea_pigai_kaoshi")
+	public String tea_pigai_kaoshi(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		Timestamp today = new Timestamp(System.currentTimeMillis()); 
+		List<TeaTestInfo> overt=null;
+		overt=teacherService.quaryOverbyteaiddate(tea_id, today);
+		List<TeaTestInfo> novert=null;
+		novert=teacherService.quaryNOverbyteaiddate(tea_id, today);
+		model.addAttribute("overt", overt);
+		model.addAttribute("novert", novert);
+		return "tea_pigai_kaoshi";
+	}
+	//老师根据某个考试进行批改 此界面用来显示学生问题 答案等信息 后面是操作
+	//create by lcq 2018年6月19日14:48:25
+	@RequestMapping("/tea_pigai_stugn")
+	public String tea_pigai_stugn(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		Timestamp today = new Timestamp(System.currentTimeMillis()); 
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		System.out.println(test_id);
+		List<Shijuanzhuguan> shijuanzhuguan =null;
+		shijuanzhuguan=teacherService.quaryBytestid(test_id);
+		for(int i=0;i<shijuanzhuguan.size();i++)
+		{
+			System.out.println(shijuanzhuguan.get(i).getScore());
+		}
+		model.addAttribute("shijuanzhuguan", shijuanzhuguan);
+		return "tea_pigai_stugn";
+	}
+	//进入到具体的判卷页面
+	//create by lcq 2018年6月19日16:53:43
+	@RequestMapping("/tea_pigai_juti")
+	public String tea_pigai_juti(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		Timestamp today = new Timestamp(System.currentTimeMillis()); 
+
+		return "tea_pigai_juti";
 	}
 }

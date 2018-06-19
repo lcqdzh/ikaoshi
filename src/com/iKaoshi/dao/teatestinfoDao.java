@@ -2,6 +2,7 @@ package com.iKaoshi.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,6 +26,18 @@ public class teatestinfoDao {
 	{
 		return jdbcTemplate.queryForInt("SELECT MAX(test_Id) FROM ikaoshi.tea_test_info ;");
 	}
+	//根据老师id与日期 查看已经结束的考试
+	//create by lcq 2018年6月19日10:45:17
+	public List<TeaTestInfo> quaryOverbyteaiddate(int tea_id, Timestamp today){
+		  String sql = "select * from ikaoshi.tea_test_info where tea_Id="+tea_id+" and end_Time<'"+today+"';";
+		  return jdbcTemplate.query(sql, new teatestinfoMapper());
+	  }
+	//根据老师id与日期 查看未结束的考试
+	//create by lcq 2018年6月19日10:45:17
+	public List<TeaTestInfo> quaryNOverbyteaiddate(int tea_id, Timestamp today){
+		  String sql = "select * from ikaoshi.tea_test_info where tea_Id="+tea_id+" and end_Time>'"+today+"';";
+		  return jdbcTemplate.query(sql, new teatestinfoMapper());
+	  }
 	
 	//查看老师发布的考试
 	//create by lcq 2018年6月18日17:00:51

@@ -38,6 +38,7 @@
     <bean id="tikuDao" class="com.iKaoshi.dao.tikuDao"></bean> <!-- lcq -->
     <bean id="questionDao" class="com.iKaoshi.dao.questionDao"></bean> <!-- lcq -->
     <bean id="teatestinfoDao" class="com.iKaoshi.dao.teatestinfoDao"></bean> <!-- lcq -->
+    <bean id="pigaiDao" class="com.iKaoshi.dao.pigaiDao"></bean> <!-- lcq -->
     <!-- 控制层类 ，这个配置无效-->
     <bean id="controller" class="com.iKaoshi.controller">
       <property name="dao" ref="dao"></property>

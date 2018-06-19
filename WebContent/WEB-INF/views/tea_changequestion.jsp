@@ -12,7 +12,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Off Canvas Template for Bootstrap</title>
+    <title>在线考试平台</title>
 
   <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
 	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -117,7 +117,7 @@ $(document).ready(function () {
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="stu_home">首页</a></li>
+            <li class="active"><a href="tea_home">首页</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="stu_info">我的信息</a></li>
@@ -139,10 +139,6 @@ $(document).ready(function () {
             <a href="tea_addxuanze?tiku_ID=${tiku_ID}" class="list-group-item">添加选择</a>
             <a href="tea_addpanduan?tiku_ID=${tiku_ID}" class="list-group-item">添加判断</a>
             <a href="tea_adddati?tiku_ID=${tiku_ID}" class="list-group-item">添加大题</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
