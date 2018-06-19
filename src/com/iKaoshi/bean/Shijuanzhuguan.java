@@ -9,6 +9,14 @@ public class Shijuanzhuguan {
 	String stu_answer;
 	int score;
 	int zgstate;
+	int dt_score;
+	public int getDt_score() {
+		return dt_score;
+	}
+	public void setDt_score(int dt_score) {
+		this.dt_score = dt_score;
+	}
+
 	public int getZgstate() {
 		return zgstate;
 	}

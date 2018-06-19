@@ -181,7 +181,7 @@ $(document).ready(function () {
 			         		<td></td>
 			         		</c:if>
 			         		<c:if test="${u.zgstate==0}">
-			         		<td><button type="button" class="btn btn-danger" onclick="location.href='tea_pigai_juti'">批改</button></td>
+			         		<td><button type="button" class="btn btn-danger" onclick="location.href='tea_pigai_juti?stu_id=${u.stu_id}&test_id=${u.test_id}&question_id=${u.question_id}&tiku_id=${u.tiku_id}'">批改</button></td>
 			         		</c:if>
 			         		
 			      		</tr>

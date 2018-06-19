@@ -880,7 +880,99 @@ public class teaController {
 	{
 		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
 		Timestamp today = new Timestamp(System.currentTimeMillis()); 
-
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		String question_idd = request.getParameter("question_id");
+		int question_id=question_idd.isEmpty()?0:Integer.parseInt(question_idd);
+		String stu_idd = request.getParameter("stu_id");
+		int stu_id=test_idd.isEmpty()?0:Integer.parseInt(stu_idd);
+		String tiku_idd = request.getParameter("tiku_id");
+		int tiku_id=test_idd.isEmpty()?0:Integer.parseInt(tiku_idd);
+		Shijuanzhuguan ns=new Shijuanzhuguan();
+		ns=teacherService.getBytestidstuidquestionidtikuid(test_id, stu_id, question_id, tiku_id);
+		model.addAttribute("sjzg", ns);
+		
+		return "tea_pigai_juti";
+	}
+	//具体批改的动作
+	//create by lcq 2018年6月19日21:04:21
+	@RequestMapping("/tea_pigai_juti_f")
+	public String tea_pigai_juti_f(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		Timestamp today = new Timestamp(System.currentTimeMillis()); 
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		String question_idd = request.getParameter("question_id");
+		int question_id=question_idd.isEmpty()?0:Integer.parseInt(question_idd);
+		String stu_idd = request.getParameter("stu_id");
+		int stu_id=test_idd.isEmpty()?0:Integer.parseInt(stu_idd);
+		String tiku_idd = request.getParameter("tiku_id");
+		int tiku_id=test_idd.isEmpty()?0:Integer.parseInt(tiku_idd);
+		String scoree = request.getParameter("score");
+		int score=scoree.isEmpty()?0:Integer.parseInt(scoree);
+		System.out.println("score="+score);
+		
+		Shijuanzhuguan ns=new Shijuanzhuguan();
+		ns=teacherService.getBytestidstuidquestionidtikuid(test_id, stu_id, question_id, tiku_id);
+		ns.setScore(score);
+		ns.setZgstate(1);
+		teacherService.updatebysjzg(ns);
+		if(teacherService.getBytestidstuidtikuid_wpg(test_id, stu_id, tiku_id)==false)
+		{
+			teacherService.updateStutestinfo(stu_id, test_id, tiku_id);
+		}
+		
+		model.addAttribute("sjzg", ns);
+		
+		return "tea_pigai_juti";
+	}
+	//前一个批改信息
+	//create by lcq 2018年6月19日23:33:39
+	@RequestMapping("/tea_pigai_juti_fp")
+	public String tea_pigai_juti_fp(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		Timestamp today = new Timestamp(System.currentTimeMillis()); 
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		String question_idd = request.getParameter("question_id");
+		int question_id=question_idd.isEmpty()?0:Integer.parseInt(question_idd);
+		String stu_idd = request.getParameter("stu_id");
+		int stu_id=test_idd.isEmpty()?0:Integer.parseInt(stu_idd);
+		String tiku_idd = request.getParameter("tiku_id");
+		int tiku_id=test_idd.isEmpty()?0:Integer.parseInt(tiku_idd);
+		
+		Shijuanzhuguan ns=new Shijuanzhuguan();
+		ns=teacherService.getBytestidstuidquestionidtikuid(test_id, stu_id, question_id, tiku_id);
+		ns=teacherService.getBytestidstuidquestionidtikuid_p(test_id, stu_id, question_id, tiku_id, ns);
+		
+		model.addAttribute("sjzg", ns);
+		
+		return "tea_pigai_juti";
+	}
+	//后一个批改信息
+	//create by lcq 2018年6月19日21:04:21
+	@RequestMapping("/tea_pigai_juti_fn")
+	public String tea_pigai_juti_fn(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		Timestamp today = new Timestamp(System.currentTimeMillis()); 
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		String question_idd = request.getParameter("question_id");
+		int question_id=question_idd.isEmpty()?0:Integer.parseInt(question_idd);
+		String stu_idd = request.getParameter("stu_id");
+		int stu_id=test_idd.isEmpty()?0:Integer.parseInt(stu_idd);
+		String tiku_idd = request.getParameter("tiku_id");
+		int tiku_id=test_idd.isEmpty()?0:Integer.parseInt(tiku_idd);
+		
+		Shijuanzhuguan ns=new Shijuanzhuguan();
+		ns=teacherService.getBytestidstuidquestionidtikuid(test_id, stu_id, question_id, tiku_id);
+		ns=teacherService.getBytestidstuidquestionidtikuid_n(test_id, stu_id, question_id, tiku_id, ns);
+		
+		model.addAttribute("sjzg", ns);
+		
 		return "tea_pigai_juti";
 	}
 }

@@ -101,7 +101,15 @@ $(document).ready(function () {
 	  });
 	});
 </script>
-
+<script>
+function judgeQD(id)
+   {
+     if(confirm("确定打分？"))
+     {
+      window.location.href="tea_pigai_juti?stu_id=${sjzg.stu_id}&test_id=${sjzg.test_id}&question_id=${sjzg.question_id}&tiku_id=${sjzg.tiku_id}"+id;
+     }
+   }
+</script>
 
   <body>
     <nav class="navbar navbar-fixed-top navbar-inverse">
@@ -150,15 +158,47 @@ $(document).ready(function () {
             <h1>欢迎使用在线考试系统</h1>
             <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
           </div>
-          
-          
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						题目:${sjzg.question}
+					</h3>
+				</div>
+				<div class="panel-body">
+					学生答案：${sjzg.stu_answer}
+				</div>
+			</div>
+		<form action="tea_pigai_juti_f?stu_id=${sjzg.stu_id}&test_id=${sjzg.test_id}&question_id=${sjzg.question_id}&tiku_id=${sjzg.tiku_id}" method = "post" role="form">
+		   
+		    <c:if test="${sjzg.zgstate==0}">
+        	<div class="form-group">
+			  <label for="exampleInputEmail1">打分</label> <select class="form-control" id="exampleInputyuanxi1" type = "text" name = "score">
+			  <c:forEach var="i" begin="0" end="${sjzg.dt_score}">
+   					<option>${i}</option>
+			  </c:forEach>
+			  </select>
+			</div>
+        		</c:if>
+        		<c:if test="${sjzg.zgstate==1}">
+        			<div class="form-group">
+			 		 <label for="exampleInputEmail1">打分</label> <select class="form-control" id="exampleInputyuanxi1" type = "text" name = "score" disabled="disabled">
+   					<option>${sjzg.score}</option>
+			 		 </select>
+					</div>
+        		</c:if>
+			
+
+
+			<div align="center"> 
+			<input type = "submit" value = "提交" class="btn btn-primary btn-lg"  >
+			</div>
 		<nav aria-label="...">
 		  <ul class="pager">
-		    <li><a href="#">Previous</a></li>
-		    <li><a href="#">Next</a></li>
+		    <li><a href="tea_pigai_juti_fp?stu_id=${sjzg.stu_id}&test_id=${sjzg.test_id}&question_id=${sjzg.question_id}&tiku_id=${sjzg.tiku_id}">Previous</a></li>
+		    <li><a href="tea_pigai_juti_fn?stu_id=${sjzg.stu_id}&test_id=${sjzg.test_id}&question_id=${sjzg.question_id}&tiku_id=${sjzg.tiku_id}">Next</a></li>
 		  </ul>
 		</nav>
-
+	</form>
       </div><!--/row-->
 
       <hr>

@@ -367,4 +367,132 @@ public class teacherService {
 		//System.out.println("max"+qdao.getMaxquestionidBytikuid(1));
 		return pdao.quaryBytestid(test_id);
 	 }
+	 //根据学号 考试号 试题号获取学生答题   //应该是返回的是一个对象
+	 //create by lcq 2018年6月19日20:34:54
+	 public static Shijuanzhuguan getBytestidstuidquestionidtikuid(int test_id,int stu_id,int question_id,int tiku_id)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		 pigaiDao pdao = (pigaiDao) context.getBean("pigaiDao");
+		//System.out.println("max"+qdao.getMaxquestionidBytikuid(1));
+		 List<Shijuanzhuguan> sl=null;
+		 sl=pdao.getBytestidstuidquestionidtikuid(test_id, stu_id, question_id, tiku_id);
+		 Shijuanzhuguan ns=new Shijuanzhuguan();
+		 if(sl.size()!=0)
+		 {
+			 ns=sl.get(0);
+		 }
+		 return ns;
+	 }
+	 //更新学生的大题信息
+	 //create by lcq 2018年6月19日21:45:25
+	 public static boolean updatebysjzg(Shijuanzhuguan s)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		 pigaiDao pdao = (pigaiDao) context.getBean("pigaiDao");
+		//System.out.println("max"+qdao.getMaxquestionidBytikuid(1));
+		 return pdao.updatebysjzg(s);
+	 }
+	 //根据学号 考试号 试题号获取学生答题 前一个   //应该是返回的是一个对象
+	 //create by lcq 2018年6月19日20:34:54
+	 public static Shijuanzhuguan getBytestidstuidquestionidtikuid_p(int test_id,int stu_id,int question_id,int tiku_id,Shijuanzhuguan s)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		 pigaiDao pdao = (pigaiDao) context.getBean("pigaiDao");
+		//System.out.println("max"+qdao.getMaxquestionidBytikuid(1));
+		 List<Shijuanzhuguan> sl=null;
+		 sl=pdao.quaryBytestidstuidquestionidtikuid_xiangtongxuehaos(test_id, stu_id, question_id, tiku_id);//获取相同学号下的lsit
+		 Shijuanzhuguan ns=new Shijuanzhuguan();
+		 if(sl.size()!=0)//存在 就取第一个
+		 {
+			 ns=sl.get(0);
+		 }
+		 else 
+		 {   //不存在 取不同学号的
+			 List<Shijuanzhuguan> sl2=null;
+			 sl2=pdao.quaryBytestidstuidtikuid_butongxuehaos(test_id, stu_id, tiku_id);
+			 if(sl2.size()!=0) //存在 就取第一个
+			 {
+				 ns=sl2.get(0);
+			 }
+			 else {
+				 ns=s; //不存在 就改为原来的
+			 }
+		 }
+		 return ns;
+	 }
+	//根据学号 考试号 试题号获取学生答题 后一个   //应该是返回的是一个对象
+	 //create by lcq 2018年6月19日20:34:54
+	 public static Shijuanzhuguan getBytestidstuidquestionidtikuid_n(int test_id,int stu_id,int question_id,int tiku_id,Shijuanzhuguan s)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		 pigaiDao pdao = (pigaiDao) context.getBean("pigaiDao");
+		//System.out.println("max"+qdao.getMaxquestionidBytikuid(1));
+		 List<Shijuanzhuguan> sl=null;
+		 sl=pdao.quaryBytestidstuidquestionidtikuid_xiangtongxuehaob(test_id, stu_id, question_id, tiku_id);//获取相同学号下的lsit
+		 Shijuanzhuguan ns=new Shijuanzhuguan();
+		 if(sl.size()!=0)//存在 就取第一个
+		 {
+			 ns=sl.get(0);
+		 }
+		 else 
+		 {   //不存在 取不同学号的
+			 List<Shijuanzhuguan> sl2=null;
+			 sl2=pdao.quaryBytestidstuidtikuid_butongxuehaob(test_id, stu_id, tiku_id);
+			 if(sl2.size()!=0) //存在 就取第一个
+			 {
+				 ns=sl2.get(0);
+			 }
+			 else {
+				 ns=s; //不存在 就改为原来的
+			 }
+		 }
+		 return ns;
+	 }
+	 //查看学生某门考试是否还有老师未批改的试题 有true 没有false
+	 //create by lcq 2018年6月20日00:05:17
+	 public static boolean getBytestidstuidtikuid_wpg(int test_id,int stu_id,int tiku_id)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		 //从ioc容器中获取dao
+		 pigaiDao pdao = (pigaiDao) context.getBean("pigaiDao");
+		 List<Shijuanzhuguan> sl=null;
+		 sl=pdao.getBytestidstuidtikuid_wpg(test_id, stu_id, tiku_id);
+		 if(sl.size()==0) {
+			 return false;
+		 }
+		 else {
+			 return true;
+		 }
+	 }
+	 //返回批改完的list
+	 //create by lcq 2018年6月20日00:20:46
+	 public static List<Shijuanzhuguan> getBytestidstuidtikuid_pg(int test_id,int stu_id,int tiku_id)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		 //从ioc容器中获取dao
+		 pigaiDao pdao = (pigaiDao) context.getBean("pigaiDao");
+		 List<Shijuanzhuguan> sl=null;
+		 return sl=pdao.getBytestidstuidtikuid_pg(test_id, stu_id, tiku_id);
+	 }
+	 //更新学生考试信息
+	 //create by lcq 2018年6月20日00:24:01
+	 public static boolean updateStutestinfo(int stu_id,int test_id,int tiku_id)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		 //从ioc容器中获取dao
+		 pigaiDao pdao = (pigaiDao) context.getBean("pigaiDao");
+		 List<Shijuanzhuguan> sl=null;
+		 sl=pdao.getBytestidstuidtikuid_pg(test_id, stu_id, tiku_id);
+		 int score=0;
+		 for(int i=0;i<sl.size();i++)
+		 {
+			 score=sl.get(i).getScore()+score;
+		 }
+		 return pdao.updateStutestinfo(stu_id, test_id, score);	 
+	 }
+	 
 }
