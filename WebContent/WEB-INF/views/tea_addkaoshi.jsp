@@ -192,7 +192,7 @@ $(function () {
             <h1>欢迎使用在线考试系统</h1>
             <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
           </div>
-			    <form action="tea_addkaoshi_f" method = "post" role="form">
+			    <form action="tea_addkaoshi_f?tea_id=${tea_id }" method = "post" role="form">
 							<div class="form-group">
                                  <label for="exampleInputEmail1">考试名称</label><input class="form-control" placeholder="" id="exampleInputName1" type = "text" name = "test_name" />
                             </div>   
@@ -273,7 +273,10 @@ $(function () {
                             </div>
                             <div class="form-group">
                                  <label for="exampleInputEmail1">大题困难题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dt_hard" />
-                            </div>                        
+                            </div>   
+                            <div class="form-group">
+                                 ${error}
+                            </div>                     
                             <div class="row clearfix">
                                 <div class="col-md-5 column">
                                     </div> </h1><input type = "submit" value = "提交" class="btn btn-primary btn-lg"  ></a>

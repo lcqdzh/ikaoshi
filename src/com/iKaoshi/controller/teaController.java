@@ -649,24 +649,51 @@ public class teaController {
 		String test_name = request.getParameter("test_name");
 		String tiku_IDname = request.getParameter("tiku_IDname");String tiku_Idd=tiku_IDname.substring(0, tiku_IDname.indexOf(':'));int tiku_id=tiku_Idd.isEmpty()?0:Integer.parseInt(tiku_Idd);
 		String begin_timee = request.getParameter("begin_Time");//Timestamp begin_time= new Timestamp(System.currentTimeMillis());begin_time=Timestamp.valueOf("begin_timee");
-		
-		Date d1 = null;
-		try {
-			d1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(begin_timee);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Timestamp begin_time= new Timestamp(d1.getTime());
 		String end_timee = request.getParameter("end_Time");//Timestamp end_time= new Timestamp(System.currentTimeMillis());end_time.valueOf("end_timee");
-		Date d2 = null;
-		try {
-			d2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(end_timee);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		TeaTestInfo t=new TeaTestInfo();
+		if((!begin_timee.isEmpty())&&(!end_timee.isEmpty()))
+		{	
+			Date d1 = null;
+			try {
+				d1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(begin_timee);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Timestamp begin_time= new Timestamp(d1.getTime());
+			
+			Date d2 = null;
+			try {
+				d2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(end_timee);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("here");
+			Timestamp end_time= new Timestamp(d2.getTime());
+			t.setBegin_time(begin_time);t.setEnd_time(end_time);
+			if(begin_time.compareTo(end_time)<0)
+			{
+				t.setBegin_time(begin_time);t.setEnd_time(end_time);
+			}else {
+				String error="请输入正确日期";	
+				List<Tikuxinxi> tikuxinxi=null;
+				System.out.println("tea_id:"+tea_id);
+				tikuxinxi=teacherService.quary(tea_id);
+				model.addAttribute("tikuxinxi",tikuxinxi);
+				model.addAttribute("error", error);
+				return new ModelAndView("tea_addkaoshi","tea_id",tea_id);
+			}
+
+		}else {
+			String error="请输入正确日期";	
+			List<Tikuxinxi> tikuxinxi=null;
+			System.out.println("tea_id:"+tea_id);
+			tikuxinxi=teacherService.quary(tea_id);
+			model.addAttribute("tikuxinxi",tikuxinxi);
+			model.addAttribute("error", error);
+			return new ModelAndView("tea_addkaoshi","tea_id",tea_id);
 		}
-		Timestamp end_time= new Timestamp(d2.getTime());
 		String time_longg = request.getParameter("time_long");int time_long=time_longg.isEmpty()?0:Integer.parseInt(time_longg);
 		String dx_scoree = request.getParameter("dx_score");int dx_score=dx_scoree.isEmpty()?0:Integer.parseInt(dx_scoree);
 		String dx_easyy = request.getParameter("dx_easy");int dx_easy=dx_easyy.isEmpty()?0:Integer.parseInt(dx_easyy);
@@ -682,14 +709,32 @@ public class teaController {
 		String dt_hardd = request.getParameter("dt_hard");int dt_hard=dt_hardd.isEmpty()?0:Integer.parseInt(dt_hardd);
 		//应该先判断是否满足添加的条件
 		int test_id=teacherService.getMaxtestid()+1;
-		TeaTestInfo t=new TeaTestInfo();
+		
 		t.setTea_id(tea_id);t.setTest_id(test_id);t.setTest_name(test_name);t.setTiku_id(tiku_id);
-		t.setBegin_time(begin_time);t.setEnd_time(end_time);t.setTime_long(time_long);
+		t.setTime_long(time_long);
 		t.setDx_easy(dx_easy);t.setDx_medium(dx_medium);t.setDx_hard(dx_hard);t.setDx_score(dx_score);
 		t.setPd_easy(pd_easy);t.setPd_medium(pd_medium);t.setPd_hard(pd_hard);t.setPd_score(pd_score);
 		t.setDt_easy(dt_easy);t.setDt_medium(dt_medium);t.setDt_hard(dt_hard);t.setDt_score(dt_score);
 		System.out.println(t.toString());
-		teacherService.addteatestinfo(t);
+		int score=pd_score*(pd_easy+pd_medium+pd_hard)+dx_score*(dx_easy+dx_medium+dx_hard)+dt_score*(dt_easy+dt_medium+dt_hard);
+		String error="请确认试卷的总分是否为100分";
+		if(score==100)
+		{
+			teacherService.addteatestinfo(t);
+			error="请继续添加";
+			model.addAttribute("error", error);
+			return new ModelAndView("tea_addkaoshi","tea_id",tea_id);
+		}else {
+			error="请确认试卷的总分是否为100分";		
+		}
+		List<Tikuxinxi> tikuxinxi=null;
+		System.out.println("tea_id:"+tea_id);
+		tikuxinxi=teacherService.quary(tea_id);
+		model.addAttribute("tikuxinxi",tikuxinxi);
+		model.addAttribute("error", error);
+		return new ModelAndView("tea_addkaoshi","tea_id",tea_id);
+		
+		
 		/*
 		System.out.println("test_name=" + test_name+
 				" tiku_IDname=" + tiku_IDname+
@@ -709,7 +754,7 @@ public class teaController {
 				" dt_medium=" + dt_medium+
 				" dt_hard="+dt_hard);
 				*/
-		return new ModelAndView("tea_addkaoshi","tea_id",tea_id);
+		//return new ModelAndView("tea_addkaoshi","tea_id",tea_id);
 	}
 	//跳转到单个考试信息修改界面
 	//create by lcq 2018年6月18日19:13:28
