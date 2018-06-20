@@ -1,15 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html>
 <html>
-<%  
- String importMsg="";  
- if(request.getSession().getAttribute("msg")!=null){  
-    importMsg=request.getSession().getAttribute("msg").toString();  
- }  
- request.getSession().setAttribute("msg", "");  
- %> 
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,7 +23,17 @@
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- Custom styles for this template -->
-
+    
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>  
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">  
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+  
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>  
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -101,16 +104,10 @@ footer {
     
    
   </head>
-<script type="text/javascript">
-$(document).ready(function () {
-	  $('[data-toggle="offcanvas"]').click(function () {
-	    $('.row-offcanvas').toggleClass('active')
-	  });
-	});
-</script>
 
 
-  <body>
+
+  <body >
     <nav class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
         <div class="navbar-header">
@@ -140,12 +137,10 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="tea_dangetikuguanli?tiku_ID=${tiku_ID}" class="list-group-item active">${tiku_name}具体题库管理</a>
-            <a href="tea_daorutiku?tiku_ID=${tiku_ID}" class="list-group-item">导入题库</a>
-            <a href="tea_dangetikuguanli?tiku_ID=${tiku_ID}" class="list-group-item">管理题库</a>
-            <a href="tea_addxuanze?tiku_ID=${tiku_ID}" class="list-group-item">添加选择</a>
-            <a href="tea_addpanduan?tiku_ID=${tiku_ID}" class="list-group-item">添加判断</a>
-            <a href="tea_adddati?tiku_ID=${tiku_ID}" class="list-group-item">添加大题</a>
+            <a href="tea_kaoshiguanli" class="list-group-item active" >考试管理</a>
+            <a href="tea_dangekaoshiguanli?test_id=${test_id}" class="list-group-item">考试信息</a>
+            <a href="tea_jtkaoshixuesheng?test_id=${test_id}" class="list-group-item">学生名单</a>
+            <a href="tea_jtkaoshixueshengdaoru?test_id=${test_id}" class="list-group-item">导入名单</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -158,13 +153,28 @@ $(document).ready(function () {
             <h1>欢迎使用在线考试系统</h1>
             <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
           </div>
-          <div class="row">
-     <form action="tea_daorutiku_f?tiku_ID=${tiku_ID}" method="post" enctype="multipart/form-data" onsubmit="return check();">
-         <div style="margin: 30px;"><input id="excel_file" type="file" name="filename" accept="xlsx" size="80"/>
-         <input id="excel_button" type="submit" value="导入Excel"/></div>
-         <font id="importMsg" color="red"><%=importMsg%></font><input type="hidden"/>
-     </form>
-        </div><!--/.col-xs-12.col-sm-9-->
+ 				<table class="table">
+			   <thead>
+			      <tr>
+			         <th>学号</th>
+			         <th>姓名</th>
+			      </tr>
+			   </thead>
+			   <tbody>
+			   <c:if test="${!empty sl}"> 
+	               	<c:forEach items="${sl}" var="u">
+				      		<tr>
+				         		<td>${u.id}</td>
+				         		<td>${u.stu_name}</td>
+				      		</tr>
+				     </c:forEach>
+              </c:if>
+			   </tbody>
+			</table>
+
+
+
+
 
       </div><!--/row-->
 
@@ -187,25 +197,5 @@ $(document).ready(function () {
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="offcanvas.js"></script>
   </body>
-   <script type="text/javascript"> 
-    function check() {  
-          var excel_file = $("#excel_file").val();  
-          if (excel_file == "" || excel_file.length == 0) {  
-              alert("请选择文件路径！");  
-              return false;  
-          } else {  
-             return true;  
-          }  
-     } 
-    
-    $(document).ready(function () {  
-           var msg="";  
-           if($("#importMsg").text()!=null){  
-               msg=$("#importMsg").text();  
-           }  
-           if(msg!=""){  
-               alert(msg);  
-           }  
-    });  
- </script>
+
 </html>

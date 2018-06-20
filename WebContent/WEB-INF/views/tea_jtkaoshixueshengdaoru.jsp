@@ -30,7 +30,17 @@
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- Custom styles for this template -->
-
+    
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>  
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">  
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+  
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>  
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -110,7 +120,7 @@ $(document).ready(function () {
 </script>
 
 
-  <body>
+  <body >
     <nav class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
         <div class="navbar-header">
@@ -140,12 +150,10 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="tea_dangetikuguanli?tiku_ID=${tiku_ID}" class="list-group-item active">${tiku_name}具体题库管理</a>
-            <a href="tea_daorutiku?tiku_ID=${tiku_ID}" class="list-group-item">导入题库</a>
-            <a href="tea_dangetikuguanli?tiku_ID=${tiku_ID}" class="list-group-item">管理题库</a>
-            <a href="tea_addxuanze?tiku_ID=${tiku_ID}" class="list-group-item">添加选择</a>
-            <a href="tea_addpanduan?tiku_ID=${tiku_ID}" class="list-group-item">添加判断</a>
-            <a href="tea_adddati?tiku_ID=${tiku_ID}" class="list-group-item">添加大题</a>
+            <a href="tea_kaoshiguanli" class="list-group-item active" >考试管理</a>
+            <a href="tea_dangekaoshiguanli?test_id=${test_id}" class="list-group-item">考试信息</a>
+            <a href="tea_jtkaoshixuesheng?test_id=${test_id}" class="list-group-item">学生名单</a>
+            <a href="tea_jtkaoshixueshengdaoru?test_id=${test_id}" class="list-group-item">导入名单</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -159,12 +167,12 @@ $(document).ready(function () {
             <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
           </div>
           <div class="row">
-     <form action="tea_daorutiku_f?tiku_ID=${tiku_ID}" method="post" enctype="multipart/form-data" onsubmit="return check();">
+     <form action="tea_jtkaoshixueshengdaoru_f?test_id=${test_id}" method="post" enctype="multipart/form-data" onsubmit="return check();">
          <div style="margin: 30px;"><input id="excel_file" type="file" name="filename" accept="xlsx" size="80"/>
          <input id="excel_button" type="submit" value="导入Excel"/></div>
          <font id="importMsg" color="red"><%=importMsg%></font><input type="hidden"/>
      </form>
-        </div><!--/.col-xs-12.col-sm-9-->
+        
 
       </div><!--/row-->
 

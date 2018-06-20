@@ -138,8 +138,9 @@ footer {
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
             <a href="tea_kaoshiguanli" class="list-group-item active" >考试管理</a>
-            <a href="tea_chakankaoshi" class="list-group-item">查看考试</a>
-            <a href="tea_addkaoshi" class="list-group-item">添加考试</a>
+            <a href="tea_dangekaoshiguanli?test_id=${test_id}" class="list-group-item">考试信息</a>
+            <a href="tea_jtkaoshixuesheng?test_id=${test_id}" class="list-group-item">学生名单</a>
+            <a href="tea_jtkaoshixueshengdaoru?test_id=${test_id}" class="list-group-item">导入名单</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 

@@ -10,6 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.iKaoshi.bean.Question1;
 import com.iKaoshi.bean.Shijuanzhuguan;
 import com.iKaoshi.bean.Student;
+import com.iKaoshi.bean.Stutestinfo;
 import com.iKaoshi.bean.TeaTestInfo;
 import com.iKaoshi.bean.Teacher;
 import com.iKaoshi.bean.Teacjfenxi;
@@ -18,6 +19,7 @@ import com.iKaoshi.bean.tea_cha_chengji;
 import com.iKaoshi.dao.pigaiDao;
 import com.iKaoshi.dao.questionDao;
 import com.iKaoshi.dao.studentDao;
+import com.iKaoshi.dao.stutestinfoDao;
 import com.iKaoshi.dao.teachachengjiDao;
 import com.iKaoshi.dao.teacherDao;
 import com.iKaoshi.dao.teatestinfoDao;
@@ -540,5 +542,64 @@ public class teacherService {
 		teacherDao tdao = (teacherDao) context.getBean("teacherDao");
 		return(tdao.update_tea_password(tea_Id, password));
 		
+	 }
+	 //查看考试信息是否存在 存在ture 不存在false
+	 //create by lcq 2018年6月20日21:29:17
+	 public static boolean  quarySti(int test_id,int stu_id)
+	 {
+		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			stutestinfoDao sdao = (stutestinfoDao) context.getBean("stutestinfoDao");
+			List<Stutestinfo> sl=null;
+			sl=sdao.quarySti(test_id, stu_id);
+			if(sl.size()==0)
+			{
+				return false;
+			}else {
+				return true;
+			}
+	 }
+	 //插入考试信息
+	 //create by lcq 2018年6月20日21:27:46
+	 public static boolean addStutestinfo(Stutestinfo s){
+		 //处理业务逻辑
+		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			stutestinfoDao sdao = (stutestinfoDao) context.getBean("stutestinfoDao");
+			return sdao.addStutestinfo(s);	
+	 }
+	 //查看学生信息是否存在 存在ture 不存在false
+	 //create by lcq 2018年6月20日21:34:29
+	 public static boolean  quaryStu(int stu_id)
+	 {
+		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			stutestinfoDao sdao = (stutestinfoDao) context.getBean("stutestinfoDao");
+			List<Student> sl=null;
+			sl=sdao.quaryStu(stu_id);
+			if(sl.size()==0)
+			{
+				return false;
+			}else {
+				return true;
+			}
+	 }
+	 //插入考试信息
+	 //create by lcq 2018年6月20日21:27:46
+	 public static boolean addStudent(Student s){
+		 //处理业务逻辑
+		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			stutestinfoDao sdao = (stutestinfoDao) context.getBean("stutestinfoDao");
+			return sdao.addStudent(s);	
+	 }
+	 //查看学生信息
+	 //create by lcq 2018年6月20日23:13:08
+	 public static List<Student> queryAllbytestid(int test_id)
+	 {
+		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			stutestinfoDao sdao = (stutestinfoDao) context.getBean("stutestinfoDao");
+			return sdao.queryAllbytestid(test_id);	
 	 }
 }

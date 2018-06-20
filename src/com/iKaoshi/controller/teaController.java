@@ -24,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.iKaoshi.bean.Question1;
 import com.iKaoshi.bean.Shijuanzhuguan;
+import com.iKaoshi.bean.Student;
+import com.iKaoshi.bean.Stutestinfo;
 import com.iKaoshi.bean.TeaTestInfo;
 import com.iKaoshi.bean.Teacjfenxi;
 import com.iKaoshi.bean.Tikuxinxi;
@@ -731,7 +733,7 @@ public class teaController {
 		model.addAttribute("teatestinfo", nt);
 		
 		
-		
+		model.addAttribute("test_id", test_id);
 		List<Tikuxinxi> tikuxinxi=null;
 		System.out.println("tea_id:"+tea_id);
 		tikuxinxi=teacherService.quary(tea_id);
@@ -1055,4 +1057,103 @@ public class teaController {
 		//更新成功
 		return new ModelAndView("tea_update_password_success");
 	}
+	
+	//教师对于某个考试编号对应的考试 查看参加考试的学生名单
+	//create by lcq 2018年6月20日20:22:12
+	@RequestMapping("/tea_jtkaoshixuesheng")
+	public ModelAndView tea_jtkaoshixuesheng(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		List<Student> sl=null;
+		sl=teacherService.queryAllbytestid(test_id);
+		model.addAttribute("sl", sl);
+		return new ModelAndView("tea_jtkaoshixuesheng","test_id",test_id);
+	}
+	
+	//教师对于某个考试编号 跳转到对应的导入学生信息界面
+	//create by lcq 2018年6月20日20:36:12
+	@RequestMapping("/tea_jtkaoshixueshengdaoru")
+	public ModelAndView tea_jtkaoshixueshengdaoru(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+
+		return new ModelAndView("tea_jtkaoshixueshengdaoru","test_id",test_id);
+	}
+	
+	//导入学生的动作
+	@RequestMapping(value = "/tea_jtkaoshixueshengdaoru_f", method = RequestMethod.POST)
+    public ModelAndView tea_jtkaoshixueshengdaoru_f(@RequestParam(value="filename") MultipartFile file,
+            HttpServletRequest request,HttpServletResponse response) throws IOException{
+        
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+        //判断文件是否为空
+        if(file==null) return null;
+        //获取文件名
+        String name=file.getOriginalFilename();
+        //进一步判断文件是否为空（即判断其大小是否为0或其名称是否为null）
+        long size=file.getSize();
+        if(name==null || ("").equals(name) && size==0) return null;
+        System.out.println(name);
+        //批量导入。参数：文件名，文件。
+        //也可以用request获取上传文件  
+        //MultipartFile  fileFile = request.getFile("file"); //这里是页面的name属性   
+        //转换成输入流  
+       try { InputStream is = file.getInputStream();  
+        //得到excel  
+        Workbook workbook = Workbook.getWorkbook(is);  
+        //得到sheet  
+        Sheet sheet = workbook.getSheet(0);  
+        //得到列数  
+        int colsNum = sheet.getColumns();  
+        //得到行数  
+        int rowsNum = sheet.getRows();  
+        //单元格  
+        Cell cell;  
+        Map<Integer, String> map = new HashMap<Integer, String>();  
+        for (int i = 1; i < rowsNum; i++) {//我的excel第一行是标题,所以 i从1开始   
+        		
+        		Question1 q=new Question1();
+                cell=sheet.getCell(0, i); //获取第一行 第0列的元素
+                String str=cell.getContents();
+                int stu_id=str.isEmpty()?0:Integer.parseInt(str);
+                
+                cell = sheet.getCell(1, i);//get question_conten  
+                str=cell.getContents();
+                String stu_name=str;
+                if(stu_id!=0 && (!stu_name.isEmpty()))
+                {
+                	System.out.println("id="+stu_id+" name="+stu_name);
+                	Stutestinfo sti=new Stutestinfo();
+                	sti.setStu_Id(stu_id);sti.setTest_Id(test_id);
+                	
+                	Student stu=new Student();
+                	stu.setId(stu_id);stu.setPassword(""+stu_id);stu.setStu_name(stu_name);
+
+                	if(!teacherService.quaryStu(stu_id))
+                	{
+                		teacherService.addStutestinfo(sti);
+                	}
+                	if(!teacherService.quaryStu(stu_id))
+                	{
+                		teacherService.addStudent(stu);
+                	}
+                	
+                }
+                
+        }  
+        //做你需要的操作  
+    } catch (IOException e) {  
+        e.printStackTrace();  
+    } catch (BiffException e) {  
+        e.printStackTrace();  
+    }  
+
+       return new ModelAndView("tea_jtkaoshixueshengdaoru","test_id",test_id);
+    }
 }
