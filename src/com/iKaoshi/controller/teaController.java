@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.iKaoshi.bean.Question;
+import com.iKaoshi.bean.Question1;
 import com.iKaoshi.bean.Shijuanzhuguan;
 import com.iKaoshi.bean.TeaTestInfo;
+import com.iKaoshi.bean.Teacjfenxi;
 import com.iKaoshi.bean.Tikuxinxi;
+import com.iKaoshi.bean.tea_cha_chengji;
 import com.iKaoshi.service.studentService;
 import com.iKaoshi.service.teacherService;
 
@@ -47,7 +50,7 @@ public class teaController {
 	@RequestMapping("/tea_info")
 	public ModelAndView stu_info(HttpServletRequest request)
 	{
-		String str="123";
+		String str="";
         return new ModelAndView("tea_info","error",str);
 	}
 	@RequestMapping("/tea_login")
@@ -129,7 +132,7 @@ public class teaController {
 		//String tiku_name = request.getParameter("tiku_name");
 		//model.addAttribute("tiku_name", tiku_name);
 		int tiku_Id=Integer.parseInt(tiku_ID);
-		List<Question> q=null;
+		List<Question1> q=null;
 		q=teacherService.quaryQuestionbytikuID(tiku_Id);
 		System.out.println(q.size());
 		model.addAttribute("question", q);
@@ -147,19 +150,19 @@ public class teaController {
 		//model.addAttribute("tiku_name", tiku_name);
 		int question_Id=Integer.parseInt(question_Idd);
 		int tiku_Id=Integer.parseInt(tiku_Idd);
-		List<Question> q=null;
+		List<Question1> q=null;
 		q=teacherService.quaryQuestionbyquestionID(question_Id, tiku_Id);
 		System.out.println(q.size());
 		if(q.size()!=0) 
 		{
 			System.out.println(q.get(0).getQuestion_type());
-			Question nq=new Question();
+			Question1 nq=new Question1();
 			nq=q.get(0);
 			model.addAttribute("question", nq);
 		}
 		else
 		{
-			Question nq=new Question();
+			Question1 nq=new Question1();
 			model.addAttribute("question",nq );
 		}
         return new ModelAndView("tea_changequestion","tiku_ID",tiku_Id);
@@ -203,10 +206,10 @@ public class teaController {
 				lable=3;
 		}
 		System.out.println(lable);
-		List<Question> q=null;
+		List<Question1> q=null;
 		q=teacherService.quaryQuestionbyquestionID(question_Id, tiku_Id);
 		System.out.println(q.size());
-		Question nq=new Question();
+		Question1 nq=new Question1();
 		if(q.size()!=0) 
 		{
 			System.out.println(q.get(0).getQuestion_type());
@@ -256,10 +259,10 @@ public class teaController {
 				lable=3;
 		}
 		System.out.println(lable);
-		List<Question> q=null;
+		List<Question1> q=null;
 		q=teacherService.quaryQuestionbyquestionID(question_Id, tiku_Id);
 		System.out.println(q.size());
-		Question nq=new Question();
+		Question1 nq=new Question1();
 		if(q.size()!=0) 
 		{
 			System.out.println(q.get(0).getQuestion_type());
@@ -298,10 +301,10 @@ public class teaController {
 				lable=3;
 		}
 		System.out.println(lable);
-		List<Question> q=null;
+		List<Question1> q=null;
 		q=teacherService.quaryQuestionbyquestionID(question_Id, tiku_Id);
 		System.out.println(q.size());
-		Question nq=new Question();
+		Question1 nq=new Question1();
 		if(q.size()!=0) 
 		{
 			System.out.println(q.get(0).getQuestion_type());
@@ -385,7 +388,7 @@ public class teaController {
 				lable=3;
 		}
 		System.out.println(lable);
-		Question nq=new Question();
+		Question1 nq=new Question1();
 		nq.setTiku_Id(tiku_Id);
 		nq.setQuestion_Id(question_Id);
 		if(!question_content.isEmpty()) nq.setQuestion_content(question_content);
@@ -428,7 +431,7 @@ public class teaController {
 				lable=3;
 		}
 		System.out.println(lable);
-		Question nq=new Question();
+		Question1 nq=new Question1();
 		nq.setTiku_Id(tiku_Id);
 		nq.setQuestion_Id(question_Id);
 		if(!question_content.isEmpty()) nq.setQuestion_content(question_content);
@@ -458,7 +461,7 @@ public class teaController {
 				lable=3;
 		}
 		System.out.println(lable);
-		Question nq=new Question();
+		Question1 nq=new Question1();
 		nq.setTiku_Id(tiku_Id);
 		nq.setQuestion_Id(question_Id);
 		if(!question_content.isEmpty()) nq.setQuestion_content(question_content);
@@ -480,7 +483,7 @@ public class teaController {
 		teacherService.delquestion(question_Id, tiku_Id);
 
 		//显示相关的代码
-		List<Question> q=null;
+		List<Question1> q=null;
 		q=teacherService.quaryQuestionbytikuID(tiku_Id);
 		System.out.println(q.size());
 		model.addAttribute("question", q);
@@ -527,7 +530,7 @@ public class teaController {
         Map<Integer, String> map = new HashMap<Integer, String>();  
         for (int i = 1; i < rowsNum; i++) {//我的excel第一行是标题,所以 i从1开始   
         		
-        		Question q=new Question();
+        		Question1 q=new Question1();
                 
                 cell = sheet.getCell(0, i);//get question_conten  
                 String str=cell.getContents();
@@ -974,5 +977,82 @@ public class teaController {
 		model.addAttribute("sjzg", ns);
 		
 		return "tea_pigai_juti";
+	}
+	//查看成绩那里的考试信息
+	//create by lcq2018年6月20日08:20:55
+	@RequestMapping("/tea_chengji_kaoshilist")
+	public String tea_chengji_kaoshilist(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		Timestamp today = new Timestamp(System.currentTimeMillis()); 
+		List<TeaTestInfo> overt=null;
+		overt=teacherService.quaryOverbyteaiddate(tea_id, today);
+		List<TeaTestInfo> novert=null;
+		novert=teacherService.quaryNOverbyteaiddate(tea_id, today);
+		model.addAttribute("overt", overt);
+		model.addAttribute("novert", novert);
+		return "tea_chengji_kaoshilist";
+	}
+	//查看某门课学生具体的成绩
+	//create by lcq 2018年6月20日15:17:31
+	@RequestMapping("/tea_chengji_testid")
+	public String tea_chengji_testid(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		Timestamp today = new Timestamp(System.currentTimeMillis()); 
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		List<tea_cha_chengji> tcj=null;
+		tcj=teacherService.queryBytestchachengjibytestid(test_id);
+		System.out.println("here");
+		for(int i=0;i<tcj.size();i++)
+		{
+			System.out.println(tcj.get(i).getScore());
+		}
+		model.addAttribute("tcj", tcj);
+		model.addAttribute("test_id", test_id);
+		return "tea_chengji_testid";
+	}
+	//查看某门课的成绩分析
+	//create by lcq 2018年6月20日15:18:02
+	@RequestMapping("/tea_chengji_fenxi")
+	public String tea_chengji_fenxi(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		Timestamp today = new Timestamp(System.currentTimeMillis()); 
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		Teacjfenxi cjfx=new Teacjfenxi();
+		cjfx=teacherService.getteacjfenxi(test_id);
+		model.addAttribute("cjfx", cjfx);
+		model.addAttribute("test_id", test_id);
+		return "tea_chengji_fenxi";
+	}
+	
+	//教师修改个人信息
+	//create by lcq 2018年6月20日19:32:09
+	@RequestMapping("/tea_update_password")
+	public ModelAndView tea_update_password(HttpServletRequest request,Model model)
+	{
+		HttpSession session=request.getSession();
+		int tea_Id=(int)session.getAttribute("sessiontea_id");
+		String old_password=request.getParameter("old_password");
+		String new_password1=request.getParameter("new_password1");
+		String new_password2=request.getParameter("new_password2");
+		System.out.println(tea_Id);System.out.println(old_password);
+		if(!teacherService.login(tea_Id, old_password)){
+			String error="原密码输入错误，请重新输入！";
+			System.out.println("here");
+			return new ModelAndView("tea_info","error",error);
+		}
+		if(!new_password1.equals(new_password2)){
+			String error="两次新密码不同，请重新输入";
+			return new ModelAndView("tea_info","error",error);
+		}
+		//将新密码写到数据库
+		teacherService.update_tea_password(tea_Id, new_password1);
+		
+		//更新成功
+		return new ModelAndView("tea_update_password_success");
 	}
 }

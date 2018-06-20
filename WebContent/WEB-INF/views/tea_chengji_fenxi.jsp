@@ -150,36 +150,75 @@ $(document).ready(function () {
             <h1>欢迎使用在线考试系统</h1>
             <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
           </div>
-          <div class="row">
-          <c:if test="${!empty overt}"> 
-          	<c:forEach items="${overt}" var="u">
-	            <div class="col-xs-6 col-lg-4">
-	              <h2>考试名称:${u.test_name }</h2>
-	              <p>考试编号:${u.test_id}</p>
-	              <p>开始日期:${u.begin_time}</p>
-	              <p>结束日期:${u.end_time}</p>
-	              <p>考试状态:已完成考试</p>
-	              <p>主观题个数:${u.dt_easy+u.dt_medium+u.dt_hard}</p>
-	              <p><a class="btn btn-default" href="tea_pigai_stugn?test_id=${u.test_id }" role="button">批改试卷 &raquo;</a></p>
-	            </div><!--/.col-xs-6.col-lg-4-->
-            </c:forEach>
-          </c:if>
-          
-          <c:if test="${!empty novert}"> 
-          	<c:forEach items="${novert}" var="u">
-	            <div class="col-xs-6 col-lg-4">
-	              <h2>考试名称:${u.test_name }</h2>
-	              <p>考试编号:${u.test_id}</p>
-	              <p>开始日期:${u.begin_time}</p>
-	              <p>结束日期:${u.end_time}</p>
-	              <p>考试状态:未完成考试</p>
-	              <p>主观题个数:${u.dt_easy+u.dt_medium+u.dt_hard}</p>
-	              <p><a class="btn btn-default" href="tea_pigai_stugn?test_id=${u.test_id }" role="button" disabled="disabled">批改试卷 &raquo;</a></p>
-	            </div><!--/.col-xs-6.col-lg-4-->
-            </c:forEach>
-          </c:if>
-          </div><!--/row-->
-        </div><!--/.col-xs-12.col-sm-9-->
+		<div class="row">
+		<ul class="nav nav-tabs">
+		  <li role="presentation"><a href="tea_chengji_testid?test_id=${test_id }">成绩</a></li>
+		  <li role="presentation" class="active"><a href="tea_chengji_fenxi?test_id=${test_id }">分析</a></li>
+		</ul>
+			<div class="panel panel-default">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading">成绩分析结果</div>
+			  <div class="panel-body">
+			    <p></p>
+			  </div>
+			
+			<table class="table table-hover">
+			   <thead>
+			      <tr>
+			         <th>项目</th>
+			         <th>数据</th>
+			         <th>项目</th>
+			         <th>数据</th>
+			      </tr>
+			   </thead>
+			   <tbody>
+	      		<tr>
+	         		<td>最高分</td>
+	         		<td>${cjfx.maxscore}</td>
+	         		<td>最低分</td>
+	         		<td>${cjfx.minscore}</td>
+	      		</tr>
+	      		<tr>
+	         		<td>平均分</td>
+	         		<td>${cjfx.avgscore }</td>
+	         		<td></td>
+	         		<td></td>
+	      		</tr>
+	      		<tr>
+	         		<td>总人数</td>
+	         		<td>${cjfx.num}</td>
+	         		<td></td>
+	         		<td></td>
+	      		</tr>
+	      		<tr>
+	         		<td>已经批改完的人数:${cjfx.nnum }</td>
+	         		<td>${cjfx.nnum }</td>
+	         		<td>未批改的人数${cjfx.num-cjfx.nnum-cjfx.nqnum }</td>
+	         		<td></td>
+	      		</tr>
+	      		<tr>
+	         		<td>缺考人数</td>
+	         		<td>${cjfx.nqnum }</td>
+	         		<td></td>
+	         		<td></td>
+	      		</tr>
+	      		<tr>
+	         		<td>优秀人数:</td>
+	         		<td>${cjfx.nynum}</td>
+	         		<td>优秀率:</td>
+	         		<td>${cjfx.yx}</td>
+	      		</tr>
+	      		<tr>
+	         		<td>不及格人数:</td>
+	         		<td>${cjfx.nbnum}</td>
+	         		<td>不及格率:</td>
+	         		<td>${cjfx.bjg}</td>
+	      		</tr>
+			</table>
+
+
+
+
 
       </div><!--/row-->
 

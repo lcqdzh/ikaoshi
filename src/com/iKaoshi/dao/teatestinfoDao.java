@@ -8,7 +8,7 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.iKaoshi.bean.Question;
+import com.iKaoshi.bean.Question1;
 import com.iKaoshi.bean.TeaTestInfo;
 import com.iKaoshi.bean.Tikuxinxi;
 import com.iKaoshi.dao.tikuDao.TikuxinxiMapper;

@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.iKaoshi.bean.Question;
+import com.iKaoshi.bean.Question1;
 import com.iKaoshi.bean.Student;
 import com.iKaoshi.bean.Teacher;
 import com.iKaoshi.bean.Tikuxinxi;
@@ -30,7 +30,7 @@ public class questionDao {
 	}
 	//根据题库编号、试题编号修改
 	//create by lcq 2018年6月17日14:54:19
-	public boolean updatebyone(Question q) {
+	public boolean updatebyone(Question1 q) {
 	  String sql = "update ikaoshi.question set question_content=?,question_type=?,choice_A=?,choice_B=?,"
 	+ "choice_C=?,choice_D=?,answer=?,question_level=? where question_Id=? and tiku_Id=?;";
 	
@@ -62,7 +62,7 @@ public class questionDao {
 		}
 	//根据试题号与题库号添加到题库中
 	//create by lcq 2018年6月17日16:56:07
-	public boolean addQuestion(Question q) {
+	public boolean addQuestion(Question1 q) {
 		String sql = "insert into ikaoshi.question(question_Id,tiku_Id,question_content,question_type,choice_A,choice_B,choice_C,choice_D,answer,question_level)"
 				+ " values(?,?,?,?,?,?,?,?,?,?)";
 		//System.out.println(2);
@@ -78,27 +78,27 @@ public class questionDao {
 	}
 	//根据题库编号查询题库
 	//create by 2018年6月16日20:54:48
-	public List<Question> quarybytikuid(int tiku_Id){
+	public List<Question1> quarybytikuid(int tiku_Id){
 		  String sql = "select * from ikaoshi.question where tiku_Id="+tiku_Id;
 		  System.out.println(sql);
 		  return jdbcTemplate.query(sql, new QuestionMapper());
 	  }
-	public List<Question> quarybyquestionIdandtikuId(int question_Id,int tiku_Id){
+	public List<Question1> quarybyquestionIdandtikuId(int question_Id,int tiku_Id){
 		  String sql = "select * from ikaoshi.question where question_Id="+question_Id+" and tiku_Id="+tiku_Id;
 		  System.out.println(sql);
 		  return jdbcTemplate.query(sql, new QuestionMapper());
 	  }
-	public List<Question> quarybytikuidquestiontypelable(int tiku_Id,int question_type,int question_level){
+	public List<Question1> quarybytikuidquestiontypelable(int tiku_Id,int question_type,int question_level){
 		  String sql = "select * from ikaoshi.question where question_type="+question_type+" and question_level="+question_level+" and tiku_Id="+tiku_Id;
 		  System.out.println(sql);
 		  return jdbcTemplate.query(sql, new QuestionMapper());
 	  }
-	class QuestionMapper implements RowMapper<Question> {
+	class QuestionMapper implements RowMapper<Question1> {
 		 
 		  @Override
-		  public Question mapRow(ResultSet rs, int rowNum) throws SQLException {
+		  public Question1 mapRow(ResultSet rs, int rowNum) throws SQLException {
 		    // TODO Auto-generated method stub
-			Question q = new Question();
+			Question1 q = new Question1();
 		    q.setQuestion_Id(rs.getInt(1));
 		    q.setTiku_Id(rs.getInt(2));
 		    q.setQuestion_content(rs.getString(3));

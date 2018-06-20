@@ -158,7 +158,7 @@ function login_fail(){
                     <h2>
                         欢迎使用在线考试平台</h2>
                         <h4> </h4>
-                        <h4>z账号或密码错误。请选择相应用户重新进行登录。</h4>
+                        <h4>账号或密码错误。请选择相应用户重新进行登录。</h4>
                     
                 </div>
                 <div class="row clearfix">
@@ -169,6 +169,8 @@ function login_fail(){
                                  <button type="button" class="btn btn-success btn btn-lg" onclick="location.href='stu_login_s'">学生</button>  
                             
                                  <button type="button" class="btn btn-info btn btn-lg" onclick="location.href='tea_login_s'">教师</button>  
+                                 
+                                 <button type="button" class="btn btn-warning btn btn-lg" onclick="location.href='tea_login_s'">管理</button>  
                             </div>
                             <div class="form-group">
                                  

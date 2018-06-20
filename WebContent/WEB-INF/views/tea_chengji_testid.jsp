@@ -150,36 +150,38 @@ $(document).ready(function () {
             <h1>欢迎使用在线考试系统</h1>
             <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
           </div>
-          <div class="row">
-          <c:if test="${!empty overt}"> 
-          	<c:forEach items="${overt}" var="u">
-	            <div class="col-xs-6 col-lg-4">
-	              <h2>考试名称:${u.test_name }</h2>
-	              <p>考试编号:${u.test_id}</p>
-	              <p>开始日期:${u.begin_time}</p>
-	              <p>结束日期:${u.end_time}</p>
-	              <p>考试状态:已完成考试</p>
-	              <p>主观题个数:${u.dt_easy+u.dt_medium+u.dt_hard}</p>
-	              <p><a class="btn btn-default" href="tea_pigai_stugn?test_id=${u.test_id }" role="button">批改试卷 &raquo;</a></p>
-	            </div><!--/.col-xs-6.col-lg-4-->
-            </c:forEach>
-          </c:if>
-          
-          <c:if test="${!empty novert}"> 
-          	<c:forEach items="${novert}" var="u">
-	            <div class="col-xs-6 col-lg-4">
-	              <h2>考试名称:${u.test_name }</h2>
-	              <p>考试编号:${u.test_id}</p>
-	              <p>开始日期:${u.begin_time}</p>
-	              <p>结束日期:${u.end_time}</p>
-	              <p>考试状态:未完成考试</p>
-	              <p>主观题个数:${u.dt_easy+u.dt_medium+u.dt_hard}</p>
-	              <p><a class="btn btn-default" href="tea_pigai_stugn?test_id=${u.test_id }" role="button" disabled="disabled">批改试卷 &raquo;</a></p>
-	            </div><!--/.col-xs-6.col-lg-4-->
-            </c:forEach>
-          </c:if>
-          </div><!--/row-->
-        </div><!--/.col-xs-12.col-sm-9-->
+		<div class="row">
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="tea_chengji_testid?test_id=${test_id }">成绩</a></li>
+  <li role="presentation"><a href="tea_chengji_fenxi?test_id=${test_id }">分析</a></li>
+</ul>
+
+ 				<table class="table">
+			   <thead>
+			      <tr>
+			         <th>学号</th>
+			         <th>姓名</th>
+			         <th>成绩</th>
+			      </tr>
+			   </thead>
+			   <tbody>
+			   <c:if test="${!empty tcj}"> 
+	               	<c:forEach items="${tcj}" var="u">
+				      		<tr>
+				         		<td>${u.stu_Id}</td>
+				         		<td>${u.stu_name}</td>
+				         		<c:if test="${u.state==0}"><td>未考试</td></c:if>
+				         		<c:if test="${u.state==1}"><td>未批改</td></c:if>
+				         		<c:if test="${u.state==2}"><td>${u.score}</td></c:if>
+				      		</tr>
+				     </c:forEach>
+               </c:if>
+			   </tbody>
+			</table>
+
+
+
+
 
       </div><!--/row-->
 

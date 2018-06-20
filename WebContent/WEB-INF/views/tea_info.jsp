@@ -119,7 +119,7 @@ $(document).ready(function () {
             <li class="active"><a href="tea_home">首页</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#about">我的信息</a></li>
+            <li><a href="#about">修改密码</a></li>
             <li><a href="#contact">注销</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
@@ -132,10 +132,7 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="#" class="list-group-item active">题库管理</a>
-            <a href="#" class="list-group-item">考试管理</a>
-            <a href="#" class="list-group-item">批改试卷</a>
-            <a href="#" class="list-group-item">考试信息</a>
+            <a href="#" class="list-group-item active">修改密码</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -146,59 +143,40 @@ $(document).ready(function () {
           </p>
           <div class="jumbotron">
             <h1>欢迎使用在线考试系统</h1>
-            <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+            <p></p>
           </div>
+          <div class="row clearfix">
+          
+        <div class="col-xs-12 col-sm-9">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>         
           <div class="row clearfix">
                     <div class="col-md-2 column">
                     </div>
                     <div class="col-md-6 column">
-                        <form action="xiugaixinxi" method = "post" role="form">
+                        <form action="tea_update_password" method = "post" role="form">
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">姓名</label><input class="form-control" placeholder="${stuxinxi.name }" id="exampleInputName1" type = "text" name = "name" />
+                                 <label for="exampleInputEmail1">请输入原密码:</label><input class="form-control"  id="exampleInputName1" type = "password" name = "old_password" />
+                            </div>                            
+                            <div class="form-group">
+                                 <label for="exampleInputEmail1">请输入新密码:</label><input class="form-control"   id="exampleInputzhuanye1" type = "password" name = "new_password1" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">院系</label><select class="form-control" id="exampleInputyuanxi1" type = "text" name = "yuanxi">
-						      <option>${stuxinxi.yuanxi }</option>
-						      <option>船舶与海洋工程学院</option>
-						      <option>海洋科学与技术学院</option>
-						      <option>理学院</option>
-						      <option>土木工程系</option>
-						      <option>计算机科学与技术学院</option>
-						      <option>软件学院</option>
-						    </select>
+                                 <label for="exampleInputEmail1">请确认新密码:</label><input class="form-control"   id="exampleInputclass1" type = "password" name = "new_password2" />
                             </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">专业</label><input class="form-control" placeholder="${stuxinxi.zhuanye }"  id="exampleInputzhuanye1" type = "text" name = "zhuanye" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">班级</label><input class="form-control" placeholder="${stuxinxi.banji }"  id="exampleInputclass1" type = "text" name = "banji" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">电话</label><input class="form-control" placeholder="${stuxinxi.tel}"  id="exampleInputPhone1" type = "text" name = "tel" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">邮箱</label><input class="form-control" placeholder="${stuxinxi.mail }"  id="exampleInputMail1" type = "text" name = "mail" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">信誉</label><input class="form-control" placeholder="${stuxinxi.xinyu }"  id="exampleInputXinyu1" type = "text" name = "xinyu" disabled="disabled" readonly="readonly" />
-                            </div>
+                            <p>${error }</p>
+                            <br>
                             <div class="row clearfix">
                                 <div class="col-md-4 column">
-                                    </div> </h1><input type = "submit" value = "提交" class="btn btn-primary btn-lg"  onclick="return check1();"></a>
-                                </div>
-                                <div class="col-md-4 column">
-                                   
-                                </div>
-                                <div class="col-md-4 column">
-                                </div>
+                                </div> 
+                                <input type = "submit" value = "提交" class="btn btn-primary btn-lg" >
                             </div>
-                                 
-                           
+                              
                         </form>
-                    </div>
-                    <div class="col-md-4 column">
-                    </div>
-                </div>
+                      </div>                    
+          </div>
+                    
           
         </div><!--/.col-xs-12.col-sm-9-->
 

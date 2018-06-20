@@ -7,15 +7,18 @@ import java.util.Random;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.iKaoshi.bean.Question;
+import com.iKaoshi.bean.Question1;
 import com.iKaoshi.bean.Shijuanzhuguan;
 import com.iKaoshi.bean.Student;
 import com.iKaoshi.bean.TeaTestInfo;
 import com.iKaoshi.bean.Teacher;
+import com.iKaoshi.bean.Teacjfenxi;
 import com.iKaoshi.bean.Tikuxinxi;
+import com.iKaoshi.bean.tea_cha_chengji;
 import com.iKaoshi.dao.pigaiDao;
 import com.iKaoshi.dao.questionDao;
 import com.iKaoshi.dao.studentDao;
+import com.iKaoshi.dao.teachachengjiDao;
 import com.iKaoshi.dao.teacherDao;
 import com.iKaoshi.dao.teatestinfoDao;
 import com.iKaoshi.dao.tikuDao;
@@ -37,6 +40,8 @@ public class teacherService {
 				return true;
 			}
 	 }
+	 
+	 
 	 //获取题库信息
 	 //create by lcq 2018年6月16日08:42:24
 	 public static List<Tikuxinxi> quary(int tea_id)
@@ -65,7 +70,7 @@ public class teacherService {
 	 
 	 //根据题库编号获取题库信息
 	 // create by lcq 2018年6月16日21:56:40
-	 public static List<Question> quaryQuestionbytikuID(int tiku_Id)
+	 public static List<Question1> quaryQuestionbytikuID(int tiku_Id)
 	 {
 		//处理业务逻辑
 		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
@@ -76,7 +81,7 @@ public class teacherService {
 	 }
 	 //根据题目的编号获取题目信息
 	 //create by lcq 2018年6月16日21:59:02
-	 public static List<Question> quaryQuestionbyquestionID(int question_Id,int tiku_Id)
+	 public static List<Question1> quaryQuestionbyquestionID(int question_Id,int tiku_Id)
 	 {
 		//处理业务逻辑
 		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
@@ -86,7 +91,7 @@ public class teacherService {
 	 }
 	//修改某到题目的信息
 	 // create by lcq 2018年6月17日15:02:09
-	 public static boolean updatebyone(Question q)
+	 public static boolean updatebyone(Question1 q)
 	 {
 		//处理业务逻辑
 		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
@@ -108,7 +113,7 @@ public class teacherService {
 	 }
 	//添加题库中的题
 	 //create by lcq 2018年6月17日16:11:44
-	 public static boolean addquestion(Question q)
+	 public static boolean addquestion(Question1 q)
 	 {
 		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
 		//从ioc容器中获取dao
@@ -191,7 +196,7 @@ public class teacherService {
 
 		 if(t.getDx_easy()!=0)//单选简单题
 		 {
-			 List<Question> temp=null;//中间变量
+			 List<Question1> temp=null;//中间变量
 			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 1, 1);
 			 int[] a=new int[t.getDx_easy()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getDx_easy());
@@ -199,7 +204,7 @@ public class teacherService {
 			 System.out.println(t.getDx_easy());
 			 for(int i=0;i<t.getDx_easy();i++)
 			 {
-				 Question qq=new Question();
+				 Question1 qq=new Question1();
 				 qq=temp.get(a[i]);
 				 System.out.println(qq.toString());
 				 qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
@@ -207,7 +212,7 @@ public class teacherService {
 		 }
 		 if(t.getDx_medium()!=0)//单选中等题
 		 {
-			 List<Question> temp=null;//中间变量
+			 List<Question1> temp=null;//中间变量
 			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 1, 2);
 			 int[] a=new int[t.getDx_medium()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getDx_medium());
@@ -215,7 +220,7 @@ public class teacherService {
 			 System.out.println(t.getDx_medium());
 			 for(int i=0;i<t.getDx_medium();i++)
 			 {
-				 Question qq=new Question();
+				 Question1 qq=new Question1();
 				 qq=temp.get(a[i]);
 				 System.out.println(qq.toString());
 				 qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
@@ -223,7 +228,7 @@ public class teacherService {
 		 }
 		 if(t.getDx_hard()!=0)//单选难题
 		 {
-			 List<Question> temp=null;//中间变量
+			 List<Question1> temp=null;//中间变量
 			 temp=qdao.quarybytikuidquestiontypelable(t.getDx_hard(), 3, 1);
 			 int[] a=new int[t.getDx_hard()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getDx_hard());
@@ -231,7 +236,7 @@ public class teacherService {
 			 System.out.println(t.getDx_hard());
 			 for(int i=0;i<t.getDx_hard();i++)
 			 {
-				 Question qq=new Question();
+				 Question1 qq=new Question1();
 				 qq=temp.get(a[i]);
 				 System.out.println(qq.toString());
 				 qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
@@ -239,7 +244,7 @@ public class teacherService {
 		 }
 		 if(t.getPd_easy()!=0)//判断简单题
 		 {
-			 List<Question> temp=null;//中间变量
+			 List<Question1> temp=null;//中间变量
 			 temp=qdao.quarybytikuidquestiontypelable(t.getPd_easy(), 3, 1);
 			 int[] a=new int[t.getPd_easy()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getPd_easy());
@@ -247,7 +252,7 @@ public class teacherService {
 			 System.out.println(t.getPd_easy());
 			 for(int i=0;i<t.getPd_easy();i++)
 			 {
-				 Question qq=new Question();
+				 Question1 qq=new Question1();
 				 qq=temp.get(a[i]);
 				 System.out.println(qq.toString());
 				 qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
@@ -255,7 +260,7 @@ public class teacherService {
 		 }
 		 if(t.getPd_medium()!=0)//判断中等题
 		 {
-			 List<Question> temp=null;//中间变量
+			 List<Question1> temp=null;//中间变量
 			 temp=qdao.quarybytikuidquestiontypelable(t.getPd_medium(), 3, 1);
 			 int[] a=new int[t.getPd_medium()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getPd_medium());
@@ -263,7 +268,7 @@ public class teacherService {
 			 System.out.println(t.getPd_medium());
 			 for(int i=0;i<t.getPd_medium();i++)
 			 {
-				 Question qq=new Question();
+				 Question1 qq=new Question1();
 				 qq=temp.get(a[i]);
 				 System.out.println(qq.toString());
 				 qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
@@ -271,7 +276,7 @@ public class teacherService {
 		 }
 		 if(t.getPd_hard()!=0)//判断难题
 		 {
-			 List<Question> temp=null;//中间变量
+			 List<Question1> temp=null;//中间变量
 			 temp=qdao.quarybytikuidquestiontypelable(t.getPd_hard(), 3, 1);
 			 int[] a=new int[t.getPd_hard()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getPd_hard());
@@ -279,7 +284,7 @@ public class teacherService {
 			 System.out.println(t.getPd_hard());
 			 for(int i=0;i<t.getPd_hard();i++)
 			 {
-				 Question qq=new Question();
+				 Question1 qq=new Question1();
 				 qq=temp.get(a[i]);
 				 System.out.println(qq.toString());
 				 qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
@@ -287,7 +292,7 @@ public class teacherService {
 		 }
 		 if(t.getDt_easy()!=0)//大题简单题
 		 {
-			 List<Question> temp=null;//中间变量
+			 List<Question1> temp=null;//中间变量
 			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 3, 1);
 			 int[] a=new int[t.getDt_easy()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getDt_easy());
@@ -295,7 +300,7 @@ public class teacherService {
 			 System.out.println(t.getDt_easy());
 			 for(int i=0;i<t.getDt_easy();i++)
 			 {
-				 Question qq=new Question();
+				 Question1 qq=new Question1();
 				 qq=temp.get(a[i]);
 				 System.out.println(qq.toString());
 				 qdao.addQuestionzg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
@@ -303,7 +308,7 @@ public class teacherService {
 		 }
 		 if(t.getDt_medium()!=0)//大题中等题
 		 {
-			 List<Question> temp=null;//中间变量
+			 List<Question1> temp=null;//中间变量
 			 temp=qdao.quarybytikuidquestiontypelable(t.getDt_medium(), 3, 1);
 			 int[] a=new int[t.getDt_medium()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getDt_medium());
@@ -311,7 +316,7 @@ public class teacherService {
 			 System.out.println(t.getDt_medium());
 			 for(int i=0;i<t.getDt_medium();i++)
 			 {
-				 Question qq=new Question();
+				 Question1 qq=new Question1();
 				 qq=temp.get(a[i]);
 				 System.out.println(qq.toString());
 				 qdao.addQuestionzg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
@@ -319,7 +324,7 @@ public class teacherService {
 		 }
 		 if(t.getDt_hard()!=0)//大题难题
 		 {
-			 List<Question> temp=null;//中间变量
+			 List<Question1> temp=null;//中间变量
 			 temp=qdao.quarybytikuidquestiontypelable(t.getDt_hard(), 3, 1);
 			 int[] a=new int[t.getDt_hard()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getDt_hard());
@@ -327,7 +332,7 @@ public class teacherService {
 			 System.out.println(t.getDt_hard());
 			 for(int i=0;i<t.getDt_easy();i++)
 			 {
-				 Question qq=new Question();
+				 Question1 qq=new Question1();
 				 qq=temp.get(a[i]);
 				 System.out.println(qq.toString());
 				 qdao.addQuestionzg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
@@ -494,5 +499,46 @@ public class teacherService {
 		 }
 		 return pdao.updateStutestinfo(stu_id, test_id, score);	 
 	 }
-	 
+	 //教师查看学生成绩
+	 //create by lcq 2018年6月20日10:21:07
+	 public static List<tea_cha_chengji> queryBytestchachengjibytestid(int test_id)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		 //从ioc容器中获取dao
+		 teachachengjiDao tdao = (teachachengjiDao) context.getBean("teachachengjiDao");
+		 return tdao.quaryBytestid(test_id);
+	 }
+	 //教师获取成绩分析相关
+	 //create by lcq 2018年6月20日14:59:25
+	 public static Teacjfenxi getteacjfenxi(int test_Id)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		 //从ioc容器中获取dao
+		 teachachengjiDao tdao = (teachachengjiDao) context.getBean("teachachengjiDao");
+		 Teacjfenxi t=new Teacjfenxi();
+		 t.setAvgscore(tdao.getAvgscorebytestid(test_Id));
+		 t.setMaxscore(tdao.getMaxscorebytestid(test_Id));
+		 t.setMinscore(tdao.getMinscorebytestid(test_Id));
+		 t.setNbnum(tdao.getNBNumbytestid(test_Id));
+		 t.setNnum(tdao.getNNumbytestid(test_Id));
+		 t.setNqnum(tdao.getNQNumby(test_Id));
+		 t.setNum(tdao.getNumbytestid(test_Id));
+		 t.setNynum(tdao.getNYNumbybytestid(test_Id));
+		 if(t.getNnum()!=0) 
+		 {
+		 t.setBjg(t.getNbnum()/t.getNnum()/100);
+		 t.setYx(t.getNynum()/t.getNnum()/100);;
+		 }
+		 return t;
+	 }
+	 //教师修改密码
+	 //create by lcq 2018年6月20日19:39:02
+	 public static boolean update_tea_password(int tea_Id,String password){
+		 //处理业务逻辑
+	 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		teacherDao tdao = (teacherDao) context.getBean("teacherDao");
+		return(tdao.update_tea_password(tea_Id, password));
+		
+	 }
 }

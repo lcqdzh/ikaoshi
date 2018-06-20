@@ -136,7 +136,7 @@ $(document).ready(function () {
             <a href="tea_tikuguanli" class="list-group-item">题库管理</a>
             <a href="tea_kaoshiguanli" class="list-group-item">考试管理</a>
             <a href="tea_pigai_kaoshi" class="list-group-item">批改试卷</a>
-            <a href="tea_chengji_kaoshilist" class="list-group-item">考试信息</a>
+            <a href="#" class="list-group-item">考试信息</a>
             <a href="ttt" class="list-group-item">ttt</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
@@ -160,7 +160,7 @@ $(document).ready(function () {
 	              <p>结束日期:${u.end_time}</p>
 	              <p>考试状态:已完成考试</p>
 	              <p>主观题个数:${u.dt_easy+u.dt_medium+u.dt_hard}</p>
-	              <p><a class="btn btn-default" href="tea_pigai_stugn?test_id=${u.test_id }" role="button">批改试卷 &raquo;</a></p>
+	              <p><a class="btn btn-default" href="tea_chengji_testid?test_id=${u.test_id }" role="button">查看成绩 &raquo;</a></p>
 	            </div><!--/.col-xs-6.col-lg-4-->
             </c:forEach>
           </c:if>
@@ -174,7 +174,7 @@ $(document).ready(function () {
 	              <p>结束日期:${u.end_time}</p>
 	              <p>考试状态:未完成考试</p>
 	              <p>主观题个数:${u.dt_easy+u.dt_medium+u.dt_hard}</p>
-	              <p><a class="btn btn-default" href="tea_pigai_stugn?test_id=${u.test_id }" role="button" disabled="disabled">批改试卷 &raquo;</a></p>
+	              <p><a class="btn btn-default" href="tea_chengji_testid?test_id=${u.test_id }" role="button" disabled="disabled">查看成绩 &raquo;</a></p>
 	            </div><!--/.col-xs-6.col-lg-4-->
             </c:forEach>
           </c:if>

@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.iKaoshi.bean.Question;
+import com.iKaoshi.bean.Question1;
 import com.iKaoshi.bean.Shijuanzhuguan;
 import com.iKaoshi.bean.Tikuxinxi;
 import com.iKaoshi.dao.tikuDao.TikuxinxiMapper;
@@ -91,7 +91,7 @@ public class pigaiDao {
 	//更新学生考试状态
 	//create by lcq 2018年6月20日00:12:20
 	public boolean updateStutestinfo(int stu_id,int test_id,int score) {
-		  String sql = "update ikaoshi.stu_test_info set score=score+?,state=5 where stu_Id=? and test_Id=?;";
+		  String sql = "update ikaoshi.stu_test_info set score=score+?,state=2 where stu_Id=? and test_Id=?;";
 		
 		 return jdbcTemplate.update(sql,new Object[] {score,stu_id,test_id}) == 1;
 		  }

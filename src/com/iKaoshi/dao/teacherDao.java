@@ -46,6 +46,12 @@ public class teacherDao {
 		  }
 		 
 		  }
-	
+	//更改密码
+	//create by lcq 2018年6月20日19:41:14
+	public boolean update_tea_password(int tea_Id,String password){
+		String sql="update ikaoshi.teacher set password="+password+" where tea_Id="+tea_Id;
+		return jdbcTemplate.update(sql)==1;
+	}
+
 	
 }

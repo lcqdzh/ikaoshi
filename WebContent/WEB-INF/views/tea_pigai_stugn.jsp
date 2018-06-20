@@ -120,7 +120,7 @@ $(document).ready(function () {
             <li class="active"><a href="tea_home">首页</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="stu_info">我的信息</a></li>
+            <li><a href="tea_info">修改密码</a></li>
             <li><a href="#contact">注销</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
@@ -136,7 +136,7 @@ $(document).ready(function () {
             <a href="tea_tikuguanli" class="list-group-item">题库管理</a>
             <a href="tea_kaoshiguanli" class="list-group-item">考试管理</a>
             <a href="tea_pigai_kaoshi" class="list-group-item">批改试卷</a>
-            <a href="#" class="list-group-item">考试信息</a>
+            <a href="tea_chengji_kaoshilist" class="list-group-item">考试信息</a>
             <a href="ttt" class="list-group-item">ttt</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
