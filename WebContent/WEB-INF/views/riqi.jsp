@@ -24,16 +24,14 @@
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- Custom styles for this template -->
     
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>  
-<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">  
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
-  
-<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>  
-<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css" rel="stylesheet">
-<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.min.css" rel="stylesheet">
-<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet">
-<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- 日起相关的js引用 -->
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+	<link href="css/bootstrap.min.css" rel="stylesheet">  
+	<script src="css/bootstrap.min.js"></script>  
+    <script src="css/moment.js_2.18.1_moment-with-locales.min.js"></script>  
+	<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">  
+	<script src="css/bootstrap-datetimepicker.min.js"></script>  
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -104,10 +102,52 @@ footer {
     
    
   </head>
+<script type="text/javascript">
+$(document).ready(function () {
+	  $('[data-toggle="offcanvas"]').click(function () {
+	    $('.row-offcanvas').toggleClass('active')
+	  });
+	});
+</script>
+<script>
+$(function () {  
+
+    var picker1 = $('#datetimepicker1').datetimepicker({  
+
+        format: 'YYYY-MM-DD HH:mm:ss',  
+        locale: moment.locale('zh-cn'),  
+        //minDate: '2016-7-1'  
+    });  
+    var picker2 = $('#datetimepicker2').datetimepicker({  
+        format: 'YYYY-MM-DD HH:mm:ss',  
+        locale: moment.locale('zh-cn')  
+    });  
+    //动态设置最小值  
+    picker1.on('dp.change', function (e) {  
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        picker1.data('DateTimePicker').minDate(currentdate);  
+        picker2.data('DateTimePicker').minDate(e.date);  
+    });  
+    //动态设置最大值  
+    picker2.on('dp.change', function (e) {  
+        picker1.data('DateTimePicker').maxDate(e.date);  
+    });  
+});
+</script>
 
 
-
-  <body >
+  <body>
     <nav class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
         <div class="navbar-header">
@@ -138,9 +178,8 @@ footer {
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
             <a href="tea_kaoshiguanli" class="list-group-item active" >考试管理</a>
-            <a href="tea_dangekaoshiguanli?test_id=${test_id}" class="list-group-item">考试信息</a>
-            <a href="tea_jtkaoshixuesheng?test_id=${test_id}" class="list-group-item">学生名单</a>
-            <a href="tea_jtkaoshixueshengdaoru?test_id=${test_id}" class="list-group-item">导入名单</a>
+            <a href="tea_chakankaoshi" class="list-group-item">查看考试</a>
+            <a href="tea_addkaoshi" class="list-group-item">添加考试</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -151,14 +190,11 @@ footer {
           </p>
           <div class="jumbotron">
             <h1>欢迎使用在线考试系统</h1>
-            <p>${error }</p>
+            <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
           </div>
-			    <form action="tea_dangekaoshiguanli_f?test_id=${teatestinfo.test_id}" method = "post" role="form">
-			    			<div class="form-group">
-                                 <label for="exampleInputEmail1">考试编号</label><input class="form-control" placeholder="${ teatestinfo.test_id}" id="exampleInputName1" type = "text" name = "test_id1" disabled="disabled" readonly="readonly"/>
-                            </div>  
+			    <form action="tea_addkaoshi_f?tea_id=${tea_id }" method = "post" role="form">
 							<div class="form-group">
-                                 <label for="exampleInputEmail1">考试名称</label><input class="form-control" placeholder="${ teatestinfo.test_name}" id="exampleInputName1" type = "text" name = "test_name" />
+                                 <label for="exampleInputEmail1">考试名称</label><input class="form-control" placeholder="" id="exampleInputName1" type = "text" name = "test_name" />
                             </div>   
                             <div class="form-group">
                                   <label for="exampleInputEmail1">题库名称及编号
@@ -166,61 +202,81 @@ footer {
                                   <select class="form-control" id="exampleInputyuanxi1" type = "text" name = "tiku_IDname">
 							      <c:if test="${!empty tikuxinxi}"> 
                							<c:forEach items="${tikuxinxi}" var="u">
-               							<c:if test="${u.tiku_ID==teatestinfo.test_id}">
-							      				<option  selected = "selected">${u.tiku_ID}:${u.tiku_name}</option>
-							      		</c:if>
-							      		<c:if test="${u.tiku_ID!=teatestinfo.test_id}">
 							      				<option>${u.tiku_ID}:${u.tiku_name}</option>
-							      		</c:if>
 							      		</c:forEach>
 							      </c:if>
 							    </select>
                             </div>
-							<div class="form-group">
-                                 <label for="exampleInputEmail1">开始时间</label><input class="form-control" value="${begin_timee }"  id="exampleInputzhuanye1" type = "datetime-local" name = "begin_time" />
-                            </div>
+
+                            <div class="row">  
+						    <div class='col-sm-6'>  
+						        <div class="form-group">  
+						            <label>开始时间：</label>  
+						            <!--指定 date标记-->  
+						            <div class='input-group date' id='datetimepicker1'>  
+						                <input type='text' class="form-control" name="begin_Time"/>  
+						                <span class="input-group-addon">  
+						                    <span class="glyphicon glyphicon-calendar"></span>  
+						                </span>  
+						            </div>  
+						        </div>  
+						    </div>  
+						    <div class='col-sm-6'>  
+						        <div class="form-group">  
+						            <label>结束时间：</label>  
+						            <!--指定 date标记-->  
+						            <div class='input-group date' id='datetimepicker2'>  
+						                <input type='text' class="form-control" name="end_Time"/>  
+						                <span class="input-group-addon">  
+						                    <span class="glyphicon glyphicon-calendar"></span>  
+						                </span>  
+						            </div>  
+						        </div>  
+						    </div>  
+						</div>  
+
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">结束时间</label><input class="form-control" value="${end_timee }"  id="exampleInputzhuanye1" type = "datetime-local" name = "end_time" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">考试时长</label><input class="form-control" placeholder="${ teatestinfo.time_long}"  id="exampleInputzhuanye1" type = "text" name = "time_long" />
+                                 <label for="exampleInputEmail1">考试时长</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "time_long" />
                             </div>
                              <div class="form-group">
-                                 <label for="exampleInputEmail1">选择分值</label><input class="form-control" placeholder="${ teatestinfo.dx_score}"  id="exampleInputzhuanye1" type = "text" name = "dx_score" />
+                                 <label for="exampleInputEmail1">选择分值</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dx_score" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">选择简单题个数</label><input class="form-control" placeholder="${ teatestinfo.dx_easy}"  id="exampleInputzhuanye1" type = "text" name = "dx_easy" />
+                                 <label for="exampleInputEmail1">选择简单题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dx_easy" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">选择中等题个数</label><input class="form-control" placeholder="${ teatestinfo.dx_medium}"  id="exampleInputzhuanye1" type = "text" name = "dx_medium" />
+                                 <label for="exampleInputEmail1">选择中等题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dx_medium" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">选择困难题个数</label><input class="form-control" placeholder="${ teatestinfo.dx_hard}"  id="exampleInputzhuanye1" type = "text" name = "dx_hard" />
+                                 <label for="exampleInputEmail1">选择困难题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dx_hard" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">判断分值</label><input class="form-control" placeholder="${ teatestinfo.pd_score}"  id="exampleInputzhuanye1" type = "text" name = "pd_score" />
+                                 <label for="exampleInputEmail1">判断分值</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "pd_score" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">判断简单题个数</label><input class="form-control" placeholder="${ teatestinfo.pd_easy}"  id="exampleInputzhuanye1" type = "text" name = "pd_easy" />
+                                 <label for="exampleInputEmail1">判断简单题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "pd_easy" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">判断中等题个数</label><input class="form-control" placeholder="${ teatestinfo.pd_medium}"  id="exampleInputzhuanye1" type = "text" name = "pd_medium" />
+                                 <label for="exampleInputEmail1">判断中等题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "pd_medium" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">判断困难题个数</label><input class="form-control" placeholder="${ teatestinfo.pd_hard}"  id="exampleInputzhuanye1" type = "text" name = "pd_hard" />
+                                 <label for="exampleInputEmail1">判断困难题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "pd_hard" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">大题分值</label><input class="form-control" placeholder="${ teatestinfo.dt_score}"  id="exampleInputzhuanye1" type = "text" name = "dt_score" />
+                                 <label for="exampleInputEmail1">大题分值</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dt_score" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">大题简单题个数</label><input class="form-control" placeholder="${ teatestinfo.dt_easy}"  id="exampleInputzhuanye1" type = "text" name = "dt_easy" />
+                                 <label for="exampleInputEmail1">大题简单题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dt_easy" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">大题中等题个数</label><input class="form-control" placeholder="${ teatestinfo.dt_medium}"  id="exampleInputzhuanye1" type = "text" name = "dt_medium" />
+                                 <label for="exampleInputEmail1">大题中等题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dt_medium" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">大题困难题个数</label><input class="form-control" placeholder="${ teatestinfo.dt_hard}"  id="exampleInputzhuanye1" type = "text" name = "dt_hard" />
-                            </div>                        
+                                 <label for="exampleInputEmail1">大题困难题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dt_hard" />
+                            </div>   
+                            <div class="form-group">
+                                 ${error}
+                            </div>                     
                             <div class="row clearfix">
                                 <div class="col-md-5 column">
                                     </div> </h1><input type = "submit" value = "提交" class="btn btn-primary btn-lg"  ></a>
@@ -254,5 +310,4 @@ footer {
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="offcanvas.js"></script>
   </body>
-
 </html>

@@ -15,6 +15,7 @@ import com.iKaoshi.bean.TeaTestInfo;
 import com.iKaoshi.bean.Teacher;
 import com.iKaoshi.bean.Teacjfenxi;
 import com.iKaoshi.bean.Tikuxinxi;
+import com.iKaoshi.bean.kaoshinum;
 import com.iKaoshi.bean.tea_cha_chengji;
 import com.iKaoshi.dao.pigaiDao;
 import com.iKaoshi.dao.questionDao;
@@ -601,5 +602,56 @@ public class teacherService {
 			//从ioc容器中获取dao
 			stutestinfoDao sdao = (stutestinfoDao) context.getBean("stutestinfoDao");
 			return sdao.queryAllbytestid(test_id);	
+	 }
+	 //查看某个题库各种题型的个数
+	 //create by lcq 2018年6月20日23:13:08
+	 public static kaoshinum gettikuNum(int tiku_Id)
+	 {
+		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			questionDao qdao = (questionDao) context.getBean("questionDao");
+			kaoshinum k=new kaoshinum();
+			k.setDt_easy(qdao.getDt_easy(tiku_Id));
+			k.setDt_medium(qdao.getDt_medium(tiku_Id));
+			k.setDt_hard(qdao.getDt_hard(tiku_Id));
+			k.setDx_easy(qdao.getDx_easy(tiku_Id));
+			k.setDx_medium(qdao.getDx_medium(tiku_Id));
+			k.setDx_hard(qdao.getDx_hard(tiku_Id));
+			k.setPd_easy(qdao.getPd_easy(tiku_Id));
+			k.setPd_medium(qdao.getPd_medium(tiku_Id));
+			k.setPd_hard(qdao.getPd_hard(tiku_Id));
+			return k;
+	 }
+	 //判断各种题型个数是否符合要求 true 表示符合
+	 //create by lcq 2018年6月21日16:13:38
+	 public static boolean judgetikuNum(int tiku_Id,TeaTestInfo n)
+	 {
+		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			questionDao qdao = (questionDao) context.getBean("questionDao");
+			kaoshinum k=new kaoshinum();
+			k.setDt_easy(qdao.getDt_easy(tiku_Id));
+			k.setDt_medium(qdao.getDt_medium(tiku_Id));
+			k.setDt_hard(qdao.getDt_hard(tiku_Id));
+			k.setDx_easy(qdao.getDx_easy(tiku_Id));
+			k.setDx_medium(qdao.getDx_medium(tiku_Id));
+			k.setDx_hard(qdao.getDx_hard(tiku_Id));
+			k.setPd_easy(qdao.getPd_easy(tiku_Id));
+			k.setPd_medium(qdao.getPd_medium(tiku_Id));
+			k.setPd_hard(qdao.getPd_hard(tiku_Id));
+			boolean flag=true;
+			if(n.getDt_easy()>k.getDt_easy()||n.getDt_medium()>k.getDt_medium()||n.getDt_hard()>k.getDt_hard())
+			{
+				flag=false;
+			}
+			if(n.getDx_easy()>k.getDx_easy()||n.getDx_medium()>k.getDx_medium()||n.getDx_hard()>k.getDx_hard())
+			{
+				flag=false;
+			}
+			if(n.getDx_easy()>k.getDt_easy()||n.getDx_medium()>k.getDx_medium()||n.getDx_hard()>k.getDx_hard())
+			{
+				flag=false;
+			}
+			return flag;
 	 }
 }

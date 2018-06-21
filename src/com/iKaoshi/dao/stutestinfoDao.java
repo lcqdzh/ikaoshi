@@ -22,7 +22,7 @@ public class stutestinfoDao {
 	//查看考试信息是否已存在
 	//create by lcq 2018年6月20日21:16:27
 	public List<Stutestinfo> quarySti(int test_id,int stu_id){
-		  String sql = "select * from ikaoshi.stu_test_info_tiku where test_Id="+test_id+" and stu_Id="+stu_id+";";
+		  String sql = "select * from ikaoshi.stu_test_info where test_Id="+test_id+" and stu_Id="+stu_id+";";
 		  return jdbcTemplate.query(sql, new StutestinfoMapper());
 	  }
 	

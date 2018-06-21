@@ -28,6 +28,69 @@ public class questionDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		  this.jdbcTemplate = jdbcTemplate;
 	}
+	//根据题库号获取单选简单个数
+	//create by lcq 2018年6月21日15:38:52
+	@SuppressWarnings("deprecation")
+	public int getDx_easy(int tiku_Id) {
+		String sql="select count(question.question_Id) from ikaoshi.question where  question.question_level=1 and question_type=1 and tiku_Id="+tiku_Id;
+		return jdbcTemplate.queryForInt(sql);
+	}
+	//根据题库号获取单选medium个数
+	//create by lcq 2018年6月21日15:38:52
+	@SuppressWarnings("deprecation")
+	public int getDx_medium(int tiku_Id) {
+		String sql="select count(question.question_Id) from ikaoshi.question where  question.question_level=2 and question_type=1 and tiku_Id="+tiku_Id;
+		return jdbcTemplate.queryForInt(sql);
+	}
+	//根据题库号获取单选hard个数
+	//create by lcq 2018年6月21日15:38:52
+	@SuppressWarnings("deprecation")
+	public int getDx_hard(int tiku_Id) {
+		String sql="select count(question.question_Id) from ikaoshi.question where  question.question_level=3 and question_type=1 and tiku_Id="+tiku_Id;
+		return jdbcTemplate.queryForInt(sql);
+	}
+	//根据题库号获取判断简单个数
+	//create by lcq 2018年6月21日15:38:52
+	@SuppressWarnings("deprecation")
+	public int getPd_easy(int tiku_Id) {
+		String sql="select count(question.question_Id) from ikaoshi.question where  question.question_level=1 and question_type=2 and tiku_Id="+tiku_Id;
+		return jdbcTemplate.queryForInt(sql);
+	}
+	//根据题库号获取判断中等个数
+	//create by lcq 2018年6月21日15:38:52
+	@SuppressWarnings("deprecation")
+	public int getPd_medium(int tiku_Id) {
+		String sql="select count(question.question_Id) from ikaoshi.question where  question.question_level=2 and question_type=2 and tiku_Id="+tiku_Id;
+		return jdbcTemplate.queryForInt(sql);
+	}
+	//根据题库号获取判断苦难个数
+	//create by lcq 2018年6月21日15:38:52
+	@SuppressWarnings("deprecation")
+	public int getPd_hard(int tiku_Id) {
+		String sql="select count(question.question_Id) from ikaoshi.question where  question.question_level=3 and question_type=2 and tiku_Id="+tiku_Id;
+		return jdbcTemplate.queryForInt(sql);
+	}
+	//根据题库号获取单选简单个数
+	//create by lcq 2018年6月21日15:38:52
+	@SuppressWarnings("deprecation")
+	public int getDt_easy(int tiku_Id) {
+		String sql="select count(question.question_Id) from ikaoshi.question where  question.question_level=1 and question_type=3 and tiku_Id="+tiku_Id;
+		return jdbcTemplate.queryForInt(sql);
+	}
+	//根据题库号获取单选简单个数
+	//create by lcq 2018年6月21日15:38:52
+	@SuppressWarnings("deprecation")
+	public int getDt_medium(int tiku_Id) {
+		String sql="select count(question.question_Id) from ikaoshi.question where  question.question_level=2 and question_type=3 and tiku_Id="+tiku_Id;
+		return jdbcTemplate.queryForInt(sql);
+	}
+	//根据题库号获取单选简单个数
+	//create by lcq 2018年6月21日15:38:52
+	@SuppressWarnings("deprecation")
+	public int getDt_hard(int tiku_Id) {
+		String sql="select count(question.question_Id) from ikaoshi.question where  question.question_level=3 and question_type=3 and tiku_Id="+tiku_Id;
+		return jdbcTemplate.queryForInt(sql);
+	}
 	//根据题库编号、试题编号修改
 	//create by lcq 2018年6月17日14:54:19
 	public boolean updatebyone(Question1 q) {

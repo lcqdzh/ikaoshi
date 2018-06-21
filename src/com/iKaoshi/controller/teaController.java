@@ -3,6 +3,7 @@
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,6 +49,14 @@ public class teaController {
 		String str="123";
         return new ModelAndView("tea_login","error",str);
 	}
+	
+	@RequestMapping("/riqi")
+	public ModelAndView riqi(HttpServletRequest request)
+	{
+		String str="123";
+        return new ModelAndView("riqi","error",str);
+	}
+	
 	
 	@RequestMapping("/tea_info")
 	public ModelAndView stu_info(HttpServletRequest request)
@@ -777,7 +786,59 @@ public class teaController {
 		System.out.println(nt.toString());
 		model.addAttribute("teatestinfo", nt);
 		
+		//显示开始时间
+		Timestamp ts = nt.getBegin_time();   
+        String tsStr = "";   
+        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");   
+        try {   
+            //方法一   
+            tsStr = sdf.format(ts);   
+            System.out.println(tsStr);   
+            //方法二   
+            tsStr = ts.toString();   
+            System.out.println(tsStr);   
+        } catch (Exception e) {   
+            e.printStackTrace();   
+        }  
+		String temp = tsStr;
+		System.out.println(temp);
+		String temp1=temp.substring(0,10);
+		temp=temp.substring(0,temp.length()-5);
+		String temp2=temp.substring(temp.length()-5);
+		System.out.println(temp1);
+		System.out.println(temp2);
+		String begin_timee=temp1+"T"+temp2;
+		System.out.println(begin_timee);
+		model.addAttribute("begin_timee", begin_timee);
 		
+		//显示结束时间
+		ts = nt.getEnd_time();   
+        tsStr = "";   
+        sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");   
+        try {   
+            //方法一   
+            tsStr = sdf.format(ts);   
+            System.out.println(tsStr);   
+            //方法二   
+            tsStr = ts.toString();   
+            System.out.println(tsStr);   
+        } catch (Exception e) {   
+            e.printStackTrace();   
+        }  
+		temp = tsStr;
+		System.out.println(temp);
+		temp1=temp.substring(0,10);
+		temp=temp.substring(0,temp.length()-5);
+		temp2=temp.substring(temp.length()-5);
+		System.out.println(temp1);
+		System.out.println(temp2);
+		String end_timee=temp1+"T"+temp2;
+		System.out.println(end_timee);
+		model.addAttribute("end_timee", end_timee);
+		
+		
+		String error="";
+		model.addAttribute("error", error);
 		model.addAttribute("test_id", test_id);
 		List<Tikuxinxi> tikuxinxi=null;
 		System.out.println("tea_id:"+tea_id);
@@ -804,11 +865,18 @@ public class teaController {
 			nt=t.get(0);
 		}
 		System.out.println(nt.toString());
-
+		
 		String test_name = request.getParameter("test_name");
 		String tiku_IDname = request.getParameter("tiku_IDname");String tiku_Idd=tiku_IDname.substring(0, tiku_IDname.indexOf(':'));int tiku_id=tiku_Idd.isEmpty()?0:Integer.parseInt(tiku_Idd);
-		String begin_timee = request.getParameter("begin_Time");//Timestamp begin_time= new Timestamp(System.currentTimeMillis());begin_time=Timestamp.valueOf("begin_timee");
-		System.out.println("1");
+		//获取开始日期
+		String temp = request.getParameter("begin_time");//Timestamp begin_time= new Timestamp(System.currentTimeMillis());begin_time=Timestamp.valueOf("begin_timee");
+		model.addAttribute("begin_timee", temp);
+		System.out.println(temp);
+		String temp1=temp.substring(0,10);
+		String temp2=temp.substring(temp.length()-5);
+		System.out.println(temp1);
+		System.out.println(temp2);
+		String begin_timee=temp1+" "+temp2+":00";
 		Date d1 = null;
 		System.out.println("2"+begin_timee);
 		if(!begin_timee.isEmpty()) {
@@ -821,8 +889,17 @@ public class teaController {
 			Timestamp begin_time= new Timestamp(d1.getTime());
 			nt.setBegin_time(begin_time);
 		}
+		System.out.println(nt.getBegin_time());
 		
-		String end_timee = request.getParameter("end_Time");//Timestamp end_time= new Timestamp(System.currentTimeMillis());end_time.valueOf("end_timee");
+		
+		//获取结束日期
+		temp = request.getParameter("end_time");//Timestamp end_time= new Timestamp(System.currentTimeMillis());end_time.valueOf("end_timee");
+		model.addAttribute("end_timee", temp);
+		temp1=temp.substring(0,10);
+		temp2=temp.substring(temp.length()-5);
+		System.out.println(temp1);
+		System.out.println(temp2);
+		String end_timee=temp1+" "+temp2+":00";
 		Date d2 = null;
 		if(!end_timee.isEmpty()) {
 			try {
@@ -834,6 +911,7 @@ public class teaController {
 			Timestamp end_time= new Timestamp(d2.getTime());
 			nt.setEnd_time(end_time);
 		}
+		
 		
 		String time_longg = request.getParameter("time_long");int time_long=time_longg.isEmpty()?0:Integer.parseInt(time_longg);
 		String dx_scoree = request.getParameter("dx_score");int dx_score=dx_scoree.isEmpty()?0:Integer.parseInt(dx_scoree);
@@ -868,13 +946,47 @@ public class teaController {
 		if(!dt_hardd.isEmpty()) nt.setDt_hard(dt_hard);		
 		System.out.println(nt);
 		
+		int score=nt.getPd_score()*(nt.getPd_easy()+nt.getPd_medium()+nt.getPd_hard())+
+				nt.getDx_score()*(nt.getDx_easy()+nt.getDx_medium()+nt.getDx_hard())+nt.getDt_score()*(nt.getDt_easy()+nt.getDt_medium()+nt.getDt_hard());
+		String error="请确认试卷的总分是否为100分";
+		if(teacherService.judgetikuNum(tiku_id, nt))
+		{
+			if(score==100)
+			{
+				teacherService.updateteatestinfobyone(nt);
+				error="修改成功";
+				model.addAttribute("teatestinfo", nt);
+				model.addAttribute("error", error);
+				model.addAttribute("test_id", test_id);
+				List<Tikuxinxi> tikuxinxi=null;
+				System.out.println("tea_id:"+tea_id);
+				tikuxinxi=teacherService.quary(tea_id);
+				model.addAttribute("tikuxinxi",tikuxinxi);
+				return new ModelAndView("tea_dangekaoshiguanli","tea_id",tea_id);
+			}else {
+				error="请确认试卷的总分是否为100分";		
+			}
+
+		}else {
+			error="请确认试题目个数满足要求";		
+		}
+
+		model.addAttribute("error", error);
+		//teacherService.updateteatestinfobyone(nt);
+		t=null;
+		t=teacherService.quaryTestinfobytestid(test_id);
 		
+		TeaTestInfo tt=new TeaTestInfo();
+		System.out.println("size="+t.size());
+		if(t.size()!=0)
+		{
+			System.out.println(t.get(0));
+			tt=t.get(0);
+		}
+		model.addAttribute("teatestinfo", tt);
 		
-		teacherService.updateteatestinfobyone(nt);
-		model.addAttribute("teatestinfo", nt);
-		
-		
-		
+		System.out.println("tt:"+tt.toString());
+		model.addAttribute("test_id", test_id);
 		List<Tikuxinxi> tikuxinxi=null;
 		System.out.println("tea_id:"+tea_id);
 		tikuxinxi=teacherService.quary(tea_id);
@@ -1180,7 +1292,7 @@ public class teaController {
                 	Student stu=new Student();
                 	stu.setId(stu_id);stu.setPassword(""+stu_id);stu.setStu_name(stu_name);
 
-                	if(!teacherService.quaryStu(stu_id))
+                	if(!teacherService.quarySti(test_id, stu_id))
                 	{
                 		teacherService.addStutestinfo(sti);
                 	}
@@ -1201,4 +1313,6 @@ public class teaController {
 
        return new ModelAndView("tea_jtkaoshixueshengdaoru","test_id",test_id);
     }
+	
+	//
 }
