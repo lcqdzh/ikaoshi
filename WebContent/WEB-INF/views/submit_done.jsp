@@ -146,34 +146,11 @@ $(document).ready(function () {
         <div class="col-xs-12 col-sm-9">
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-          </p>         
-          <div class="row clearfix">
-                    <div class="col-md-2 column">
-                    </div>
-                    <div class="col-md-6 column">
-                        <form action="update_stu_password" method = "post" role="form">
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请输入原密码:</label><input class="form-control"  id="exampleInputName1" type = "password" name = "old_password" />
-                            </div>                            
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请输入新密码:</label><input class="form-control"   id="exampleInputzhuanye1" type = "password" name = "new_password1" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请确认新密码:</label><input class="form-control"   id="exampleInputclass1" type = "password" name = "new_password2" />
-                            </div>
-                            <p>${error}</p>
-                            <br>
-                            <div class="row clearfix">
-                                <div class="col-md-4 column">
-                                </div> 
-                                <input type = "submit" value = "提交" class="btn btn-primary btn-lg" >
-                            </div>
-                              
-                        </form>
-                      </div>                    
+          </p>
+          <div class="jumbotron">
+            <h2>试卷成功提交，请耐心等待老师批阅</h2>
+            <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
           </div>
-                    
-          
         </div><!--/.col-xs-12.col-sm-9-->
 
       </div><!--/row-->

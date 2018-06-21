@@ -2,6 +2,13 @@
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
+<%  
+ String importMsg="";  
+ if(request.getSession().getAttribute("msg")!=null){  
+    importMsg=request.getSession().getAttribute("msg").toString();  
+ }  
+ request.getSession().setAttribute("msg", "");  
+ %> 
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +18,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Off Canvas Template for Bootstrap</title>
+    <title>欢迎来到在线考试系统</title>
 
   <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
 	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -119,7 +126,7 @@ $(document).ready(function () {
             <li class="active"><a href="stu_home">首页</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="stu_info">修改密码</a></li>
+            <li><a href="admin_update_password_page">修改密码</a></li>
             <li><a href="logout">注销</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
@@ -132,13 +139,10 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="stu_test_list" class="list-group-item ">待参加</a>
-            <a href="stu_testd_list" class="list-group-item">已参加</a>
-            <a href="not_begin_list" class="list-group-item">未开始</a>
-            <a href="overdue_list" class="list-group-item">已过期</a>
-            <a href="add_test" class="list-group-item">添加考试</a>
-            <a href="test_analyse" class="list-group-item">考试分析</a>
-           
+            <a href="stu_manage" class="list-group-item " >学生管理</a>
+            <a href="tea_manage" class="list-group-item">老师管理</a>
+            <a href="admin_import_stu" class="list-group-item ">导入学生</a>
+            <a href="admin_import_tea" class="list-group-item active">导入老师</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -146,33 +150,17 @@ $(document).ready(function () {
         <div class="col-xs-12 col-sm-9">
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-          </p>         
-          <div class="row clearfix">
-                    <div class="col-md-2 column">
-                    </div>
-                    <div class="col-md-6 column">
-                        <form action="update_stu_password" method = "post" role="form">
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请输入原密码:</label><input class="form-control"  id="exampleInputName1" type = "password" name = "old_password" />
-                            </div>                            
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请输入新密码:</label><input class="form-control"   id="exampleInputzhuanye1" type = "password" name = "new_password1" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请确认新密码:</label><input class="form-control"   id="exampleInputclass1" type = "password" name = "new_password2" />
-                            </div>
-                            <p>${error}</p>
-                            <br>
-                            <div class="row clearfix">
-                                <div class="col-md-4 column">
-                                </div> 
-                                <input type = "submit" value = "提交" class="btn btn-primary btn-lg" >
-                            </div>
-                              
-                        </form>
-                      </div>                    
-          </div>
-                    
+          </p>
+          
+          <div class="row">
+          		<br><br>
+	            <form action="import_tea" method="post" enctype="multipart/form-data" onsubmit="return check();">
+		         <div style="margin: 30px;"><input id="excel_file" type="file" name="filename" accept="xlsx" size="80"/>
+		         <input id="excel_button" type="submit" value="导入Excel"/></div>
+		         <font id="importMsg" color="red"><%=importMsg%></font><input type="hidden"/>
+		     	</form>
+		     	<P >${info }</P>
+          </div><!--/row-->
           
         </div><!--/.col-xs-12.col-sm-9-->
 
@@ -196,5 +184,26 @@ $(document).ready(function () {
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="offcanvas.js"></script>
+    <script type="text/javascript"> 
+    function check() {  
+          var excel_file = $("#excel_file").val();  
+          if (excel_file == "" || excel_file.length == 0) {  
+              alert("请选择文件路径！");  
+              return false;  
+          } else {  
+             return true;  
+          }  
+     } 
+    
+    $(document).ready(function () {  
+           var msg="";  
+           if($("#importMsg").text()!=null){  
+               msg=$("#importMsg").text();  
+           }  
+           if(msg!=""){  
+               alert(msg);  
+           }  
+    });  
+ </script>
   </body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -132,13 +133,13 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="stu_test_list" class="list-group-item ">待参加</a>
+           <a href="stu_test_list" class="list-group-item ">待参加</a>
             <a href="stu_testd_list" class="list-group-item">已参加</a>
-            <a href="not_begin_list" class="list-group-item">未开始</a>
+            <a href="not_begin_list" class="list-group-item active">未开始</a>
             <a href="overdue_list" class="list-group-item">已过期</a>
             <a href="add_test" class="list-group-item">添加考试</a>
             <a href="test_analyse" class="list-group-item">考试分析</a>
-           
+            
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -146,34 +147,44 @@ $(document).ready(function () {
         <div class="col-xs-12 col-sm-9">
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-          </p>         
-          <div class="row clearfix">
-                    <div class="col-md-2 column">
-                    </div>
-                    <div class="col-md-6 column">
-                        <form action="update_stu_password" method = "post" role="form">
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请输入原密码:</label><input class="form-control"  id="exampleInputName1" type = "password" name = "old_password" />
-                            </div>                            
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请输入新密码:</label><input class="form-control"   id="exampleInputzhuanye1" type = "password" name = "new_password1" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请确认新密码:</label><input class="form-control"   id="exampleInputclass1" type = "password" name = "new_password2" />
-                            </div>
-                            <p>${error}</p>
-                            <br>
-                            <div class="row clearfix">
-                                <div class="col-md-4 column">
-                                </div> 
-                                <input type = "submit" value = "提交" class="btn btn-primary btn-lg" >
-                            </div>
-                              
-                        </form>
-                      </div>                    
-          </div>
-                    
+          </p>
           
+          <div class="row">
+          
+               <div class="panel panel-default">
+					  <!-- Default panel contents -->
+					  <div class="panel-heading">未开始考试列表</div>
+					  <!-- Table -->
+					  <table class="table">
+					   <thead>
+					      <tr>
+					         <th style="text-align:center">考试号</th>
+					         <th style="text-align:center">考试名</th>
+					         <th style="text-align:center">出题老师</th>
+					         <th style="text-align:center">考试时长</th>
+					         <th style="text-align:center">开放时间</th>
+					         <th style="text-align:center">截止时间</th>						        					        
+					      </tr>
+					   </thead>
+					   <tbody>
+					   <c:if test="${!empty not_begin_list}"> 
+		               		<c:forEach items="${not_begin_list}" var="test">
+					      		<tr>
+					         		<td style="text-align:center">${test.test_Id}</td>
+					         		<td style="text-align:center">${test.test_name }</td>
+					         		<td style="text-align:center">${test.tea_name}</td>
+					         		<td style="text-align:center">${test.time_long }分钟</td>
+					         		<td style="text-align:center">${test.begin_Time }</td>
+					         		<td style="text-align:center">${test.end_Time }</td>
+					      		</tr>
+					      	</c:forEach>
+		              </c:if>
+					   </tbody>
+					</table>
+			</div>
+			
+            
+          </div><!--/row-->
         </div><!--/.col-xs-12.col-sm-9-->
 
       </div><!--/row-->
@@ -181,7 +192,7 @@ $(document).ready(function () {
       <hr>
 
       <footer>
-        <p>&copy; wyh&lcq</p>
+        <p>&copy;wyh&lcq</p>
       </footer>
 
     </div><!--/.container-->

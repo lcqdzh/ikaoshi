@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -13,21 +14,9 @@
 
     <title>Off Canvas Template for Bootstrap</title>
 
-  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	
-	<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!-- Custom styles for this template -->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
     /*
  * Style tweaks
@@ -132,7 +121,7 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="stu_test_list" class="list-group-item ">待参加</a>
+           <a href="stu_test_list" class="list-group-item active">待参加</a>
             <a href="stu_testd_list" class="list-group-item">已参加</a>
             <a href="not_begin_list" class="list-group-item">未开始</a>
             <a href="overdue_list" class="list-group-item">已过期</a>
@@ -146,34 +135,90 @@ $(document).ready(function () {
         <div class="col-xs-12 col-sm-9">
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-          </p>         
-          <div class="row clearfix">
-                    <div class="col-md-2 column">
-                    </div>
-                    <div class="col-md-6 column">
-                        <form action="update_stu_password" method = "post" role="form">
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请输入原密码:</label><input class="form-control"  id="exampleInputName1" type = "password" name = "old_password" />
-                            </div>                            
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请输入新密码:</label><input class="form-control"   id="exampleInputzhuanye1" type = "password" name = "new_password1" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请确认新密码:</label><input class="form-control"   id="exampleInputclass1" type = "password" name = "new_password2" />
-                            </div>
-                            <p>${error}</p>
-                            <br>
-                            <div class="row clearfix">
-                                <div class="col-md-4 column">
-                                </div> 
-                                <input type = "submit" value = "提交" class="btn btn-primary btn-lg" >
-                            </div>
-                              
-                        </form>
-                      </div>                    
-          </div>
-                    
+          </p>
+          <div class="row">
           
+          
+          
+           <div class="panel panel-default">
+					  <!-- Default panel contents -->
+					  <div class="panel-heading">待参加考试列表</div>
+					  <!-- Table -->
+					  <table class="table">
+					   <thead>
+					      <tr>
+					         <th style="text-align:center">考试号</th>
+					         <th style="text-align:center">考试名</th>
+					         <th style="text-align:center">出题老师</th>
+					         <th style="text-align:center">考试时长</th>
+					         <th style="text-align:center">开放时间</th>
+					         <th style="text-align:center">截止时间</th>	
+					         <th style="text-align:center">进入</th>					        
+					      </tr>
+					   </thead>
+					   <tbody>
+					   <c:if test="${!empty stu_test_list}"> 
+		               		<c:forEach items="${stu_test_list}" var="test">
+					      		<tr>
+					         		<td style="text-align:center">${test.test_Id}</td>
+					         		<td style="text-align:center">${test.test_name }</td>
+					         		<td style="text-align:center">${test.tea_name}</td>
+					         		<td style="text-align:center">${test.time_long }分钟</td>
+					         		<td style="text-align:center">${test.begin_Time }</td>
+					         		<td style="text-align:center">${test.end_Time }</td>					 
+					         	<!-- 	<td style="text-align:center"><button type="button" class="btn btn-danger" onclick="location.href='enter_test?test_Id=${test.test_Id}'">进入考试</button></td> -->
+					         		<td style="text-align:center"><button class="btn btn-primary " data-toggle="modal" data-target="#myModal">进入考试</button> 
+					         		<!-- 模态框（Modal） -->
+										<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+															&times;
+														</button>
+														<h4 class="modal-title" id="myModalLabel">
+															ATTENTION!
+														</h4>
+													</div>
+													<div class="modal-body">
+														<p>您确认参加考试吗？</p>
+														<p>中途不得退出，否则按照旷考处理</p>
+														<p>请自觉遵守考试章程</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default" data-dismiss="modal">取消
+														</button>
+														<button type="button" class="btn btn-primary" onclick="location.href='test_going?test_Id=${test.test_Id}'">
+															确定参加
+														</button>
+													</div>
+												</div><!-- /.modal-content -->
+											</div><!-- /.modal -->
+										</div>
+					         		
+					         		
+					         		
+					         		</td>
+					         		
+					         																         	
+					      		</tr>
+					      					
+					      	</c:forEach>
+		              </c:if>
+					   </tbody>
+					</table>
+			</div>
+
+		       
+          
+          
+          
+          
+         
+            
+            
+            
+          </div><!--/row-->
         </div><!--/.col-xs-12.col-sm-9-->
 
       </div><!--/row-->

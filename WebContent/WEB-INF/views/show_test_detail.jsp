@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -133,11 +134,11 @@ $(document).ready(function () {
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
             <a href="stu_test_list" class="list-group-item ">待参加</a>
-            <a href="stu_testd_list" class="list-group-item">已参加</a>
+            <a href="stu_testd_list" class="list-group-item active">已参加</a>
             <a href="not_begin_list" class="list-group-item">未开始</a>
-            <a href="overdue_list" class="list-group-item">已过期</a>
-            <a href="add_test" class="list-group-item">添加考试</a>
-            <a href="test_analyse" class="list-group-item">考试分析</a>
+            <a href="overdue_list" class="list-group-item ">已过期</a>
+            <a href="add_test" class="list-group-item ">添加考试</a>
+            <a href="test_analyse" class="list-group-item ">考试分析</a>
            
           </div>
         </div><!--/.sidebar-offcanvas-->
@@ -146,33 +147,122 @@ $(document).ready(function () {
         <div class="col-xs-12 col-sm-9">
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-          </p>         
-          <div class="row clearfix">
-                    <div class="col-md-2 column">
-                    </div>
-                    <div class="col-md-6 column">
-                        <form action="update_stu_password" method = "post" role="form">
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请输入原密码:</label><input class="form-control"  id="exampleInputName1" type = "password" name = "old_password" />
-                            </div>                            
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请输入新密码:</label><input class="form-control"   id="exampleInputzhuanye1" type = "password" name = "new_password1" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请确认新密码:</label><input class="form-control"   id="exampleInputclass1" type = "password" name = "new_password2" />
-                            </div>
-                            <p>${error}</p>
-                            <br>
-                            <div class="row clearfix">
-                                <div class="col-md-4 column">
-                                </div> 
-                                <input type = "submit" value = "提交" class="btn btn-primary btn-lg" >
-                            </div>
-                              
-                        </form>
-                      </div>                    
-          </div>
-                    
+          </p>
+            
+          
+          <div class="row">
+       
+       
+		       <div class="panel panel-default">
+					  <!-- Default panel contents -->
+					  <div class="panel-heading">选择题</div>
+					  <!-- Table -->
+					  <table class="table">
+					   <thead>
+					      <tr>
+					         <th>题号</th>
+					         <th>题设</th>
+					         <th>选项1</th>
+					         <th>选项2</th>
+					         <th>选项3</th>
+					         <th>选项4</th>
+					         <th>正确选项</th>
+					         <th>你的选项</th>
+					         <th>分值</th>					     
+					      </tr>
+					   </thead>
+					   <tbody>
+					   <c:if test="${!empty dx_list}"> 
+		               		<c:forEach items="${dx_list}" varStatus="sta" var="u">
+					      		<tr>
+					         		<td>${sta.index+1}</td>
+					         		<td>${u.question_content}</td>
+					         		<td>${u.choice_A}</td>
+					         		<td>${u.choice_B}</td>
+					         		<td>${u.choice_C}</td>
+					         		<td>${u.choice_D}</td>
+					         		<td>选项${u.answer}</td>
+					         		<td>选项${u.stu_answer}</td>
+					         		<td>${u.question_score}</td>
+					      		</tr>
+					      	</c:forEach>
+		              </c:if>
+					   </tbody>
+					</table>
+					</div>
+					
+					
+					
+		       <div class="panel panel-default">
+					  <!-- Default panel contents -->
+					  <div class="panel-heading">判断题</div>
+					  <!-- Table -->
+					  <table class="table">
+					   <thead>
+					      <tr>
+					         <th>题号</th>
+					         <th>题设</th>
+					         <th>选项1</th>
+					         <th>选项2</th>					        
+					         <th>正确选项</th>
+					         <th>你的选项</th>
+					         <th>分值</th>					     
+					      </tr>
+					   </thead>
+					   <tbody>
+					   <c:if test="${!empty pd_list}"> 
+		               		<c:forEach items="${pd_list}" varStatus="sta" var="u">
+					      		<tr>
+					         		<td>${sta.index+1}</td>
+					         		<td>${u.question_content}</td>
+					         		<td>${u.choice_A}</td>
+					         		<td>${u.choice_B}</td>					         		
+					         		<td>选项${u.answer}</td>
+					         		<td>选项${u.stu_answer}</td>
+					         		<td>${u.question_score}</td>
+					      		</tr>
+					      	</c:forEach>
+		              </c:if>
+					   </tbody>
+					</table>
+					</div>
+					
+					
+					
+		       <div class="panel panel-default">
+					  <!-- Default panel contents -->
+					  <div class="panel-heading">简答题</div>
+					  <!-- Table -->
+					  <table class="table">
+					   <thead>
+					      <tr>
+					         <th>题号</th>
+					         <th>题设</th>					         
+					         <th>你的答案</th>
+					         <th>分值</th>					     
+					      </tr>
+					   </thead>
+					   <tbody>
+					   <c:if test="${!empty dt_list}"> 
+		               		<c:forEach items="${dt_list}" varStatus="sta" var="u">
+					      		<tr>
+					         		<td>${sta.index+1}</td>
+					         		<td>${u.question_content}</td>					         		
+					         		<td>${u.stu_answer}</td>
+					         		<td>${u.question_score}</td>
+					      		</tr>
+					      	</c:forEach>
+		              </c:if>
+					   </tbody>
+					</table>
+					</div>
+		       
+            
+          </div><!--/row-->
+          
+          
+          
+          
           
         </div><!--/.col-xs-12.col-sm-9-->
 
@@ -181,7 +271,7 @@ $(document).ready(function () {
       <hr>
 
       <footer>
-        <p>&copy; wyh&lcq</p>
+        <p>&copy;wyh&lcq</p>
       </footer>
 
     </div><!--/.container-->

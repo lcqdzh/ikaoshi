@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -135,9 +136,9 @@ $(document).ready(function () {
             <a href="stu_test_list" class="list-group-item ">待参加</a>
             <a href="stu_testd_list" class="list-group-item">已参加</a>
             <a href="not_begin_list" class="list-group-item">未开始</a>
-            <a href="overdue_list" class="list-group-item">已过期</a>
-            <a href="add_test" class="list-group-item">添加考试</a>
-            <a href="test_analyse" class="list-group-item">考试分析</a>
+            <a href="overdue_list" class="list-group-item ">已过期</a>
+            <a href="add_test" class="list-group-item ">添加考试</a>
+            <a href="test_analyse" class="list-group-item active">考试分析</a>
            
           </div>
         </div><!--/.sidebar-offcanvas-->
@@ -146,33 +147,53 @@ $(document).ready(function () {
         <div class="col-xs-12 col-sm-9">
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-          </p>         
-          <div class="row clearfix">
-                    <div class="col-md-2 column">
-                    </div>
-                    <div class="col-md-6 column">
-                        <form action="update_stu_password" method = "post" role="form">
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请输入原密码:</label><input class="form-control"  id="exampleInputName1" type = "password" name = "old_password" />
-                            </div>                            
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请输入新密码:</label><input class="form-control"   id="exampleInputzhuanye1" type = "password" name = "new_password1" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请确认新密码:</label><input class="form-control"   id="exampleInputclass1" type = "password" name = "new_password2" />
-                            </div>
-                            <p>${error}</p>
-                            <br>
-                            <div class="row clearfix">
-                                <div class="col-md-4 column">
-                                </div> 
-                                <input type = "submit" value = "提交" class="btn btn-primary btn-lg" >
-                            </div>
-                              
-                        </form>
-                      </div>                    
-          </div>
-                    
+          </p>
+            
+          
+          <div class="row">
+       
+       
+		       <div class="panel panel-default">
+					  <!-- Default panel contents -->
+					  <div class="panel-heading">考试分析</div>
+					  <!-- Table -->
+					  <table class="table">
+					   <thead>
+					      <tr>
+					         <th>考试号</th>
+					         <th>考试名</th>
+					         <th>分数</th>
+					         <th>平均分</th>
+					         <th>排名</th>
+					         <th>总人数</th>
+					         <th>百分比(%)</th>
+					      </tr>
+					   </thead>
+					   <tbody>
+					   <c:if test="${!empty test_analyse_list}"> 
+		               		<c:forEach items="${test_analyse_list}" var="u">
+					      		<tr>
+					         		<td>${u.test_Id}</td>
+					         		<td>${u.test_name}</td>
+					         		<td>${u.score}</td>
+					         		<td>${u.average_score}</td>
+					         		<td>${u.num_before}</td>
+					         		<td>${u.num_all}</td>
+					         		<td>${u.rate}</td>
+					      		</tr>
+					      	</c:forEach>
+		              </c:if>
+					   </tbody>
+					</table>
+					</div>
+		       
+		       
+            
+          </div><!--/row-->
+          
+          
+          
+          
           
         </div><!--/.col-xs-12.col-sm-9-->
 
@@ -181,7 +202,7 @@ $(document).ready(function () {
       <hr>
 
       <footer>
-        <p>&copy; wyh&lcq</p>
+        <p>&copy;wyh&lcq</p>
       </footer>
 
     </div><!--/.container-->

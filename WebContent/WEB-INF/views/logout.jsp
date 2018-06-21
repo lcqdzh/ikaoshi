@@ -19,7 +19,7 @@ function check1(){
         alert("请输入账号！");  
         flag = false;  
         return false;  
-    }
+    }  
     var len1 =admin.length;
     if(len1==9)
     {
@@ -155,10 +155,10 @@ function login_fail(){
             <div class="col-md-12 column">
                 
                 <div class="jumbotron">
-                    <h1 style="text-align:center">
+                    <h1>
                         欢迎使用在线考试平台</h1>
                         <h4> </h4>
-                        <h2 style="text-align:center">使用本系统前请登录。请选择相应用户进行登录。</h2>
+                        <h2>请选择相应用户重新进行登录。</h2>
                     
                 </div>
                 <div class="row clearfix">
@@ -168,9 +168,9 @@ function login_fail(){
                             <div class="form-group">
                                  <button type="button" class="btn btn-success btn btn-lg" onclick="location.href='stu_login_s'">学生</button>  
                             
-                                 <button type="button" class="btn btn-info btn btn-lg" onclick="location.href='tea_login_s'">教师</button>
+                                 <button type="button" class="btn btn-info btn btn-lg" onclick="location.href='tea_login_s'">教师</button>  
                                  
-                                  <button type="button" class="btn btn-warning btn btn-lg" onclick="location.href='admin_login_s'">管理</button>  
+                                 <button type="button" class="btn btn-warning btn btn-lg" onclick="location.href='admin_login_s'">管理</button>  
                             </div>
                             <div class="form-group">
                                  

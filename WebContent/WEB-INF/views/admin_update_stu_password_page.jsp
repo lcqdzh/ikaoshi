@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Off Canvas Template for Bootstrap</title>
+    <title>欢迎来到在线考试系统</title>
 
   <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
 	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -116,10 +116,10 @@ $(document).ready(function () {
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="stu_home">首页</a></li>
+            <li class="active"><a href="admin_home">首页</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="stu_info">修改密码</a></li>
+            <li><a href="admin_update_password_page">修改密码</a></li>
             <li><a href="logout">注销</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
@@ -132,13 +132,10 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="stu_test_list" class="list-group-item ">待参加</a>
-            <a href="stu_testd_list" class="list-group-item">已参加</a>
-            <a href="not_begin_list" class="list-group-item">未开始</a>
-            <a href="overdue_list" class="list-group-item">已过期</a>
-            <a href="add_test" class="list-group-item">添加考试</a>
-            <a href="test_analyse" class="list-group-item">考试分析</a>
-           
+            <a href="stu_manage" class="list-group-item " >学生管理</a>
+            <a href="tea_manage" class="list-group-item">老师管理</a>
+            
+            
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -146,15 +143,13 @@ $(document).ready(function () {
         <div class="col-xs-12 col-sm-9">
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-          </p>         
-          <div class="row clearfix">
+          </p>
+          
+            <div class="row clearfix">
                     <div class="col-md-2 column">
                     </div>
                     <div class="col-md-6 column">
-                        <form action="update_stu_password" method = "post" role="form">
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">请输入原密码:</label><input class="form-control"  id="exampleInputName1" type = "password" name = "old_password" />
-                            </div>                            
+                        <form action="admin_update_stu_password?stu_Id=${stu_Id }" method = "post" role="form">                                                     
                             <div class="form-group">
                                  <label for="exampleInputEmail1">请输入新密码:</label><input class="form-control"   id="exampleInputzhuanye1" type = "password" name = "new_password1" />
                             </div>
@@ -172,7 +167,6 @@ $(document).ready(function () {
                         </form>
                       </div>                    
           </div>
-                    
           
         </div><!--/.col-xs-12.col-sm-9-->
 

@@ -1,6 +1,6 @@
 package com.iKaoshi.bean;
 
-public class question {
+public class question_dt {
 	int question_Id;
 	int tiku_Id;
 	String question_content;
@@ -12,11 +12,11 @@ public class question {
 	String choice_D;
 	int answer;
 	int tiku_id;
-	int stu_answer;
-	public int getStu_answer() {
+	String stu_answer;
+	public String getStu_answer() {
 		return stu_answer;
 	}
-	public void setStu_answer(int stu_answer) {
+	public void setStu_answer(String stu_answer) {
 		this.stu_answer = stu_answer;
 	}
 	public int getTiku_Id() {
