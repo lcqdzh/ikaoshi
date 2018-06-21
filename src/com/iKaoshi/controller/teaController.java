@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,9 +30,12 @@ import com.iKaoshi.bean.Student;
 import com.iKaoshi.bean.Stutestinfo;
 import com.iKaoshi.bean.TeaTestInfo;
 import com.iKaoshi.bean.Teacjfenxi;
+import com.iKaoshi.bean.Teaconsult;
 import com.iKaoshi.bean.Tikuxinxi;
+import com.iKaoshi.bean.kaoshinum;
 import com.iKaoshi.bean.tea_cha_chengji;
 import com.iKaoshi.service.studentService;
+import com.iKaoshi.service.suiji;
 import com.iKaoshi.service.teacherService;
 
 import jxl.Cell;
@@ -55,6 +59,15 @@ public class teaController {
 	{
 		String str="123";
         return new ModelAndView("riqi","error",str);
+	}
+	@RequestMapping("/hellow")
+	public ModelAndView hellow(HttpServletRequest request)
+	{
+		String str="123";
+		int[] a=new int[5];
+		 a= suiji.getRandomFromArray(10,5);
+		 System.out.println(a.toString());
+        return new ModelAndView("hellow","error",str);
 	}
 	
 	
@@ -727,14 +740,26 @@ public class teaController {
 		System.out.println(t.toString());
 		int score=pd_score*(pd_easy+pd_medium+pd_hard)+dx_score*(dx_easy+dx_medium+dx_hard)+dt_score*(dt_easy+dt_medium+dt_hard);
 		String error="请确认试卷的总分是否为100分";
-		if(score==100)
+		if(teacherService.judgetikuNum(tiku_id, t))
 		{
-			teacherService.addteatestinfo(t);
-			error="请继续添加";
-			model.addAttribute("error", error);
-			return new ModelAndView("tea_addkaoshi","tea_id",tea_id);
+			if(score==100)
+			{
+				teacherService.updateteatestinfobyone(t);
+				error="添加成功，可继续添加";
+				model.addAttribute("teatestinfo", t);
+				model.addAttribute("error", error);
+				model.addAttribute("test_id", test_id);
+				List<Tikuxinxi> tikuxinxi=null;
+				System.out.println("tea_id:"+tea_id);
+				tikuxinxi=teacherService.quary(tea_id);
+				model.addAttribute("tikuxinxi",tikuxinxi);
+				return new ModelAndView("tea_dangekaoshiguanli","tea_id",tea_id);
+			}else {
+				error="请确认试卷的总分是否为100分";		
+			}
+
 		}else {
-			error="请确认试卷的总分是否为100分";		
+			error="请确认试题目个数满足要求";		
 		}
 		List<Tikuxinxi> tikuxinxi=null;
 		System.out.println("tea_id:"+tea_id);
@@ -869,7 +894,8 @@ public class teaController {
 		String test_name = request.getParameter("test_name");
 		String tiku_IDname = request.getParameter("tiku_IDname");String tiku_Idd=tiku_IDname.substring(0, tiku_IDname.indexOf(':'));int tiku_id=tiku_Idd.isEmpty()?0:Integer.parseInt(tiku_Idd);
 		//获取开始日期
-		String temp = request.getParameter("begin_time");//Timestamp begin_time= new Timestamp(System.currentTimeMillis());begin_time=Timestamp.valueOf("begin_timee");
+		String begin_timee = request.getParameter("begin_Time");
+		/*String temp = request.getParameter("begin_time");//Timestamp begin_time= new Timestamp(System.currentTimeMillis());begin_time=Timestamp.valueOf("begin_timee");
 		model.addAttribute("begin_timee", temp);
 		System.out.println(temp);
 		String temp1=temp.substring(0,10);
@@ -877,8 +903,10 @@ public class teaController {
 		System.out.println(temp1);
 		System.out.println(temp2);
 		String begin_timee=temp1+" "+temp2+":00";
-		Date d1 = null;
+		
 		System.out.println("2"+begin_timee);
+		*/
+		Date d1 = null;
 		if(!begin_timee.isEmpty()) {
 			try {
 				d1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(begin_timee);
@@ -893,13 +921,15 @@ public class teaController {
 		
 		
 		//获取结束日期
-		temp = request.getParameter("end_time");//Timestamp end_time= new Timestamp(System.currentTimeMillis());end_time.valueOf("end_timee");
+		String end_timee = request.getParameter("end_Time");
+		/*temp = request.getParameter("end_time");//Timestamp end_time= new Timestamp(System.currentTimeMillis());end_time.valueOf("end_timee");
 		model.addAttribute("end_timee", temp);
 		temp1=temp.substring(0,10);
 		temp2=temp.substring(temp.length()-5);
 		System.out.println(temp1);
 		System.out.println(temp2);
 		String end_timee=temp1+" "+temp2+":00";
+		*/
 		Date d2 = null;
 		if(!end_timee.isEmpty()) {
 			try {
@@ -1314,5 +1344,91 @@ public class teaController {
        return new ModelAndView("tea_jtkaoshixueshengdaoru","test_id",test_id);
     }
 	
-	//
+	//跳转到答疑列表
+	//crate by lcq 2018年6月21日19:09:06
+	@RequestMapping("/tea_consult_list")
+	public ModelAndView tea_consult_list(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		List<Teaconsult> consult=null;
+		consult=teacherService.quaryAll(tea_id);
+		System.out.print("consult num:"+consult.size());
+		model.addAttribute("consult", consult);
+		return new ModelAndView("tea_consult_list","tea_id",tea_id);
+	}
+	//跳转到尚未答疑列表
+	//crate by lcq 2018年6月21日19:09:06
+	@RequestMapping("/tea_consult_wait")
+	public ModelAndView tea_consult_wait(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		List<Teaconsult> consult=null;
+		consult=teacherService.quaryWait(tea_id);
+		model.addAttribute("consult", consult);
+		return new ModelAndView("tea_consult_wait","tea_id",tea_id);
+	}
+	//跳转到已经答疑列表
+	//crate by lcq 2018年6月21日19:09:06
+	@RequestMapping("/tea_consult_over")
+	public ModelAndView tea_consult_over(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		List<Teaconsult> consult=null;
+		consult=teacherService.quaryOver(tea_id);
+		model.addAttribute("consult", consult);
+		return new ModelAndView("tea_consult_over","tea_id",tea_id);
+	}
+	//跳转到回复界面
+	//create by lcq 2018年6月22日00:31:30
+	@RequestMapping("/tea_consult_dg")
+	public ModelAndView tea_consult_dg(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		String stu_idd = request.getParameter("stu_id");
+		int stu_id=test_idd.isEmpty()?0:Integer.parseInt(stu_idd);
+		System.out.println("stu_id"+stu_id+" test_id="+test_id);
+		model.addAttribute("test_id", test_id);
+		model.addAttribute("stu_id", stu_id);
+		return new ModelAndView("tea_consult_dg","tea_id",tea_id);
+	}
+	//跳转到回复界面
+	//create by lcq 2018年6月22日00:46:35
+	@RequestMapping("/tea_consult_f")
+	public ModelAndView tea_consult_f(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		String test_idd = request.getParameter("test_id");
+		int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		String stu_idd = request.getParameter("stu_id");
+		int stu_id=test_idd.isEmpty()?0:Integer.parseInt(stu_idd);
+		System.out.println("stu_id"+stu_id+" test_id="+test_id);
+		String answer = request.getParameter("answer");
+		System.out.println(answer);
+		teacherService.updateConsult(stu_id, test_id, answer);
+		List<Teaconsult> consult=null;
+		consult=teacherService.quaryAll(tea_id);
+		System.out.print("consult num:"+consult.size());
+		model.addAttribute("consult", consult);
+		return new ModelAndView("tea_consult_list","tea_id",tea_id);
+	}
+	//获取相应题库对应的考试数据限制
+	//create by lcq 2018年6月21日20:56:19
+	@RequestMapping("/tea_kaoshinum")
+	public ModelAndView tea_kaoshinum(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		List<Tikuxinxi> tikuxinxi=null;
+		tikuxinxi=teacherService.quary(tea_id);
+		List<kaoshinum> kaoshi=new ArrayList<kaoshinum>();;
+		for(int i=0;i<tikuxinxi.size();i++)
+		{
+			Tikuxinxi t=tikuxinxi.get(i);
+			kaoshinum k=teacherService.gettikuNum(t.getTiku_ID(), t);
+			kaoshi.add(k);
+		}
+		model.addAttribute("kaoshi", kaoshi);
+		return new ModelAndView("tea_kaoshinum","tea_id",tea_id);
+	}
 }

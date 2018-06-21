@@ -15,9 +15,10 @@ public class suiji {
 		   	}
 		   	
 		   	int j=0;
+		   	Random ran1 = new Random();
 		   	while(true)
 		   	{
-		   		Random ran1 = new Random(j);
+		   		
 		   		j++;
 		   		int i=ran1.nextInt(num);
 		   		if(a[i]!=-1)

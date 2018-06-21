@@ -14,6 +14,7 @@ import com.iKaoshi.bean.Stutestinfo;
 import com.iKaoshi.bean.TeaTestInfo;
 import com.iKaoshi.bean.Teacher;
 import com.iKaoshi.bean.Teacjfenxi;
+import com.iKaoshi.bean.Teaconsult;
 import com.iKaoshi.bean.Tikuxinxi;
 import com.iKaoshi.bean.kaoshinum;
 import com.iKaoshi.bean.tea_cha_chengji;
@@ -23,6 +24,7 @@ import com.iKaoshi.dao.studentDao;
 import com.iKaoshi.dao.stutestinfoDao;
 import com.iKaoshi.dao.teachachengjiDao;
 import com.iKaoshi.dao.teacherDao;
+import com.iKaoshi.dao.teaconsultDao;
 import com.iKaoshi.dao.teatestinfoDao;
 import com.iKaoshi.dao.tikuDao;
 
@@ -232,7 +234,7 @@ public class teacherService {
 		 if(t.getDx_hard()!=0)//单选难题
 		 {
 			 List<Question1> temp=null;//中间变量
-			 temp=qdao.quarybytikuidquestiontypelable(t.getDx_hard(), 3, 1);
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 1, 1);
 			 int[] a=new int[t.getDx_hard()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getDx_hard());
 			 System.out.println("here");
@@ -248,7 +250,7 @@ public class teacherService {
 		 if(t.getPd_easy()!=0)//判断简单题
 		 {
 			 List<Question1> temp=null;//中间变量
-			 temp=qdao.quarybytikuidquestiontypelable(t.getPd_easy(), 3, 1);
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 2, 1);
 			 int[] a=new int[t.getPd_easy()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getPd_easy());
 			 System.out.println("here");
@@ -264,7 +266,7 @@ public class teacherService {
 		 if(t.getPd_medium()!=0)//判断中等题
 		 {
 			 List<Question1> temp=null;//中间变量
-			 temp=qdao.quarybytikuidquestiontypelable(t.getPd_medium(), 3, 1);
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 2, 2);
 			 int[] a=new int[t.getPd_medium()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getPd_medium());
 			 System.out.println("here");
@@ -280,7 +282,7 @@ public class teacherService {
 		 if(t.getPd_hard()!=0)//判断难题
 		 {
 			 List<Question1> temp=null;//中间变量
-			 temp=qdao.quarybytikuidquestiontypelable(t.getPd_hard(), 3, 1);
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 2, 3);
 			 int[] a=new int[t.getPd_hard()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getPd_hard());
 			 System.out.println("here");
@@ -312,7 +314,7 @@ public class teacherService {
 		 if(t.getDt_medium()!=0)//大题中等题
 		 {
 			 List<Question1> temp=null;//中间变量
-			 temp=qdao.quarybytikuidquestiontypelable(t.getDt_medium(), 3, 1);
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 3, 2);
 			 int[] a=new int[t.getDt_medium()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getDt_medium());
 			 System.out.println("here");
@@ -328,7 +330,7 @@ public class teacherService {
 		 if(t.getDt_hard()!=0)//大题难题
 		 {
 			 List<Question1> temp=null;//中间变量
-			 temp=qdao.quarybytikuidquestiontypelable(t.getDt_hard(), 3, 1);
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 3, 3);
 			 int[] a=new int[t.getDt_hard()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getDt_hard());
 			 System.out.println("here");
@@ -605,7 +607,7 @@ public class teacherService {
 	 }
 	 //查看某个题库各种题型的个数
 	 //create by lcq 2018年6月20日23:13:08
-	 public static kaoshinum gettikuNum(int tiku_Id)
+	 public static kaoshinum gettikuNum(int tiku_Id,Tikuxinxi x)
 	 {
 		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
 			//从ioc容器中获取dao
@@ -620,6 +622,8 @@ public class teacherService {
 			k.setPd_easy(qdao.getPd_easy(tiku_Id));
 			k.setPd_medium(qdao.getPd_medium(tiku_Id));
 			k.setPd_hard(qdao.getPd_hard(tiku_Id));
+			k.setTiku_Id(x.getTiku_ID());
+			k.setTiku_name(x.getTiku_name());
 			return k;
 	 }
 	 //判断各种题型个数是否符合要求 true 表示符合
@@ -653,5 +657,41 @@ public class teacherService {
 				flag=false;
 			}
 			return flag;
+	 }
+	 //查看所有回复信息
+	 //create by lcq 2018年6月21日21:45:13
+	 public static List<Teaconsult> quaryAll(int tea_id)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			teaconsultDao tdao = (teaconsultDao) context.getBean("teaconsultDao");
+			return tdao.quaryAll(tea_id);
+	 }
+	 //查看完成回复信息
+	 //create by lcq 2018年6月21日21:45:13
+	 public static List<Teaconsult> quaryOver(int tea_id)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			teaconsultDao tdao = (teaconsultDao) context.getBean("teaconsultDao");
+			return tdao.quaryOver(tea_id);
+	 }
+	//查看未完成回复信息
+	 //create by lcq 2018年6月21日21:45:13
+	 public static List<Teaconsult> quaryWait(int tea_id)
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			teaconsultDao tdao = (teaconsultDao) context.getBean("teaconsultDao");
+			return tdao.quaryWait(tea_id);
+	 }
+	 //更新回复信息
+	 //create by lcq 2018年6月21日21:50:40
+	 public static boolean updateConsult(int stu_id,int test_id,String answer) 
+	 {
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			teaconsultDao tdao = (teaconsultDao) context.getBean("teaconsultDao");
+			return tdao.updateConsult(stu_id, test_id, answer);
 	 }
 }

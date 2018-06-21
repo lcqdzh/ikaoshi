@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -13,33 +13,15 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>在线考试平台</title>
-
-  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	
-	<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!-- Custom styles for this template -->
+  	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>  
+	<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">  
+	<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>  
     
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>  
-<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">  
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
-  
-<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>  
-<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css" rel="stylesheet">
-<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.min.css" rel="stylesheet">
-<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet">
-<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <style type="text/css">
+
+ <style type="text/css">
     /*
  * Style tweaks
  * --------------------------------------------------
@@ -101,14 +83,54 @@ footer {
 }
     
     </style>
-    
    
   </head>
+  
+<script type="text/javascript">
+$(document).ready(function () {
+	  $('[data-toggle="offcanvas"]').click(function () {
+	    $('.row-offcanvas').toggleClass('active')
+	  });
+	});
+</script>
+<script>
+$(function () {  
 
+    var picker1 = $('#datetimepicker1').datetimepicker({  
 
-
-  <body >
-    <nav class="navbar navbar-fixed-top navbar-inverse">
+        format: 'YYYY-MM-DD HH:mm:ss',  
+        locale: moment.locale('zh-cn'),  
+        //minDate: '2016-7-1'  
+    });  
+    var picker2 = $('#datetimepicker2').datetimepicker({  
+        format: 'YYYY-MM-DD HH:mm:ss',  
+        locale: moment.locale('zh-cn')  
+    });  
+    //动态设置最小值  
+    picker1.on('dp.change', function (e) {  
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        picker1.data('DateTimePicker').minDate(currentdate);  
+        picker2.data('DateTimePicker').minDate(e.date);  
+    });  
+    //动态设置最大值  
+    picker2.on('dp.change', function (e) {  
+        picker1.data('DateTimePicker').maxDate(e.date);  
+    });  
+});
+</script>
+  <body>
+  <nav class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -132,20 +154,19 @@ footer {
     </nav><!-- /.navbar -->
 
     <div class="container">
-
+    
       <div class="row row-offcanvas row-offcanvas-right">
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
             <a href="tea_kaoshiguanli" class="list-group-item active" >考试管理</a>
-            <a href="tea_dangekaoshiguanli?test_id=${test_id}" class="list-group-item">考试信息</a>
-            <a href="tea_jtkaoshixuesheng?test_id=${test_id}" class="list-group-item">学生名单</a>
-            <a href="tea_jtkaoshixueshengdaoru?test_id=${test_id}" class="list-group-item">导入名单</a>
+            <a href="tea_chakankaoshi" class="list-group-item">查看考试</a>
+            <a href="tea_kaoshinum" class="list-group-item">题库限制</a>
+            <a href="tea_addkaoshi" class="list-group-item">添加考试</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
-
-        <div class="col-xs-12 col-sm-9">
+		<div class="col-xs-12 col-sm-9">
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
@@ -153,7 +174,7 @@ footer {
             <h1>欢迎使用在线考试系统</h1>
             <p>${error }</p>
           </div>
-			    <form action="tea_dangekaoshiguanli_f?test_id=${teatestinfo.test_id}" method = "post" role="form">
+			   			    <form action="tea_dangekaoshiguanli_f?test_id=${teatestinfo.test_id}" method = "post" role="form">
 			    			<div class="form-group">
                                  <label for="exampleInputEmail1">考试编号</label><input class="form-control" placeholder="${ teatestinfo.test_id}" id="exampleInputName1" type = "text" name = "test_id1" disabled="disabled" readonly="readonly"/>
                             </div>  
@@ -176,12 +197,86 @@ footer {
 							      </c:if>
 							    </select>
                             </div>
-							<div class="form-group">
-                                 <label for="exampleInputEmail1">开始时间</label><input class="form-control" value="${begin_timee }"  id="exampleInputzhuanye1" type = "datetime-local" name = "begin_time" />
-                            </div>
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">结束时间</label><input class="form-control" value="${end_timee }"  id="exampleInputzhuanye1" type = "datetime-local" name = "end_time" />
-                            </div>
+
+                            <div class="row">  
+						    <div class='col-sm-6'>  
+						        <div class="form-group">  
+						            <label>开始时间：</label>  
+						            <!--指定 date标记-->  
+						            <div class='input-group date' id='datetimepicker1'>  
+						                <input type='text' class="form-control" name="begin_Time" placeholder="${ teatestinfo.begin_time}" />  
+						                <span class="input-group-addon">  
+						                    <span class="glyphicon glyphicon-calendar"></span>  
+						                </span>  
+						            </div>  
+						        </div>  
+						    </div>  
+					    <div class='col-sm-6'>  
+						        <div class="form-group">  
+						            <label>结束时间：</label>  
+						            <!--指定 date标记-->  
+						            <div class='input-group date' id='datetimepicker2'>  
+						                <input type='text' class="form-control" name="end_Time" placeholder="${ teatestinfo.end_time}" />  
+						                <span class="input-group-addon">  
+						                    <span class="glyphicon glyphicon-calendar"></span>  
+						                </span>  
+						            </div>  
+						        </div>  
+						    </div>  
+						</div>  
+  <script>
+$(function () {  
+    var picker1 = $('#datetimepicker1').datetimepicker({  
+	
+        format: 'YYYY-MM-DD HH:mm:ss',  
+        locale: moment.locale('zh-cn'),  
+        //minDate: '2016-7-1'  
+    });  
+    var picker2 = $('#datetimepicker2').datetimepicker({  
+        format: 'YYYY-MM-DD HH:mm:ss',  
+        locale: moment.locale('zh-cn') ,
+        //defaultDate: "1990-1-1"
+    });  
+    //动态设置最小值  
+    picker1.on('dp.change', function (e) {  
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        picker1.data('DateTimePicker').minDate(currentdate);  
+        if(currentdate<e.date){
+        	picker2.data('DateTimePicker').minDate(currentdate);  
+        }else{
+        	 picker2.data('DateTimePicker').minDate(e.date); 
+        }
+    });  
+    //动态设置最大值  
+    picker2.on('dp.change', function (e) {  
+    	var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        picker2.data('DateTimePicker').minDate(currentdate);  
+        picker1.data('DateTimePicker').maxDate(e.date);  
+    });  
+});
+</script>
                             <div class="form-group">
                                  <label for="exampleInputEmail1">考试时长</label><input class="form-control" placeholder="${ teatestinfo.time_long}"  id="exampleInputzhuanye1" type = "text" name = "time_long" />
                             </div>
@@ -235,24 +330,14 @@ footer {
 
       </div><!--/row-->
 
-      <hr>
 
+
+    </div> <!-- /container -->
       <footer>
         <p>&copy; 2016 Company, Inc.</p>
       </footer>
 
-    </div><!--/.container-->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="offcanvas.js"></script>
   </body>
-
 </html>

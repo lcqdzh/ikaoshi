@@ -41,6 +41,7 @@
     <bean id="pigaiDao" class="com.iKaoshi.dao.pigaiDao"></bean> <!-- lcq -->
     <bean id="teachachengjiDao" class="com.iKaoshi.dao.teachachengjiDao"></bean> <!-- lcq -->
     <bean id="stutestinfoDao" class="com.iKaoshi.dao.stutestinfoDao"></bean> <!-- lcq -->
+    <bean id="teaconsultDao" class="com.iKaoshi.dao.teaconsultDao"></bean> <!-- lcq -->
         <bean id="adminDao" class="com.iKaoshi.dao.adminDao"></bean>
     <!-- 控制层类 ，这个配置无效-->
     <bean id="controller" class="com.iKaoshi.controller">

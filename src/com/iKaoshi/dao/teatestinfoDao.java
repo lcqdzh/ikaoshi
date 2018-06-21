@@ -72,7 +72,7 @@ public class teatestinfoDao {
 		  //System.out.println(2);
 		 return jdbcTemplate.update(sql,
 		    new Object[] { t.getTest_name(),t.getTest_id(),t.getTiku_id(),t.getTea_id(),t.getBegin_time(),t.getEnd_time(),t.getTime_long(),t.getDx_easy(),t.getDx_medium()
-		    		,t.getDt_hard(),t.getPd_easy(),t.getPd_medium(),t.getPd_hard(),t.getDt_easy(),t.getDt_medium(),t.getDt_hard(),t.getDx_score(),t.getPd_score(),t.getDt_score()}) == 1;
+		    		,t.getDx_hard(),t.getPd_easy(),t.getPd_medium(),t.getPd_hard(),t.getDt_easy(),t.getDt_medium(),t.getDt_hard(),t.getDx_score(),t.getPd_score(),t.getDt_score()}) == 1;
 		  }
 	
 	//映射关系

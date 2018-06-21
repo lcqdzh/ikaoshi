@@ -14,15 +14,10 @@
 
     <title>在线考试平台</title>
 
-  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	
-	<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!-- Custom styles for this template -->
+  	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -133,10 +128,9 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="tea_kaoshiguanli" class="list-group-item active" >考试管理</a>
-            <a href="tea_chakankaoshi" class="list-group-item">查看考试</a>
-            <a href="tea_kaoshinum" class="list-group-item">题库限制</a>
-            <a href="tea_addkaoshi" class="list-group-item">添加考试</a>
+            <a href="tea_consult_list" class="list-group-item">答疑功能</a>
+            <a href="tea_consult_wait" class="list-group-item active">等待回复</a>
+            <a href="tea_consult_over" class="list-group-item">已经回复</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -149,33 +143,42 @@ $(document).ready(function () {
             <h1>欢迎使用在线考试系统</h1>
             <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
           </div>
-                    <div class="panel panel-default">
+          <div class="row">
+       <div class="panel panel-default">
 			  <!-- Default panel contents -->
-			  <div class="panel-heading">考试信息</div>
+			  <div class="panel-heading">答疑信息</div>
 			  <!-- Table -->
 			  <table class="table">
 			   <thead>
 			      <tr>
-			         <th>编号</th>
-			         <th>名称</th>
-			         <th>开始日期</th>
-			         <th>结束日期</th>
-			         <th>管理</th>
+			         <th>考试编号</th>
+			         <th>学号</th>
+			         <th>姓名</th>
+			         <th>问题</th>
+			         <th>回复</th>
 			      </tr>
 			   </thead>
 			   <tbody>
-			   <c:if test="${!empty teatestinfo}"> 
-               		<c:forEach items="${teatestinfo}" var="u">
+			   <c:if test="${!empty consult}"> 
+               		<c:forEach items="${consult}" var="u">
 			      		<tr>
-			         		<td>${u.test_id}</td>
-			         		<td>${u.test_name}</td>
-			         		<td>${u.begin_time}</td>
-			         		<td>${u.end_time}</td>
-			         		<td><button type="button" class="btn btn-danger" onclick="location.href='tea_dangekaoshiguanli?test_id=${u.test_id}'">管理</button></td>
+			         		<td>${u.test_Id}</td>
+			         		<td>${u.stu_Id}</td>
+			         		<td>${u.stu_name}</td>
+			         		<td>${u.question}</td>
+			         		<td>
+			         		 <c:if test="${u.state=='0'}"> 
+				         		<button type="button" class="btn btn-danger" onclick="location.href='tea_consult_dg?test_id=${u.test_Id}&stu_id=${u.stu_Id }'">回复</button>
+							 </c:if>
+								<c:if test="${u.state=='1'}">
+								已回复 
+				         		</c:if>
+			         		</td>
 			      		</tr>
 			      	</c:forEach>
               </c:if>
 			   </tbody>
+			</table>
 			</table>
 			</div>
         </div><!--/.col-xs-12.col-sm-9-->

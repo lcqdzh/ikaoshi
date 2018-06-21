@@ -12,15 +12,14 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>Signin Template for Bootstrap</title>
-	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	
-	<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!-- Custom styles for this template -->
+  	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>  
+	<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">  
+	<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>  
+    
+
    
 <style type="text/css">
 body {
@@ -70,7 +69,14 @@ body {
 </style>
    
   </head>
-
+<script>
+$(function () {  
+    $('#date1').datetimepicker({  
+        format: 'YYYY-MM-DD',  
+        locale: moment.locale('zh-cn')  
+    });  
+}); 
+</script>
   <body>
 
     <div class="container">
@@ -88,7 +94,22 @@ body {
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
         <button class="btn btn-lg btn-primary btn-block" type="submit">register</button>
+        		<div class="row">  
+		    <div class="col-sm-6">  
+		        <div class="form-group">  
+		            <label for="">选择日期：</label>  
+		            <div class="input-group date" id='date1'>  
+		                <input type="text" class="form-control">  
+		                <span class="input-group-addon">  
+		                    <i class="glyphicon glyphicon-calendar"></i>  
+		                </span>  
+		            </div>  
+		        </div>  
+		    </div>  
+		</div>  
+        
       </form>
+
 
     </div> <!-- /container -->
 

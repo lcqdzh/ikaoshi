@@ -1,6 +1,8 @@
 package com.iKaoshi.bean;
 
 public class kaoshinum {
+int tiku_Id;
+String tiku_name;
 int pd_easy;
 int pd_medium;
 int pd_hard;
@@ -63,6 +65,18 @@ public int getDt_hard() {
 }
 public void setDt_hard(int dt_hard) {
 	this.dt_hard = dt_hard;
+}
+public int getTiku_Id() {
+	return tiku_Id;
+}
+public void setTiku_Id(int tiku_Id) {
+	this.tiku_Id = tiku_Id;
+}
+public String getTiku_name() {
+	return tiku_name;
+}
+public void setTiku_name(String tiku_name) {
+	this.tiku_name = tiku_name;
 }
 
 }

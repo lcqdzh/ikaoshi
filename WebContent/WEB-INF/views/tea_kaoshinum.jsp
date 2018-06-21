@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+    <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -13,23 +13,15 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>在线考试平台</title>
+  	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>  
+	<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">  
+	<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>  
+    
 
-  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	
-	<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!-- Custom styles for this template -->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <style type="text/css">
+ <style type="text/css">
     /*
  * Style tweaks
  * --------------------------------------------------
@@ -91,20 +83,11 @@ footer {
 }
     
     </style>
-    
    
   </head>
-<script type="text/javascript">
-$(document).ready(function () {
-	  $('[data-toggle="offcanvas"]').click(function () {
-	    $('.row-offcanvas').toggleClass('active')
-	  });
-	});
-</script>
-
 
   <body>
-    <nav class="navbar navbar-fixed-top navbar-inverse">
+  <nav class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -128,7 +111,7 @@ $(document).ready(function () {
     </nav><!-- /.navbar -->
 
     <div class="container">
-
+    
       <div class="row row-offcanvas row-offcanvas-right">
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
@@ -140,38 +123,48 @@ $(document).ready(function () {
           </div>
         </div><!--/.sidebar-offcanvas-->
 
-
-        <div class="col-xs-12 col-sm-9">
+		<div class="col-xs-12 col-sm-9">
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
           <div class="jumbotron">
             <h1>欢迎使用在线考试系统</h1>
-            <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+            <p>${error }</p>
           </div>
-                    <div class="panel panel-default">
+			    <div class="panel panel-default">
 			  <!-- Default panel contents -->
 			  <div class="panel-heading">考试信息</div>
 			  <!-- Table -->
 			  <table class="table">
 			   <thead>
 			      <tr>
-			         <th>编号</th>
-			         <th>名称</th>
-			         <th>开始日期</th>
-			         <th>结束日期</th>
-			         <th>管理</th>
-			      </tr>
+			         <th>题库编号</th>
+			         <th>题库名称</th>
+			         <th></th>
+			         </tr>
 			   </thead>
 			   <tbody>
-			   <c:if test="${!empty teatestinfo}"> 
-               		<c:forEach items="${teatestinfo}" var="u">
+			   <c:if test="${!empty kaoshi}"> 
+               		<c:forEach items="${kaoshi}" var="u">
 			      		<tr>
-			         		<td>${u.test_id}</td>
-			         		<td>${u.test_name}</td>
-			         		<td>${u.begin_time}</td>
-			         		<td>${u.end_time}</td>
-			         		<td><button type="button" class="btn btn-danger" onclick="location.href='tea_dangekaoshiguanli?test_id=${u.test_id}'">管理</button></td>
+			         		<td>${u.tiku_Id}</td>
+			         		<td>${u.tiku_name}</td>
+			         		<td></td>
+			      		</tr>
+			      		<tr>
+			         		<td>选择简单题${u.dx_easy}</td>
+			         		<td>选择中等题${u.dx_medium}</td>
+			         		<td>选择困难题${u.dx_hard}</td>
+			      		</tr>
+			      		<tr>
+			         		<td>判断简单题${u.pd_easy}</td>
+			         		<td>判断中等提${u.pd_medium}</td>
+			         		<td>判断困难题${u.pd_hard}</td>
+			      		</tr>
+			      		<tr>
+			         		<td>大题简单题${u.dt_easy}</td>
+			         		<td>答题中等题${u.dt_medium}</td>
+			         		<td>大题困难提${u.dt_hard}</td>
 			      		</tr>
 			      	</c:forEach>
               </c:if>
@@ -182,23 +175,15 @@ $(document).ready(function () {
 
       </div><!--/row-->
 
-      <hr>
 
+
+
+    </div> <!-- /container -->
       <footer>
         <p>&copy; 2016 Company, Inc.</p>
       </footer>
 
-    </div><!--/.container-->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="offcanvas.js"></script>
   </body>
 </html>
