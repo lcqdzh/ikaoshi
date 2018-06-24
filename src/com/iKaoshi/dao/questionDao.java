@@ -28,6 +28,17 @@ public class questionDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		  this.jdbcTemplate = jdbcTemplate;
 	}
+	//将抽到的提存入到shijuan表中
+	//create by lcq 2018年6月24日20:39:29
+	public boolean insertShijuan(int test_id,int tiku_id,int question_id) {
+	String sql = "insert into ikaoshi.shijuan(test_Id,tiku_Id,question_Id)"
+			+ " values(?,?,?)";
+	//System.out.println(2);
+	return jdbcTemplate.update(sql,
+	new Object[] { test_id,tiku_id,question_id}) == 1;
+	}
+	
+	
 	//根据题库号获取单选简单个数
 	//create by lcq 2018年6月21日15:38:52
 	@SuppressWarnings("deprecation")
@@ -179,4 +190,8 @@ public class questionDao {
 		  }
 		 
 		  }
+	
+	
+	
+	
 }

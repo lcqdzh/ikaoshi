@@ -147,7 +147,7 @@ $(function () {
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="tea_info">修改密码</a></li>
-            <li><a href="#contact">注销</a></li>
+            <li><a href="logout">注销</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -159,10 +159,10 @@ $(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="tea_kaoshiguanli" class="list-group-item active" >考试管理</a>
+            <a href="tea_kaoshiguanli" class="list-group-item" >考试管理</a>
             <a href="tea_chakankaoshi" class="list-group-item">查看考试</a>
             <a href="tea_kaoshinum" class="list-group-item">题库限制</a>
-            <a href="tea_addkaoshi" class="list-group-item">添加考试</a>
+            <a href="tea_addkaoshi" class="list-group-item active">添加考试</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -218,43 +218,43 @@ $(function () {
 						</div>  
 
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">考试时长</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "time_long" />
+                                 <label for="exampleInputEmail1">考试时长</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "time_long" />
                             </div>
                              <div class="form-group">
-                                 <label for="exampleInputEmail1">选择分值</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dx_score" />
+                                 <label for="exampleInputEmail1">选择分值</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "dx_score" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">选择简单题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dx_easy" />
+                                 <label for="exampleInputEmail1">选择简单题个数</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "dx_easy" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">选择中等题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dx_medium" />
+                                 <label for="exampleInputEmail1">选择中等题个数</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "dx_medium" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">选择困难题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dx_hard" />
+                                 <label for="exampleInputEmail1">选择困难题个数</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "dx_hard" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">判断分值</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "pd_score" />
+                                 <label for="exampleInputEmail1">判断分值</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "pd_score" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">判断简单题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "pd_easy" />
+                                 <label for="exampleInputEmail1">判断简单题个数</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "pd_easy" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">判断中等题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "pd_medium" />
+                                 <label for="exampleInputEmail1">判断中等题个数</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "pd_medium" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">判断困难题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "pd_hard" />
+                                 <label for="exampleInputEmail1">判断困难题个数</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "pd_hard" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">大题分值</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dt_score" />
+                                 <label for="exampleInputEmail1">大题分值</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "dt_score" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">大题简单题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dt_easy" />
+                                 <label for="exampleInputEmail1">大题简单题个数</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "dt_easy" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">大题中等题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dt_medium" />
+                                 <label for="exampleInputEmail1">大题中等题个数</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "dt_medium" />
                             </div>
                             <div class="form-group">
-                                 <label for="exampleInputEmail1">大题困难题个数</label><input class="form-control" placeholder=""  id="exampleInputzhuanye1" type = "text" name = "dt_hard" />
+                                 <label for="exampleInputEmail1">大题困难题个数</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "dt_hard" />
                             </div>                        
                             <div class="row clearfix">
                                 <div class="col-md-5 column">
@@ -274,7 +274,7 @@ $(function () {
 
     </div> <!-- /container -->
       <footer>
-        <p>&copy; 2016 Company, Inc.</p>
+        <p>&copy; wyh&lcq</p>
       </footer>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

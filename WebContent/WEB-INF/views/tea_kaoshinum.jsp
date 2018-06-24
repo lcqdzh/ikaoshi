@@ -104,7 +104,7 @@ footer {
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="tea_info">修改密码</a></li>
-            <li><a href="#contact">注销</a></li>
+            <li><a href="logout">注销</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -116,9 +116,9 @@ footer {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="tea_kaoshiguanli" class="list-group-item active" >考试管理</a>
+            <a href="tea_kaoshiguanli" class="list-group-item" >考试管理</a>
             <a href="tea_chakankaoshi" class="list-group-item">查看考试</a>
-            <a href="tea_kaoshinum" class="list-group-item">题库限制</a>
+            <a href="tea_kaoshinum" class="list-group-item active">题库限制</a>
             <a href="tea_addkaoshi" class="list-group-item">添加考试</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
@@ -129,7 +129,7 @@ footer {
           </p>
           <div class="jumbotron">
             <h1>欢迎使用在线考试系统</h1>
-            <p>${error }</p>
+            <p>下面是题库信息</p>
           </div>
 			    <div class="panel panel-default">
 			  <!-- Default panel contents -->
@@ -152,19 +152,19 @@ footer {
 			         		<td></td>
 			      		</tr>
 			      		<tr>
-			         		<td>选择简单题${u.dx_easy}</td>
-			         		<td>选择中等题${u.dx_medium}</td>
-			         		<td>选择困难题${u.dx_hard}</td>
+			         		<td>选择简单题：${u.dx_easy}个</td>
+			         		<td>选择中等题：${u.dx_medium}个</td>
+			         		<td>选择困难题：${u.dx_hard}个</td>
 			      		</tr>
 			      		<tr>
-			         		<td>判断简单题${u.pd_easy}</td>
-			         		<td>判断中等提${u.pd_medium}</td>
-			         		<td>判断困难题${u.pd_hard}</td>
+			         		<td>判断简单题：${u.pd_easy}个</td>
+			         		<td>判断中等题：${u.pd_medium}个</td>
+			         		<td>判断困难题：${u.pd_hard}个</td>
 			      		</tr>
 			      		<tr>
-			         		<td>大题简单题${u.dt_easy}</td>
-			         		<td>答题中等题${u.dt_medium}</td>
-			         		<td>大题困难提${u.dt_hard}</td>
+			         		<td>大题简单题：${u.dt_easy}个</td>
+			         		<td>答题中等题：${u.dt_medium}个</td>
+			         		<td>大题困难题：${u.dt_hard}个</td>
 			      		</tr>
 			      	</c:forEach>
               </c:if>
@@ -180,7 +180,7 @@ footer {
 
     </div> <!-- /container -->
       <footer>
-        <p>&copy; 2016 Company, Inc.</p>
+        <p>&copy; wyh&lcq</p>
       </footer>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

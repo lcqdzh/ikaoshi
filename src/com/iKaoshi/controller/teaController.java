@@ -744,7 +744,8 @@ public class teaController {
 		{
 			if(score==100)
 			{
-				teacherService.updateteatestinfobyone(t);
+				teacherService.addteatestinfo(t);
+				System.out.println(t.toString());
 				error="添加成功，可继续添加";
 				model.addAttribute("teatestinfo", t);
 				model.addAttribute("error", error);
@@ -1115,6 +1116,11 @@ public class teaController {
 			teacherService.updateStutestinfo(stu_id, test_id, tiku_id);
 		}
 		
+		//model.addAttribute("sjzg", ns);
+		ns=new Shijuanzhuguan();
+		ns=teacherService.getBytestidstuidquestionidtikuid(test_id, stu_id, question_id, tiku_id);
+		ns=teacherService.getBytestidstuidquestionidtikuid_n(test_id, stu_id, question_id, tiku_id, ns);
+		
 		model.addAttribute("sjzg", ns);
 		
 		return "tea_pigai_juti";
@@ -1430,5 +1436,27 @@ public class teaController {
 		}
 		model.addAttribute("kaoshi", kaoshi);
 		return new ModelAndView("tea_kaoshinum","tea_id",tea_id);
+	}
+	
+	//抽取试卷的动作
+	//create by lcq 2018年6月24日20:27:24
+	@RequestMapping("/tea_get_shijuan_f")
+	public ModelAndView tea_get_shijuan_f(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		List<Tikuxinxi> tikuxinxi=null;
+		tikuxinxi=teacherService.quary(tea_id);
+		List<kaoshinum> kaoshi=new ArrayList<kaoshinum>();;
+		for(int i=0;i<tikuxinxi.size();i++)
+		{
+			Tikuxinxi t=tikuxinxi.get(i);
+			kaoshinum k=teacherService.gettikuNum(t.getTiku_ID(), t);
+			kaoshi.add(k);
+		}
+		model.addAttribute("kaoshi", kaoshi);
+		
+		//抽取试卷的动作
+		teacherService.tea_get_shijuan_f(10);
+		return new ModelAndView("hellow","tea_id",tea_id);
 	}
 }

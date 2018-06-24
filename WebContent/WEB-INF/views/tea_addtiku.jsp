@@ -120,7 +120,7 @@ $(document).ready(function () {
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="tea_info">修改密码</a></li>
-            <li><a href="#contact">注销</a></li>
+            <li><a href="logout">注销</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -145,7 +145,7 @@ $(document).ready(function () {
           </p>
           <div class="jumbotron">
             <h1>欢迎使用在线考试系统</h1>
-            <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+            <p>请添加题库</p>
           </div>
           
 			<form class="form-signin" action="tea_addtiku_f">
@@ -160,7 +160,7 @@ $(document).ready(function () {
       <hr>
 
       <footer>
-        <p>&copy; 2016 Company, Inc.</p>
+        <p>&copy; wyh&lcq</p>
       </footer>
 
     </div><!--/.container-->

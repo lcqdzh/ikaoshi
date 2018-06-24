@@ -128,7 +128,7 @@ $(document).ready(function () {
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="tea_info">修改密码</a></li>
-            <li><a href="#contact">注销</a></li>
+            <li><a href="logout">注销</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -140,8 +140,8 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="tea_dangetikuguanli?tiku_ID=${tiku_ID}" class="list-group-item active">${tiku_name}具体题库管理</a>
-            <a href="tea_daorutiku?tiku_ID=${tiku_ID}" class="list-group-item">导入题库</a>
+            <a href="tea_dangetikuguanli?tiku_ID=${tiku_ID}" class="list-group-item disabled">${tiku_name}具体题库管理</a>
+            <a href="tea_daorutiku?tiku_ID=${tiku_ID}" class="list-group-item active">导入题库</a>
             <a href="tea_dangetikuguanli?tiku_ID=${tiku_ID}" class="list-group-item">管理题库</a>
             <a href="tea_addxuanze?tiku_ID=${tiku_ID}" class="list-group-item">添加选择</a>
             <a href="tea_addpanduan?tiku_ID=${tiku_ID}" class="list-group-item">添加判断</a>
@@ -156,7 +156,7 @@ $(document).ready(function () {
           </p>
           <div class="jumbotron">
             <h1>欢迎使用在线考试系统</h1>
-            <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+            <p>请选择相应的文件导入题库。</p>
           </div>
           <div class="row">
      <form action="tea_daorutiku_f?tiku_ID=${tiku_ID}" method="post" enctype="multipart/form-data" onsubmit="return check();">
@@ -171,7 +171,7 @@ $(document).ready(function () {
       <hr>
 
       <footer>
-        <p>&copy; 2016 Company, Inc.</p>
+       <p>&copy; wyh&lcq</p>
       </footer>
 
     </div><!--/.container-->

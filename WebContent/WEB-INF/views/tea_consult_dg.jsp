@@ -116,7 +116,7 @@ $(document).ready(function () {
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="tea_info">修改密码</a></li>
-            <li><a href="#contact">注销</a></li>
+            <li><a href="logout">注销</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -148,7 +148,7 @@ $(document).ready(function () {
 			  <!-- Default panel contents -->
 			  <div class="panel-heading">回复</div>
 			  <form action="tea_consult_f?test_id=${test_id }&stu_id=${stu_id}" method = "post" role="form">
-			  <textarea style="width:900px;height:100px;" placeholder="在这里输入内容" name="answer" id="Inputtext1" ></textarea>
+			  <textarea style="width:850px;height:100px;" placeholder="在这里输入内容" name="answer" id="Inputtext1" ></textarea>
 			  <br>
 			  <input type = "submit" value = "提交回复" class="btn btn-primary btn-lg"  >
 			  </form>
@@ -161,7 +161,7 @@ $(document).ready(function () {
       <hr>
 
       <footer>
-        <p>&copy; 2016 Company, Inc.</p>
+        <p>&copy; wyh&lcq</p>
       </footer>
 
     </div><!--/.container-->

@@ -531,8 +531,8 @@ public class teacherService {
 		 t.setNynum(tdao.getNYNumbybytestid(test_Id));
 		 if(t.getNnum()!=0) 
 		 {
-		 t.setBjg(t.getNbnum()/t.getNnum()/100);
-		 t.setYx(t.getNynum()/t.getNnum()/100);;
+		 t.setBjg(1.0*t.getNbnum()/t.getNnum()*100);System.out.println("bjg="+t.getNbnum()+"/"+t.getNnum());System.out.print(t.getBjg());
+		 t.setYx(1.0*t.getNynum()/t.getNnum()*100);System.out.println("yx="+t.getNynum()+"/"+t.getNnum());System.out.println(t.getYx());
 		 }
 		 return t;
 	 }
@@ -693,5 +693,180 @@ public class teacherService {
 			//从ioc容器中获取dao
 			teaconsultDao tdao = (teaconsultDao) context.getBean("teaconsultDao");
 			return tdao.updateConsult(stu_id, test_id, answer);
+	 }
+	 
+	 
+	 
+	 //教师抽取试卷
+	 //create by lcq 2018年6月24日20:29:40
+	 public static boolean tea_get_shijuan_f(int test_Id)
+	 {
+		 
+		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		 teatestinfoDao tdao = (teatestinfoDao) context.getBean("teatestinfoDao");//获取考试信息
+		 questionDao qdao = (questionDao) context.getBean("questionDao"); //获取问题Dao
+		 TeaTestInfo t=new TeaTestInfo();
+		 t=null;
+		 List<TeaTestInfo> tti_l=null;
+		 tti_l=tdao.quarybytestid(test_Id);
+		 t=tti_l.get(0);
+
+		 if(t.getDx_easy()!=0)//单选简单题
+		 {
+			 List<Question1> temp=null;//中间变量
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 1, 1);
+			 int[] a=new int[t.getDx_easy()];
+			 a= suiji.getRandomFromArray(temp.size(),t.getDx_easy());
+			 System.out.println("here");
+			 System.out.println(t.getDx_easy());
+			 for(int i=0;i<t.getDx_easy();i++)
+			 {
+				 Question1 qq=new Question1();
+				 qq=temp.get(a[i]);
+				 System.out.println(qq.toString());
+				 //qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
+				 qdao.insertShijuan(test_Id,  qq.getTiku_Id(),qq.getQuestion_Id());
+			 }
+		 }
+		 if(t.getDx_medium()!=0)//单选中等题
+		 {
+			 List<Question1> temp=null;//中间变量
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 1, 2);
+			 int[] a=new int[t.getDx_medium()];
+			 a= suiji.getRandomFromArray(temp.size(),t.getDx_medium());
+			 System.out.println("here");
+			 System.out.println(t.getDx_medium());
+			 for(int i=0;i<t.getDx_medium();i++)
+			 {
+				 Question1 qq=new Question1();
+				 qq=temp.get(a[i]);
+				 System.out.println(qq.toString());
+				 //qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
+				 qdao.insertShijuan(test_Id,  qq.getTiku_Id(),qq.getQuestion_Id());
+			 }
+		 }
+		 if(t.getDx_hard()!=0)//单选难题
+		 {
+			 List<Question1> temp=null;//中间变量
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 1, 1);
+			 int[] a=new int[t.getDx_hard()];
+			 a= suiji.getRandomFromArray(temp.size(),t.getDx_hard());
+			 System.out.println("here");
+			 System.out.println(t.getDx_hard());
+			 for(int i=0;i<t.getDx_hard();i++)
+			 {
+				 Question1 qq=new Question1();
+				 qq=temp.get(a[i]);
+				 System.out.println(qq.toString());
+				//qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
+				 qdao.insertShijuan(test_Id,  qq.getTiku_Id(),qq.getQuestion_Id());
+			 }
+		 }
+		 if(t.getPd_easy()!=0)//判断简单题
+		 {
+			 List<Question1> temp=null;//中间变量
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 2, 1);
+			 int[] a=new int[t.getPd_easy()];
+			 a= suiji.getRandomFromArray(temp.size(),t.getPd_easy());
+			 System.out.println("here");
+			 System.out.println(t.getPd_easy());
+			 for(int i=0;i<t.getPd_easy();i++)
+			 {
+				 Question1 qq=new Question1();
+				 qq=temp.get(a[i]);
+				 System.out.println(qq.toString());
+				//qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
+				 qdao.insertShijuan(test_Id,  qq.getTiku_Id(),qq.getQuestion_Id());
+			 }
+		 }
+		 if(t.getPd_medium()!=0)//判断中等题
+		 {
+			 List<Question1> temp=null;//中间变量
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 2, 2);
+			 int[] a=new int[t.getPd_medium()];
+			 a= suiji.getRandomFromArray(temp.size(),t.getPd_medium());
+			 System.out.println("here");
+			 System.out.println(t.getPd_medium());
+			 for(int i=0;i<t.getPd_medium();i++)
+			 {
+				 Question1 qq=new Question1();
+				 qq=temp.get(a[i]);
+				 System.out.println(qq.toString());
+				//qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
+				 qdao.insertShijuan(test_Id,  qq.getTiku_Id(),qq.getQuestion_Id());
+			 }
+		 }
+		 if(t.getPd_hard()!=0)//判断难题
+		 {
+			 List<Question1> temp=null;//中间变量
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 2, 3);
+			 int[] a=new int[t.getPd_hard()];
+			 a= suiji.getRandomFromArray(temp.size(),t.getPd_hard());
+			 System.out.println("here");
+			 System.out.println(t.getPd_hard());
+			 for(int i=0;i<t.getPd_hard();i++)
+			 {
+				 Question1 qq=new Question1();
+				 qq=temp.get(a[i]);
+				 System.out.println(qq.toString());
+				//qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
+				 qdao.insertShijuan(test_Id,  qq.getTiku_Id(),qq.getQuestion_Id());
+			 }
+		 }
+		 if(t.getDt_easy()!=0)//大题简单题
+		 {
+			 List<Question1> temp=null;//中间变量
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 3, 1);
+			 int[] a=new int[t.getDt_easy()];
+			 a= suiji.getRandomFromArray(temp.size(),t.getDt_easy());
+			 System.out.println("here");
+			 System.out.println(t.getDt_easy());
+			 for(int i=0;i<t.getDt_easy();i++)
+			 {
+				 Question1 qq=new Question1();
+				 qq=temp.get(a[i]);
+				 System.out.println(qq.toString());
+				//qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
+				 qdao.insertShijuan(test_Id,  qq.getTiku_Id(),qq.getQuestion_Id());
+			 }
+		 }
+		 if(t.getDt_medium()!=0)//大题中等题
+		 {
+			 List<Question1> temp=null;//中间变量
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 3, 2);
+			 int[] a=new int[t.getDt_medium()];
+			 a= suiji.getRandomFromArray(temp.size(),t.getDt_medium());
+			 System.out.println("here");
+			 System.out.println(t.getDt_medium());
+			 for(int i=0;i<t.getDt_medium();i++)
+			 {
+				 Question1 qq=new Question1();
+				 qq=temp.get(a[i]);
+				 System.out.println(qq.toString());
+				//qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
+				 qdao.insertShijuan(test_Id,  qq.getTiku_Id(),qq.getQuestion_Id());
+			 }
+		 }
+		 if(t.getDt_hard()!=0)//大题难题
+		 {
+			 List<Question1> temp=null;//中间变量
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 3, 3);
+			 int[] a=new int[t.getDt_hard()];
+			 a= suiji.getRandomFromArray(temp.size(),t.getDt_hard());
+			 System.out.println("here");
+			 System.out.println(t.getDt_hard());
+			 for(int i=0;i<t.getDt_easy();i++)
+			 {
+				 Question1 qq=new Question1();
+				 qq=temp.get(a[i]);
+				 System.out.println(qq.toString());
+				//qdao.addQuestionkg(stu_Id, test_Id, qq.getQuestion_Id(), qq.getTiku_Id());
+				 qdao.insertShijuan(test_Id,  qq.getTiku_Id(),qq.getQuestion_Id());
+			 }
+		 }
+
+		
+		 return true;
 	 }
 }

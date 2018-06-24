@@ -121,7 +121,7 @@ $(document).ready(function () {
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="tea_info">修改密码</a></li>
-            <li><a href="#contact">注销</a></li>
+            <li><a href="logout">注销</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -133,11 +133,7 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="tea_tikuguanli" class="list-group-item">题库管理</a>
-            <a href="tea_kaoshiguanli" class="list-group-item">考试管理</a>
-            <a href="tea_pigai_kaoshi" class="list-group-item">批改试卷</a>
-            <a href="#" class="list-group-item">考试信息</a>
-            <a href="ttt" class="list-group-item">ttt</a>
+            <a href="tea_chengji_kaoshilist" class="list-group-item active">考试信息</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -148,7 +144,7 @@ $(document).ready(function () {
           </p>
           <div class="jumbotron">
             <h1>欢迎使用在线考试系统</h1>
-            <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+            <p>下面显示考试信息</p>
           </div>
           <div class="row">
           <c:if test="${!empty overt}"> 
@@ -186,7 +182,7 @@ $(document).ready(function () {
       <hr>
 
       <footer>
-        <p>&copy; 2016 Company, Inc.</p>
+        <p>&copy; wyh&lcq</p>
       </footer>
 
     </div><!--/.container-->

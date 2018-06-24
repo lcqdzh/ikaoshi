@@ -52,7 +52,7 @@ public class stutestinfoDao {
 	//create by lcq 2018年6月20日22:10:33
 	public List<Student> queryAllbytestid(int test_id)
 	{
-		String sql="SELECT DISTINCT student.stu_Id,student.password,student.name from ikaoshi.student student,ikaoshi.stu_test_info stu_test_info where stu_test_info.test_Id="+test_id+";";
+		String sql="SELECT DISTINCT student.stu_Id,student.password,student.name from ikaoshi.student student,ikaoshi.stu_test_info stu_test_info where student.stu_Id=stu_test_info.stu_Id and stu_test_info.test_Id="+test_id+";";
 		return jdbcTemplate.query(sql, new StudentMapper());
 	}
 	

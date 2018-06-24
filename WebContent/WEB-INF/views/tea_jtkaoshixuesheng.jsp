@@ -125,7 +125,7 @@ footer {
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="tea_info">修改密码</a></li>
-            <li><a href="#contact">注销</a></li>
+            <li><a href="logout">注销</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -137,9 +137,9 @@ footer {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="tea_kaoshiguanli" class="list-group-item active" >考试管理</a>
+            <a href="tea_kaoshiguanli" class="list-group-item" >考试管理</a>
             <a href="tea_dangekaoshiguanli?test_id=${test_id}" class="list-group-item">考试信息</a>
-            <a href="tea_jtkaoshixuesheng?test_id=${test_id}" class="list-group-item">学生名单</a>
+            <a href="tea_jtkaoshixuesheng?test_id=${test_id}" class="list-group-item active">学生名单</a>
             <a href="tea_jtkaoshixueshengdaoru?test_id=${test_id}" class="list-group-item">导入名单</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
@@ -181,7 +181,7 @@ footer {
       <hr>
 
       <footer>
-        <p>&copy; 2016 Company, Inc.</p>
+        <p>&copy; wyh&lcq</p>
       </footer>
 
     </div><!--/.container-->

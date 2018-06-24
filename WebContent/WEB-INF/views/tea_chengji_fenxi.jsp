@@ -121,7 +121,7 @@ $(document).ready(function () {
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="tea_info">修改密码</a></li>
-            <li><a href="#contact">注销</a></li>
+            <li><a href="logout">注销</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -133,11 +133,7 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="tea_tikuguanli" class="list-group-item">题库管理</a>
-            <a href="tea_kaoshiguanli" class="list-group-item">考试管理</a>
-            <a href="tea_pigai_kaoshi" class="list-group-item">批改试卷</a>
-            <a href="tea_chengji_kaoshilist" class="list-group-item">考试信息</a>
-            <a href="ttt" class="list-group-item">ttt</a>
+            <a href="tea_chengji_kaoshilist" class="list-group-item active">考试信息</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -148,7 +144,7 @@ $(document).ready(function () {
           </p>
           <div class="jumbotron">
             <h1>欢迎使用在线考试系统</h1>
-            <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+            <p>下面显示成绩分析</p>
           </div>
 		<div class="row">
 		<ul class="nav nav-tabs">
@@ -173,31 +169,31 @@ $(document).ready(function () {
 			   </thead>
 			   <tbody>
 	      		<tr>
-	         		<td>最高分</td>
+	         		<td>最高分:</td>
 	         		<td>${cjfx.maxscore}</td>
-	         		<td>最低分</td>
+	         		<td>最低分:</td>
 	         		<td>${cjfx.minscore}</td>
 	      		</tr>
 	      		<tr>
-	         		<td>平均分</td>
+	         		<td>平均分:</td>
 	         		<td>${cjfx.avgscore }</td>
 	         		<td></td>
 	         		<td></td>
 	      		</tr>
 	      		<tr>
-	         		<td>总人数</td>
+	         		<td>总人数:</td>
 	         		<td>${cjfx.num}</td>
 	         		<td></td>
 	         		<td></td>
 	      		</tr>
 	      		<tr>
-	         		<td>已经批改完的人数:${cjfx.nnum }</td>
+	         		<td>已经批改完的人数:</td>
 	         		<td>${cjfx.nnum }</td>
-	         		<td>未批改的人数${cjfx.num-cjfx.nnum-cjfx.nqnum }</td>
-	         		<td></td>
+	         		<td>未批改的人数:</td>
+	         		<td>${cjfx.num-cjfx.nnum-cjfx.nqnum }</td>
 	      		</tr>
 	      		<tr>
-	         		<td>缺考人数</td>
+	         		<td>缺考人数:</td>
 	         		<td>${cjfx.nqnum }</td>
 	         		<td></td>
 	         		<td></td>
@@ -206,13 +202,13 @@ $(document).ready(function () {
 	         		<td>优秀人数:</td>
 	         		<td>${cjfx.nynum}</td>
 	         		<td>优秀率:</td>
-	         		<td>${cjfx.yx}</td>
+	         		<td>${cjfx.yx}%</td>
 	      		</tr>
 	      		<tr>
 	         		<td>不及格人数:</td>
 	         		<td>${cjfx.nbnum}</td>
 	         		<td>不及格率:</td>
-	         		<td>${cjfx.bjg}</td>
+	         		<td>${cjfx.bjg}%</td>
 	      		</tr>
 			</table>
 
@@ -225,7 +221,7 @@ $(document).ready(function () {
       <hr>
 
       <footer>
-        <p>&copy; 2016 Company, Inc.</p>
+        <p>&copy; wyh&lcq</p>
       </footer>
 
     </div><!--/.container-->
