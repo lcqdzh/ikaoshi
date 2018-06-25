@@ -1459,4 +1459,212 @@ public class teaController {
 		teacherService.tea_get_shijuan_f(10);
 		return new ModelAndView("hellow","tea_id",tea_id);
 	}
+	//跳转到教师输入试卷相关参数的界面 并显示相关的
+	//create by lcq 2018年6月21日20:56:19
+	@RequestMapping("/tea_add_kaoshi_s1")
+	public ModelAndView tea_add_kaoshi_s1(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		List<Tikuxinxi> tikuxinxi=null;
+		System.out.println("tea_id:"+tea_id);
+		tikuxinxi=teacherService.quary(tea_id);
+		model.addAttribute("tikuxinxi",tikuxinxi);
+		return new ModelAndView("tea_add_kaoshi_s1","tea_id",tea_id);
+	}
+	//获取相关参数 并跳转到tea_add_kaoshi_s2页面 tea_add_kaoshi__s1f
+	//create by lcq 2018年6月24日21:19:43
+	@RequestMapping("/tea_add_kaoshi_s2")
+	public ModelAndView tea_add_kaoshi_s1_f(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		String test_name = request.getParameter("test_name");
+		String tiku_IDname = request.getParameter("tiku_IDname");String tiku_Idd=tiku_IDname.substring(0, tiku_IDname.indexOf(':'));int tiku_id=tiku_Idd.isEmpty()?0:Integer.parseInt(tiku_Idd);
+		String begin_timee = request.getParameter("begin_Time");//Timestamp begin_time= new Timestamp(System.currentTimeMillis());begin_time=Timestamp.valueOf("begin_timee");
+		String end_timee = request.getParameter("end_Time");//Timestamp end_time= new Timestamp(System.currentTimeMillis());end_time.valueOf("end_timee");
+		TeaTestInfo t=new TeaTestInfo();
+		if((!begin_timee.isEmpty())&&(!end_timee.isEmpty()))
+		{	
+			Date d1 = null;
+			try {
+				d1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(begin_timee);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Timestamp begin_time= new Timestamp(d1.getTime());
+			
+			Date d2 = null;
+			try {
+				d2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(end_timee);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("here");
+			Timestamp end_time= new Timestamp(d2.getTime());
+			t.setBegin_time(begin_time);t.setEnd_time(end_time);
+			if(begin_time.compareTo(end_time)<0)
+			{
+				t.setBegin_time(begin_time);t.setEnd_time(end_time);
+			}else {
+				String error="请输入正确日期";	
+				List<Tikuxinxi> tikuxinxi=null;
+				System.out.println("tea_id:"+tea_id);
+				tikuxinxi=teacherService.quary(tea_id);
+				model.addAttribute("tikuxinxi",tikuxinxi);
+				model.addAttribute("error", error);
+				return new ModelAndView("tea_add_kaoshi_s1","tea_id",tea_id);
+			}
+
+		}else {
+			String error="请输入正确日期";	
+			List<Tikuxinxi> tikuxinxi=null;
+			System.out.println("tea_id:"+tea_id);
+			tikuxinxi=teacherService.quary(tea_id);
+			model.addAttribute("tikuxinxi",tikuxinxi);
+			model.addAttribute("error", error);
+			return new ModelAndView("tea_add_kaoshi_s1","tea_id",tea_id);
+		}
+		String time_longg = request.getParameter("time_long");int time_long=time_longg.isEmpty()?0:Integer.parseInt(time_longg);
+		System.out.println(test_name);model.addAttribute("test_name", test_name);
+		System.out.println(tiku_IDname);model.addAttribute("tiku_IDname", tiku_IDname);
+		System.out.println(begin_timee);model.addAttribute("begin_timee", begin_timee);
+		System.out.println(end_timee);model.addAttribute("end_timee", end_timee);
+		System.out.println(time_longg);model.addAttribute("time_long", time_long);
+		
+		
+		Tikuxinxi t1=new Tikuxinxi();
+		t1.setTea_Id(tea_id);
+		t1.setTiku_ID(tiku_id);
+		kaoshinum k=teacherService.gettikuNum(t1.getTiku_ID(), t1);
+		model.addAttribute("kaoshinum",k);
+		return new ModelAndView("tea_add_kaoshi_s2","tea_id",tea_id);
+	}
+	//添加考试第二步执行的内容
+	//create by lcq 2018年6月25日14:17:33
+	@RequestMapping("/tea_add_kaoshi_s2_f")
+	public ModelAndView tea_add_kaoshi_s2_f(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		
+		String test_name = request.getParameter("test_name");
+		System.out.print(test_name);
+		String tiku_IDname = request.getParameter("tiku_IDname");
+		System.out.print(tiku_IDname);
+		String tiku_Idd=tiku_IDname.substring(0, tiku_IDname.indexOf(':'));int tiku_id=tiku_Idd.isEmpty()?0:Integer.parseInt(tiku_Idd);
+		System.out.println("hhh");
+		String begin_timee = request.getParameter("begin_Time");//Timestamp begin_time= new Timestamp(System.currentTimeMillis());begin_time=Timestamp.valueOf("begin_timee");
+		String end_timee = request.getParameter("end_Time");//Timestamp end_time= new Timestamp(System.currentTimeMillis());end_time.valueOf("end_timee");
+		TeaTestInfo t=new TeaTestInfo();
+		System.out.println("hhh");
+		if((!begin_timee.isEmpty())&&(!end_timee.isEmpty()))
+		{	
+			Date d1 = null;
+			try {
+				d1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(begin_timee);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Timestamp begin_time= new Timestamp(d1.getTime());
+			
+			Date d2 = null;
+			try {
+				d2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(end_timee);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("here");
+			Timestamp end_time= new Timestamp(d2.getTime());
+			t.setBegin_time(begin_time);t.setEnd_time(end_time);
+			if(begin_time.compareTo(end_time)<0)
+			{
+				t.setBegin_time(begin_time);t.setEnd_time(end_time);
+			}else {
+				String error="请输入正确日期";	
+				List<Tikuxinxi> tikuxinxi=null;
+				System.out.println("tea_id:"+tea_id);
+				tikuxinxi=teacherService.quary(tea_id);
+				model.addAttribute("tikuxinxi",tikuxinxi);
+				model.addAttribute("error", error);
+				return new ModelAndView("tea_addkaoshi","tea_id",tea_id);
+			}
+
+		}else {
+			String error="请输入正确日期";	
+			List<Tikuxinxi> tikuxinxi=null;
+			System.out.println("tea_id:"+tea_id);
+			tikuxinxi=teacherService.quary(tea_id);
+			model.addAttribute("tikuxinxi",tikuxinxi);
+			model.addAttribute("error", error);
+			return new ModelAndView("tea_addkaoshi","tea_id",tea_id);
+		}
+		String time_longg = request.getParameter("time_long");int time_long=time_longg.isEmpty()?0:Integer.parseInt(time_longg);
+		String dx_scoree = request.getParameter("dx_score");int dx_score=dx_scoree.isEmpty()?0:Integer.parseInt(dx_scoree);
+		String dx_easyy = request.getParameter("dx_easy");int dx_easy=dx_easyy.isEmpty()?0:Integer.parseInt(dx_easyy);
+		String dx_mediumm = request.getParameter("dx_medium");int dx_medium=dx_mediumm.isEmpty()?0:Integer.parseInt(dx_mediumm);
+		String dx_hardd = request.getParameter("dx_hard");int dx_hard=dx_hardd.isEmpty()?0:Integer.parseInt(dx_hardd);
+		String pd_scoree = request.getParameter("pd_score");int pd_score=pd_scoree.isEmpty()?0:Integer.parseInt(pd_scoree);
+		String pd_easyy = request.getParameter("pd_easy");int pd_easy=pd_easyy.isEmpty()?0:Integer.parseInt(pd_easyy);
+		String pd_mediumm = request.getParameter("pd_medium");int pd_medium=pd_mediumm.isEmpty()?0:Integer.parseInt(pd_mediumm);
+		String pd_hardd = request.getParameter("pd_hard");int pd_hard=pd_hardd.isEmpty()?0:Integer.parseInt(pd_hardd);
+		String dt_scoree = request.getParameter("dt_score");int dt_score=dt_scoree.isEmpty()?0:Integer.parseInt(dt_scoree);
+		String dt_easyy = request.getParameter("dt_easy");int dt_easy=dt_easyy.isEmpty()?0:Integer.parseInt(dt_easyy);
+		String dt_mediumm = request.getParameter("dt_medium");int dt_medium=dt_mediumm.isEmpty()?0:Integer.parseInt(dt_mediumm);
+		String dt_hardd = request.getParameter("dt_hard");int dt_hard=dt_hardd.isEmpty()?0:Integer.parseInt(dt_hardd);
+		//应该先判断是否满足添加的条件
+		int test_id=teacherService.getMaxtestid()+1;
+		
+		t.setTea_id(tea_id);t.setTest_id(test_id);t.setTest_name(test_name);t.setTiku_id(tiku_id);
+		t.setTime_long(time_long);
+		t.setDx_easy(dx_easy);t.setDx_medium(dx_medium);t.setDx_hard(dx_hard);t.setDx_score(dx_score);
+		t.setPd_easy(pd_easy);t.setPd_medium(pd_medium);t.setPd_hard(pd_hard);t.setPd_score(pd_score);
+		t.setDt_easy(dt_easy);t.setDt_medium(dt_medium);t.setDt_hard(dt_hard);t.setDt_score(dt_score);
+		System.out.println(t.toString());
+		int score=pd_score*(pd_easy+pd_medium+pd_hard)+dx_score*(dx_easy+dx_medium+dx_hard)+dt_score*(dt_easy+dt_medium+dt_hard);
+		System.out.println("score="+score);
+		String error="请确认试卷的总分是否为100分";
+		if(teacherService.judgetikuNum(tiku_id, t))
+		{
+			if(score==100)
+			{
+				teacherService.addteatestinfo(t);
+				System.out.println(t.toString());
+				error="添加成功，可继续添加";
+				model.addAttribute("teatestinfo", t);
+				model.addAttribute("error", error);
+				model.addAttribute("test_id", test_id);
+				List<Tikuxinxi> tikuxinxi=null;
+				System.out.println("tea_id:"+tea_id);
+				tikuxinxi=teacherService.quary(tea_id);
+				model.addAttribute("tikuxinxi",tikuxinxi);
+				return new ModelAndView("tea_dangekaoshiguanli","tea_id",tea_id);
+			}else {
+				error="请确认试卷的总分是否为100分";		
+			}
+
+		}else {
+			System.out.println(t.toString());
+		}
+		List<Tikuxinxi> tikuxinxi=null;
+		System.out.println("tea_id:"+tea_id);
+		tikuxinxi=teacherService.quary(tea_id);
+		model.addAttribute("tikuxinxi",tikuxinxi);
+		model.addAttribute("error", error);
+		//return new ModelAndView("tea_addkaoshi","tea_id",tea_id);
+		System.out.println(test_name);model.addAttribute("test_name", test_name);
+		System.out.println(tiku_IDname);model.addAttribute("tiku_IDname", tiku_IDname);
+		System.out.println(begin_timee);model.addAttribute("begin_timee", begin_timee);
+		System.out.println(end_timee);model.addAttribute("end_timee", end_timee);
+		System.out.println(time_longg);model.addAttribute("time_long", time_long);
+		System.out.println("dsvdsav");
+		
+		Tikuxinxi t1=new Tikuxinxi();
+		t1.setTea_Id(tea_id);
+		t1.setTiku_ID(tiku_id);
+		kaoshinum k=teacherService.gettikuNum(t1.getTiku_ID(), t1);
+		model.addAttribute("kaoshinum",k);
+		return new ModelAndView("tea_add_kaoshi_s2","tea_id",tea_id);
+	}
 }

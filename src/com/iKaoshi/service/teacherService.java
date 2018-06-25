@@ -646,14 +646,18 @@ public class teacherService {
 			boolean flag=true;
 			if(n.getDt_easy()>k.getDt_easy()||n.getDt_medium()>k.getDt_medium()||n.getDt_hard()>k.getDt_hard())
 			{
+				//System.out.println("1 "+n.getDx_easy()+" max:"+k.getDx_easy());
+				System.out.println("2tiku_id"+tiku_Id+" "+n.getDx_easy()+" max:"+k.getDx_easy());
 				flag=false;
 			}
 			if(n.getDx_easy()>k.getDx_easy()||n.getDx_medium()>k.getDx_medium()||n.getDx_hard()>k.getDx_hard())
 			{
+				System.out.println("2tiku_id"+tiku_Id+" "+n.getDx_easy()+" max:"+k.getDx_easy());
 				flag=false;
 			}
-			if(n.getDx_easy()>k.getDt_easy()||n.getDx_medium()>k.getDx_medium()||n.getDx_hard()>k.getDx_hard())
+			if(n.getPd_easy()>k.getPd_easy()||n.getPd_medium()>k.getPd_medium()||n.getPd_hard()>k.getPd_hard())
 			{
+				System.out.println("3tiku_id"+tiku_Id+" "+n.getDx_easy()+" max:"+k.getDx_easy());
 				flag=false;
 			}
 			return flag;
