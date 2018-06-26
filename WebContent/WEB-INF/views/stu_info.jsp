@@ -138,6 +138,7 @@ $(document).ready(function () {
             <a href="overdue_list" class="list-group-item">已过期</a>
             <a href="add_test" class="list-group-item">添加考试</a>
             <a href="test_analyse" class="list-group-item">考试分析</a>
+            <a href="my_consult" class="list-group-item ">我的申诉</a>
            
           </div>
         </div><!--/.sidebar-offcanvas-->

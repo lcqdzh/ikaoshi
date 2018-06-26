@@ -162,7 +162,8 @@ $(function () {
             <a href="tea_kaoshiguanli" class="list-group-item" >考试管理</a>
             <a href="tea_chakankaoshi" class="list-group-item">查看考试</a>
             <a href="tea_kaoshinum" class="list-group-item">题库限制</a>
-            <a href="tea_addkaoshi" class="list-group-item active">添加考试</a>
+            <a href="tea_addkaoshi" class="list-group-item">添加考试</a>
+            <a href="tea_add_kaoshi_s1" class="list-group-item active">添加考试(新版)</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -178,64 +179,10 @@ $(function () {
 		  <li role="presentation" class="active"><a href="#">第一步</a></li>
 		  <li role="presentation"><a href="#">第二步</a></li>
 		  <li role="presentation"><a href="#">第三步</a></li>
+		  <li role="presentation"><a href="#">第四步</a></li>
 		</ul>
 		<br>
-			    <form action="tea_add_kaoshi_s2" method = "post" role="form">
-							<div class="form-group">
-                                 <label for="exampleInputEmail1">考试名称</label><input class="form-control" placeholder="" id="exampleInputName1" type = "text" name = "test_name" />
-                            </div>   
-                            <div class="form-group">
-                                  <label for="exampleInputEmail1">题库名称及编号
-							      </label>
-                                  <select class="form-control" id="exampleInputyuanxi1" type = "text" name = "tiku_IDname">
-							      <c:if test="${!empty tikuxinxi}"> 
-               							<c:forEach items="${tikuxinxi}" var="u">
-							      				<option>${u.tiku_ID}:${u.tiku_name}</option>
-							      		</c:forEach>
-							      </c:if>
-							    </select>
-                            </div>
-
-                            <div class="row">  
-						    <div class='col-sm-6'>  
-						        <div class="form-group">  
-						            <label>开始时间：</label>  
-						            <!--指定 date标记-->  
-						            <div class='input-group date' id='datetimepicker1'>  
-						                <input type='text' class="form-control" name="begin_Time"/>  
-						                <span class="input-group-addon">  
-						                    <span class="glyphicon glyphicon-calendar"></span>  
-						                </span>  
-						            </div>  
-						        </div>  
-						    </div>  
-						    <div class='col-sm-6'>  
-						        <div class="form-group">  
-						            <label>结束时间：</label>  
-						            <!--指定 date标记-->  
-						            <div class='input-group date' id='datetimepicker2'>  
-						                <input type='text' class="form-control" name="end_Time"/>  
-						                <span class="input-group-addon">  
-						                    <span class="glyphicon glyphicon-calendar"></span>  
-						                </span>  
-						            </div>  
-						        </div>  
-						    </div>  
-						</div>  
-
-                            <div class="form-group">
-                                 <label for="exampleInputEmail1">考试时长</label><input class="form-control" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" id="exampleInputzhuanye1" type = "text" name = "time_long" />
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-md-5 column">
-                                    </div> </h1><input type = "submit" value = "提交" class="btn btn-primary btn-lg"  ></a>
-                                </div>
-                                <div class="col-md-4 column">   
-                                </div>
-                                <div class="col-md-4 column">
-                                </div>
-                            </div>
-                </form>
+			  <h2>您已经成功添加考试，请将考试号${test_id }通知学生或导入学生名单。</h2>
         </div><!--/.col-xs-12.col-sm-9-->
 
       </div><!--/row-->

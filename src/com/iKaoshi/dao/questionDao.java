@@ -167,6 +167,22 @@ public class questionDao {
 		  System.out.println(sql);
 		  return jdbcTemplate.query(sql, new QuestionMapper());
 	  }
+	//下面是新版添加题库的相关的函数
+	//获取教师发布的试卷的信息
+	//create by lcq 2018年6月26日16:06:22
+	public List<Question1> quarybytest_id(int test_Id){
+		  String sql = "select * from ikaoshi.shijuanyangti where test_Id="+test_Id;
+		  System.out.println(sql);
+		  return jdbcTemplate.query(sql, new QuestionMapper());
+	  }
+	//删除试卷样题 
+	//create by lcq 2018年6月26日16:30:54
+	public boolean delateShijuanbytestid(int test_Id) {
+		String sql = "delete from ikaoshi.shijuan where test_Id=?";
+		return jdbcTemplate.update(sql,
+		    new Object[] {test_Id}) == 1;
+	}
+	
 	class QuestionMapper implements RowMapper<Question1> {
 		 
 		  @Override

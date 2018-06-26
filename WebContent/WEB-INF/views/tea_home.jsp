@@ -139,7 +139,7 @@ $(document).ready(function () {
             <a href="tea_chengji_kaoshilist" class="list-group-item">考试信息</a>
             <a href="tea_consult_list" class="list-group-item">答疑功能</a>
             <a href="tea_get_shijuan_f" class="list-group-item">抽取试卷</a>
-            <a href="tea_add_kaoshi_s1" class="list-group-item">产生试卷</a>
+            
           </div>
         </div><!--/.sidebar-offcanvas-->
 

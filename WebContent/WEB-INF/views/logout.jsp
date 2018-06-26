@@ -155,10 +155,10 @@ function login_fail(){
             <div class="col-md-12 column">
                 
                 <div class="jumbotron">
-                    <h1>
+                    <h1 style="text-align:center">
                         欢迎使用在线考试平台</h1>
                         <h4> </h4>
-                        <h2>请选择相应用户重新进行登录。</h2>
+                        <h2 style="text-align:center">请选择相应用户重新进行登录。</h2>
                     
                 </div>
                 <div class="row clearfix">

@@ -138,6 +138,7 @@ $(document).ready(function () {
             <a href="overdue_list" class="list-group-item">已过期</a>
             <a href="add_test" class="list-group-item">添加考试</a>
             <a href="test_analyse" class="list-group-item">考试分析</a>
+            <a href="my_consult" class="list-group-item ">我的申诉</a>
            
           </div>
         </div><!--/.sidebar-offcanvas-->
@@ -148,8 +149,8 @@ $(document).ready(function () {
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
           <div class="jumbotron">
-            <h2>试卷成功提交，请耐心等待老师批阅</h2>
-            <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+            <h2 style="text-align:center">试卷成功提交，请耐心等待老师批阅</h2>
+            
           </div>
         </div><!--/.col-xs-12.col-sm-9-->
 

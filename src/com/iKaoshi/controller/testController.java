@@ -2,10 +2,12 @@ package com.iKaoshi.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.jws.WebParam.Mode;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,6 +25,7 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
 import com.iKaoshi.bean.test_analyse;
+import com.iKaoshi.bean.consult;
 import com.iKaoshi.bean.question;
 import com.iKaoshi.bean.question_dt;
 import com.iKaoshi.bean.test;
@@ -114,9 +117,64 @@ public class testController {
 		model.addAttribute("dx_list", dx_list);
 		model.addAttribute("pd_list", pd_list);
 		model.addAttribute("dt_list", dt_list);
+		//后期添加
+		model.addAttribute("test_Id",test_Id);
+		
         return "show_test_detail";
 	}
-	
+	/**
+	 * 跳转到申诉界面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/consult")
+	public ModelAndView consult(HttpServletRequest request)
+	{
+		int test_Id=Integer.parseInt(request.getParameter("test_Id"));
+		HttpSession session=request.getSession();		
+		session.setAttribute("test_Id", test_Id);
+		
+        return new ModelAndView("consult");
+	}
+	/**
+	 * 申诉的相关处理
+	 * @param request
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 */
+	@RequestMapping("/consult_process")
+	public ModelAndView consult_process(HttpServletRequest request) throws UnsupportedEncodingException
+	{	
+		String question = new String(request.getParameter("consult").getBytes("iso-8859-1"), "utf-8"); 		
+		System.out.println("question="+question);
+		HttpSession session=request.getSession();		
+		int test_Id=(int)session.getAttribute("test_Id");
+		int stu_Id=(int)session.getAttribute("stu_Id");
+		//检查申诉是否存在
+		if(studentService.consult_exist(stu_Id, test_Id)){
+			String error="您的申诉次数已经用完！";
+			return new ModelAndView("consult","error",error);
+		}
+		
+		String error="申诉信息成功提交";
+		//将申诉写入数据库，顺便更改状态
+		studentService.insert_consult(stu_Id, test_Id, question);
+		
+		return new ModelAndView("consult","error",error);
+	}
+	/**
+	 * 跳转到显示申诉界面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/my_consult")
+	public ModelAndView my_consult(HttpServletRequest request)
+	{		
+		HttpSession session=request.getSession();		
+		int stu_Id=(int)session.getAttribute("stu_Id");
+		List<consult> consult_list=studentService.get_consult_list(stu_Id);
+        return new ModelAndView("show_consult","consult_list",consult_list);
+	}
 	
 	
 	
@@ -192,9 +250,16 @@ public class testController {
 		HttpSession session=request.getSession();
 		
 		int stu_Id=(int)session.getAttribute("stu_Id");
-		int test_Id=Integer.parseInt(request.getParameter("test_Id"));
+		int test_Id=(int)session.getAttribute("test_Id");
 		
-		session.setAttribute("test_Id", test_Id);
+		//先要判断是否存在学生考试信息，不存在的话插入，存在的话直接读出来
+		if(!studentService.stu_test_zhuguan_exist(stu_Id, test_Id)){
+			studentService.insert_zhuguan(stu_Id, test_Id);
+		}
+		if(!studentService.stu_test_keguan_exist(stu_Id, test_Id)){
+			studentService.insert_keguan(stu_Id, test_Id);
+		}
+		
 		
 		//进入之前先要查看学生考试状态，如果是1就重新显示考试列表进行刷新
 		if(studentService.get_test_state(stu_Id, test_Id)==1){
@@ -218,6 +283,10 @@ public class testController {
 		model.addAttribute("question_dt_list",question_dt_list);
 		model.addAttribute("hour",hour);
 		model.addAttribute("minute",minute);
+		
+		System.out.println("dx_list_size="+question_dx_list.size());
+		System.out.println("pd_list_size="+question_pd_list.size());
+		System.out.println("dt_list_size="+question_dt_list.size());
         return "test_going";
 	}
 	/**
@@ -343,11 +412,11 @@ public class testController {
 		}
 		//判断是否有这个test_Id
 		if(studentService.test_Id_exist(test_Id)){
-			//调用函数进行在stu_test_info表中进行添加，未完成
+			//调用函数进行在stu_test_info表中进行添加，已完成
 			
 			studentService.add_stu_test(stu_Id, test_Id);
 			
-			teacherService.getkaoshi(stu_Id, test_Id);
+			
 			
 			return new ModelAndView("add_success");
 		}else{

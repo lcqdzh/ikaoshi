@@ -158,8 +158,8 @@ $(document).ready(function () {
 					         		<td style="text-align:center">${test.tea_ID}</td>
 					         		<td style="text-align:center">${test.tea_name }</td>					         		
 					         		<td style="text-align:center"><a href="admin_update_tea_password?tea_Id=${test.tea_ID}"><button type="button" class="btn btn-info" >重置密码</button></a></td>									
-									<!-- <td style="text-align:center"><a href="delete_tea?tea_Id=${test.tea_ID}"><button type="button" class="btn btn-danger" >删除老师</button></a></td>  -->
-					      	<!--  --><td style="text-align:center"><button class="btn btn-danger " data-toggle="modal" data-target="#myModal">删除老师</button> 
+									<td style="text-align:center"><a href="delete_tea?tea_Id=${test.tea_ID}"><button type="button" class="btn btn-danger" >删除老师</button></a></td>  
+					      			<!--  <td style="text-align:center"><button class="btn btn-danger " data-toggle="modal" data-target="#myModal">删除老师</button> -->
 					         		<!-- 模态框（Modal） -->
 										<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 											<div class="modal-dialog">

@@ -1456,7 +1456,7 @@ public class teaController {
 		model.addAttribute("kaoshi", kaoshi);
 		
 		//抽取试卷的动作
-		teacherService.tea_get_shijuan_f(10);
+		teacherService.tea_get_shijuan_f(12);
 		return new ModelAndView("hellow","tea_id",tea_id);
 	}
 	//跳转到教师输入试卷相关参数的界面 并显示相关的
@@ -1630,6 +1630,7 @@ public class teaController {
 			if(score==100)
 			{
 				teacherService.addteatestinfo(t);
+				teacherService.tea_get_shijuan_f(t.getTest_id());
 				System.out.println(t.toString());
 				error="添加成功，可继续添加";
 				model.addAttribute("teatestinfo", t);
@@ -1639,7 +1640,13 @@ public class teaController {
 				System.out.println("tea_id:"+tea_id);
 				tikuxinxi=teacherService.quary(tea_id);
 				model.addAttribute("tikuxinxi",tikuxinxi);
-				return new ModelAndView("tea_dangekaoshiguanli","tea_id",tea_id);
+				List<Question1> q=null;
+				//q=teacherService.quaryBytest_id(12);
+				q=teacherService.quaryBytest_id(t.getTest_id());
+				System.out.println(q.size());
+				model.addAttribute("question", q);
+				
+				return new ModelAndView("tea_add_kaoshi_s3","tea_id",tea_id);
 			}else {
 				error="请确认试卷的总分是否为100分";		
 			}
@@ -1667,4 +1674,43 @@ public class teaController {
 		model.addAttribute("kaoshinum",k);
 		return new ModelAndView("tea_add_kaoshi_s2","tea_id",tea_id);
 	}
+	//在新版添加考试的第三步 重新生成试卷
+	//create by lcq 2018-6-26 16:38:352
+	@RequestMapping("/tea_add_kaoshi_s3_r")
+	public ModelAndView tea_add_kaoshi_s3_r(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		String test_idd = request.getParameter("test_id");int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		
+		teacherService.delateShijuanbytestid(test_id);
+		teacherService.tea_get_shijuan_f(test_id);
+		//boolean a=teacherService.delateShijuanbytestid(12);
+		//System.out.println("del "+a);
+		//teacherService.tea_get_shijuan_f(12);
+		String error="添加成功";
+		model.addAttribute("error", error);
+		model.addAttribute("test_id", test_id);
+		List<Tikuxinxi> tikuxinxi=null;
+		System.out.println("tea_id:"+tea_id);
+		tikuxinxi=teacherService.quary(tea_id);
+		model.addAttribute("tikuxinxi",tikuxinxi);
+		List<Question1> q=null;
+		q=teacherService.quaryBytest_id(test_id);
+		System.out.println(q.size());
+		model.addAttribute("question", q);
+		return new ModelAndView("tea_add_kaoshi_s3","tea_id",tea_id);
+			
+	}
+	//在新版添加考试的第四步 生成成功
+	//create by lcq 2018-6-26 16:38:352
+	@RequestMapping("/tea_add_kaoshi_s3_y")
+	public ModelAndView tea_add_kaoshi_s3_y(HttpServletRequest request,Model model)
+	{
+		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
+		String test_idd = request.getParameter("test_id");int test_id=test_idd.isEmpty()?0:Integer.parseInt(test_idd);
+		model.addAttribute("test_id", test_id);
+		return new ModelAndView("tea_add_kaoshi_s4","tea_id",tea_id);
+			
+	}
+	
 }

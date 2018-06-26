@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthStyle;
+
 import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -375,6 +377,7 @@ public class studentService {
 			test.setNum_before(sdao.get_num_before(stu_Id, test_Id_list.get(i)));
 			//计算rate
 			test.setRate((int)(((float)test.getNum_before()/(float)test.getNum_all())*100));
+			System.out.println("num_before="+test.getNum_before()+" and num_all="+test.getNum_all());
 			test_analyse_list.add(test);
 		 }
 		 return test_analyse_list;
@@ -481,6 +484,126 @@ public class studentService {
 		return (sdao.add_stu_test(stu_Id, test_Id));
 		
 	 }
+	 /**
+	  * 查看学生申诉状态
+	  * @param stu_Id
+	  * @param test_Id
+	  * @return
+	  */
+	 public static boolean consult_exist(int stu_Id,int test_Id){
+		 //处理业务逻辑
+	 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		studentDao sdao = (studentDao) context.getBean("studentDao");
+		if(sdao.get_consult_list(stu_Id, test_Id).size()!=0){
+			return true;
+		}
+		return false;
+		
+	 }
+	 /**
+	  * 插入学生申诉状态
+	  * @param stu_Id
+	  * @param test_Id
+	  * @return
+	  */
+	 public static boolean insert_consult(int stu_Id,int test_Id,String question){
+		 //处理业务逻辑
+	 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		studentDao sdao = (studentDao) context.getBean("studentDao");
+		if(sdao.insert_consult(stu_Id, test_Id, question)){
+			return true;
+		}
+		return false;
+		
+	 }
+	 /**
+	  * 得到学生申诉列表
+	  * @param stu_Id
+	  * @return
+	  */
+	 public static List<consult> get_consult_list(int stu_Id){
+		 //处理业务逻辑
+	 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		studentDao sdao = (studentDao) context.getBean("studentDao");
+		List<consult> consult_list=sdao.get_consult_list(stu_Id);
+		return consult_list;
+	 }
+	 /**
+	  * 插入客观题信息
+	  * @param stu_Id
+	  * @param test_Id
+	  * @return
+	  */
+	 public static boolean insert_keguan(int stu_Id,int test_Id){
+		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		studentDao sdao = (studentDao) context.getBean("studentDao");
+		if(sdao.insert_keguan(stu_Id, test_Id))
+			return true;
+		return false;
+	 }
+	 /**
+	  * 插入主观题信息
+	  * @param stu_Id
+	  * @param test_Id
+	  * @return
+	  */
+	 public static boolean insert_zhuguan(int stu_Id,int test_Id){
+		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		//从ioc容器中获取dao
+		studentDao sdao = (studentDao) context.getBean("studentDao");
+		if(sdao.insert_zhuguan(stu_Id, test_Id))
+			return true;
+		return false;
+	 }
+	 
+		/**
+		 * 学生客观试卷信息是否已经存在
+		 * @param stu_Id
+		 * @param test_Id
+		 * @return
+		 */
+		 public static boolean stu_test_keguan_exist(int stu_Id,int test_Id)
+	    {
+	        //处理业务逻辑
+		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			studentDao sdao = (studentDao) context.getBean("studentDao");
+			List<stu_test> ss=null;
+			ss=sdao.stu_test_keguan(stu_Id, test_Id);
+			if(ss.size()==0)
+			{
+				return false;
+			}else {
+				return true;
+			}
+	    }
+		 /**
+		 * 学生主观试卷信息是否已经存在
+		 * @param stu_Id
+		 * @param test_Id
+		 * @return
+		 */
+		 public static boolean stu_test_zhuguan_exist(int stu_Id,int test_Id)
+	    {
+	        //处理业务逻辑
+		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			studentDao sdao = (studentDao) context.getBean("studentDao");
+			List<stu_test> ss=null;
+			ss=sdao.stu_test_zhuguan(stu_Id, test_Id);
+			if(ss.size()==0)
+			{
+				return false;
+			}else {
+				return true;
+			}
+	    }
+ 
+	 
 	 
 	 
 	 

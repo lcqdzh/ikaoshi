@@ -123,7 +123,7 @@ $(document).ready(function () {
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="stu_home">首页</a></li>
+            <li class="active"><a href="admin_home">首页</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="admin_update_password_page">修改密码</a></li>

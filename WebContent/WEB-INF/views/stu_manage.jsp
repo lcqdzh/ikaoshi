@@ -159,39 +159,11 @@ $(document).ready(function () {
 					         		<td style="text-align:center">${test.id}</td>
 					         		<td style="text-align:center">${test.stu_name }</td>					         		
 					         		<td style="text-align:center"><button type="button" class="btn btn-info" onclick="location.href='admin_update_stu_password?stu_Id=${test.id}'">重置密码</button></td>
-								<!--	<td style="text-align:center"><button type="button" class="btn btn-danger" onclick="location.href='delete_stu?stu_Id=${test.id}'">删除学生</button></td>   -->
-									<td style="text-align:center"><button class="btn btn-danger " data-toggle="modal" data-target="#myModal">删除学生</button> 
-					         		<!-- 模态框（Modal） -->
-										<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-															&times;
-														</button>
-														<h4 class="modal-title" id="myModalLabel">
-															ATTENTION!
-														</h4>
-													</div>
-													<div class="modal-body">
-														<p>您确定要删除？</p>														
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default" data-dismiss="modal">取消
-														</button>
-														<button type="button" class="btn btn-primary" onclick="location.href='delete_stu?stu_Id=${test.id}'">
-															确定删除
-														</button>
-													</div>
-												</div><!-- /.modal-content -->
-											</div><!-- /.modal -->
-										</div>
+									<td style="text-align:center"><button type="button" class="btn btn-danger"  onclick="location.href='delete_stu?stu_Id=${test.id}'">删除学生</button></td>
+							<!--	<td style="text-align:center"><button class="btn btn-danger " data-toggle="modal" data-target="#myModal">删除学生</button>    -->
 					         		
-					         		
-					         		
-					         		</td>
-					         		
-								</tr>									
+								</tr>	
+																
 					      	</c:forEach>
 		              </c:if>
 					   </tbody>
@@ -225,5 +197,13 @@ $(document).ready(function () {
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="offcanvas.js"></script>
+    <script type="text/javascript">
+    function del(){
+    	var test_Id=document.getElmentById("txt_id").value
+        if(confirm("确定删除吗")){
+        	location.href="'delete_stu?stu_Id=";
+        }
+  }
+    </script>
   </body>
 </html>

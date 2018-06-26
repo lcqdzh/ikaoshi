@@ -139,6 +139,7 @@ $(document).ready(function () {
             <a href="overdue_list" class="list-group-item active">已过期</a>
             <a href="add_test" class="list-group-item">添加考试</a>
             <a href="test_analyse" class="list-group-item">考试分析</a>
+            <a href="my_consult" class="list-group-item ">我的申诉</a>
            
           </div>
         </div><!--/.sidebar-offcanvas-->
@@ -153,7 +154,7 @@ $(document).ready(function () {
           
            <div class="panel panel-default">
 					  <!-- Default panel contents -->
-					  <div class="panel-heading">未开始试卷列表</div>
+					  <div class="panel-heading">已过期试卷列表</div>
 					  <!-- Table -->
 					  <table class="table">
 					   <thead>

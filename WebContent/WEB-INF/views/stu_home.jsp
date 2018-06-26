@@ -138,7 +138,7 @@ $(document).ready(function () {
             <a href="overdue_list" class="list-group-item">已过期</a>
             <a href="add_test" class="list-group-item">添加考试</a>
             <a href="test_analyse" class="list-group-item">考试分析</a>
-            
+            <a href="my_consult" class="list-group-item ">我的申诉</a>
             
           </div>
         </div><!--/.sidebar-offcanvas-->
@@ -149,8 +149,8 @@ $(document).ready(function () {
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
           <div class="jumbotron">
-            <h2>${stu_name}同学，你好</h2>
-            <h2>欢迎进入在线考试系统</h2>
+            <h2 style="text-align:center">亲爱的${stu_name}同学，你好</h2>
+            <h2 style="text-align:center">欢迎进入在线考试系统</h2>
             <h1></h1>
           </div>
           <div class="row">

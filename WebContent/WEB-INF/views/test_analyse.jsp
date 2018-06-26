@@ -139,6 +139,7 @@ $(document).ready(function () {
             <a href="overdue_list" class="list-group-item ">已过期</a>
             <a href="add_test" class="list-group-item ">添加考试</a>
             <a href="test_analyse" class="list-group-item active">考试分析</a>
+            <a href="my_consult" class="list-group-item ">我的申诉</a>
            
           </div>
         </div><!--/.sidebar-offcanvas-->
@@ -160,26 +161,26 @@ $(document).ready(function () {
 					  <table class="table">
 					   <thead>
 					      <tr>
-					         <th>考试号</th>
-					         <th>考试名</th>
-					         <th>分数</th>
-					         <th>平均分</th>
-					         <th>排名</th>
-					         <th>总人数</th>
-					         <th>百分比(%)</th>
+					         <th style="text-align:center">考试号</th>
+					         <th style="text-align:center">考试名</th>
+					         <th style="text-align:center">分数</th>
+					         <th style="text-align:center">平均分</th>
+					         <th style="text-align:center">排名</th>
+					         <th style="text-align:center">总人数</th>
+					         <th style="text-align:center">百分比(%)</th>
 					      </tr>
 					   </thead>
 					   <tbody>
 					   <c:if test="${!empty test_analyse_list}"> 
 		               		<c:forEach items="${test_analyse_list}" var="u">
 					      		<tr>
-					         		<td>${u.test_Id}</td>
-					         		<td>${u.test_name}</td>
-					         		<td>${u.score}</td>
-					         		<td>${u.average_score}</td>
-					         		<td>${u.num_before}</td>
-					         		<td>${u.num_all}</td>
-					         		<td>${u.rate}</td>
+					         		<td style="text-align:center">${u.test_Id}</td>
+					         		<td style="text-align:center">${u.test_name}</td>
+					         		<td style="text-align:center">${u.score}</td>
+					         		<td style="text-align:center">${u.average_score}</td>
+					         		<td style="text-align:center">${u.num_before}</td>
+					         		<td style="text-align:center">${u.num_all}</td>
+					         		<td style="text-align:center">${u.rate}</td>
 					      		</tr>
 					      	</c:forEach>
 		              </c:if>

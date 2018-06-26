@@ -139,6 +139,7 @@ $(document).ready(function () {
             <a href="overdue_list" class="list-group-item ">已过期</a>
             <a href="add_test" class="list-group-item active">添加考试</a>
             <a href="test_analyse" class="list-group-item">考试分析</a>
+            <a href="my_consult" class="list-group-item ">我的申诉</a>
            
           </div>
         </div><!--/.sidebar-offcanvas-->
@@ -150,7 +151,7 @@ $(document).ready(function () {
           </p>
             
           <div class="jumbotron">
-            <h2>考试添加成功！其实还没有，别忘记！！！</h2>                    
+            <h2>考试添加成功！</h2>                    
           </div>
           <div class="row">
           

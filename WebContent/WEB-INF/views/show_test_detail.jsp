@@ -14,22 +14,11 @@
 
     <title>Off Canvas Template for Bootstrap</title>
 
-  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	
-	<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!-- Custom styles for this template -->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+ <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
+    
     /*
  * Style tweaks
  * --------------------------------------------------
@@ -139,6 +128,7 @@ $(document).ready(function () {
             <a href="overdue_list" class="list-group-item ">已过期</a>
             <a href="add_test" class="list-group-item ">添加考试</a>
             <a href="test_analyse" class="list-group-item ">考试分析</a>
+            <a href="my_consult" class="list-group-item ">我的申诉</a>
            
           </div>
         </div><!--/.sidebar-offcanvas-->
@@ -160,36 +150,36 @@ $(document).ready(function () {
 					  <table class="table">
 					   <thead>
 					      <tr>
-					         <th>题号</th>
-					         <th>题设</th>
-					         <th>选项1</th>
-					         <th>选项2</th>
-					         <th>选项3</th>
-					         <th>选项4</th>
-					         <th>正确选项</th>
-					         <th>你的选项</th>
-					         <th>分值</th>					     
+					         <th style="text-align:center">题号</th>
+					         <th style="text-align:center">题设</th>
+					         <th style="text-align:center">选项1</th>
+					         <th style="text-align:center">选项2</th>
+					         <th style="text-align:center">选项3</th>
+					         <th style="text-align:center">选项4</th>
+					         <th style="text-align:center">正确选项</th>
+					         <th style="text-align:center">你的选项</th>
+					         <th style="text-align:center">分值</th>					     
 					      </tr>
 					   </thead>
 					   <tbody>
 					   <c:if test="${!empty dx_list}"> 
 		               		<c:forEach items="${dx_list}" varStatus="sta" var="u">
 					      		<tr>
-					         		<td>${sta.index+1}</td>
-					         		<td>${u.question_content}</td>
-					         		<td>${u.choice_A}</td>
-					         		<td>${u.choice_B}</td>
-					         		<td>${u.choice_C}</td>
-					         		<td>${u.choice_D}</td>
-					         		<td>选项${u.answer}</td>
-					         		<td>选项${u.stu_answer}</td>
-					         		<td>${u.question_score}</td>
+					         		<td style="text-align:center">${sta.index+1}</td>
+					         		<td style="text-align:center">${u.question_content}</td>
+					         		<td style="text-align:center">${u.choice_A}</td>
+					         		<td style="text-align:center">${u.choice_B}</td>
+					         		<td style="text-align:center">${u.choice_C}</td>
+					         		<td style="text-align:center">${u.choice_D}</td>
+					         		<td style="text-align:center">选项${u.answer}</td>
+					         		<td style="text-align:center">选项${u.stu_answer}</td>
+					         		<td style="text-align:center">${u.question_score}</td>
 					      		</tr>
 					      	</c:forEach>
 		              </c:if>
 					   </tbody>
 					</table>
-					</div>
+				</div>
 					
 					
 					
@@ -225,7 +215,7 @@ $(document).ready(function () {
 		              </c:if>
 					   </tbody>
 					</table>
-					</div>
+				</div>
 					
 					
 					
@@ -255,7 +245,37 @@ $(document).ready(function () {
 		              </c:if>
 					   </tbody>
 					</table>
-					</div>
+				</div>
+				
+					<button class="btn btn-primary " data-toggle="modal" data-target="#myModal">申诉</button>
+					<!-- 模态框（Modal） -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+											&times;
+										</button>
+										<h4 class="modal-title" id="myModalLabel">
+											ATTENTION!
+										</h4>
+									</div>
+									<div class="modal-body">
+										<p>你确定要进行申诉？</p>
+										<p>此功能只能使用一次哦</p>										
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">取消
+										</button>
+										<button type="button" class="btn btn-primary" onclick="location.href='consult?test_Id=${test_Id}'">
+											仍然申诉
+										</button>
+									</div>
+								</div><!-- /.modal-content -->
+							</div><!-- /.modal -->
+						</div>
+					         		
+				
 		       
             
           </div><!--/row-->

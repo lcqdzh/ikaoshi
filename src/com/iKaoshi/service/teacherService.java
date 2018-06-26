@@ -234,7 +234,7 @@ public class teacherService {
 		 if(t.getDx_hard()!=0)//单选难题
 		 {
 			 List<Question1> temp=null;//中间变量
-			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 1, 1);
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 1, 3);
 			 int[] a=new int[t.getDx_hard()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getDx_hard());
 			 System.out.println("here");
@@ -753,10 +753,10 @@ public class teacherService {
 		 if(t.getDx_hard()!=0)//单选难题
 		 {
 			 List<Question1> temp=null;//中间变量
-			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 1, 1);
+			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 1, 3);
 			 int[] a=new int[t.getDx_hard()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getDx_hard());
-			 System.out.println("here");
+			 System.out.println("here suijia"+a);
 			 System.out.println(t.getDx_hard());
 			 for(int i=0;i<t.getDx_hard();i++)
 			 {
@@ -872,5 +872,27 @@ public class teacherService {
 
 		
 		 return true;
+	 }
+	 //获取教师发布的样题
+	 // create by lcq 2018年6月26日16:16:14
+	 public static List<Question1> quaryBytest_id(int test_Id)
+	 {
+		//处理业务逻辑
+		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			questionDao qdao = (questionDao) context.getBean("questionDao");
+			return qdao.quarybytest_id(test_Id);
+			
+	 }
+	 //删除生成的试卷 便于重新生辰
+	 //create by lcq 2018年6月26日16:32:58
+	 public static boolean delateShijuanbytestid(int test_Id)
+	 {
+		//处理业务逻辑
+		 	ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+			//从ioc容器中获取dao
+			questionDao qdao = (questionDao) context.getBean("questionDao");
+			return qdao.delateShijuanbytestid(test_Id);
+			
 	 }
 }

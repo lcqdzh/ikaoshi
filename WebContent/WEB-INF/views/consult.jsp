@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -132,12 +133,14 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="stu_test_list" class="list-group-item active">待参加</a>
+            <a href="stu_test_list" class="list-group-item ">待参加</a>
             <a href="stu_testd_list" class="list-group-item">已参加</a>
             <a href="not_begin_list" class="list-group-item">未开始</a>
-            <a href="overdue_list" class="list-group-item">已过期</a>
-            <a href="add_test" class="list-group-item">添加考试</a>
+            <a href="overdue_list" class="list-group-item ">已过期</a>
+            <a href="add_test" class="list-group-item ">添加考试</a>
             <a href="test_analyse" class="list-group-item">考试分析</a>
+            <a href="my_consult" class="list-group-item ">我的申诉</a>
+           
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -146,22 +149,50 @@ $(document).ready(function () {
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
+            
+          
           <div class="row">
-            <div class="col-xs-6 col-lg-8 ">
-              <h2>考试确认</h2>
-              <p>请自觉遵守考试章程</p>
-              <p>点击进入考试即开始计时，中间不得退出，否则没有成绩</p>                       
-              <p><a class="btn btn-default" href="test_going?stu_Id=stu_id&test_Id=test_id" role="button">进入考试 &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
+           
+          
+         
+             
+              
+              
+              <form class="bs-example bs-example-form" action="consult_process" role="form">
+              		<h3>申诉内容:</h3>
+								
+							<div class="input-group">						
+								<textarea    rows="6" cols="120"  name="consult"></textarea>							
+							</div><!-- /input-group -->
+							<br>
+							<span class="input-group-btn">
+								<button class="btn btn-primary" type="submit">
+									提交
+								</button>
+							</span>
+				</form>
+				<br><br>
+				<h4>${error }</h4> 
+              
+              
+          
+          
             
           </div><!--/row-->
+          
+          
+          
+          
+          
         </div><!--/.col-xs-12.col-sm-9-->
 
       </div><!--/row-->
 
       <hr>
 
-     
+      <footer>
+        <p>&copy;wyh&lcq</p>
+      </footer>
 
     </div><!--/.container-->
 

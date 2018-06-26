@@ -123,7 +123,26 @@ function enfocus()
     document.getElementById("score").value = (dt_easy+dt_medium+dt_hard)*dt_score+(pd_easy+pd_medium+pd_hard)*pd_score+(dx_easy+dx_medium+dx_hard)*dx_score;  
     console.log(dx_easy);
 }
-</script>  
+</script>
+<script> 
+  function check()  
+  {  
+      var scores=document.getElementById("score").value;
+      var score=scores==""?0:Number(scores);
+       console.log("hh");
+      if(score==100)
+      {
+
+         alert("确认添加考试");  
+        return true;
+      }
+      else{
+        alert("试卷总分不是100");  
+        return false;
+      }
+    
+  }
+  </script>    
 <script type="text/javascript">
 $(document).ready(function () {
 	  $('[data-toggle="offcanvas"]').click(function () {
@@ -200,7 +219,8 @@ $(function () {
             <a href="tea_kaoshiguanli" class="list-group-item" >考试管理</a>
             <a href="tea_chakankaoshi" class="list-group-item">查看考试</a>
             <a href="tea_kaoshinum" class="list-group-item">题库限制</a>
-            <a href="tea_addkaoshi" class="list-group-item active">添加考试</a>
+            <a href="tea_addkaoshi" class="list-group-item">添加考试</a>
+            <a href="tea_add_kaoshi_s1" class="list-group-item active">添加考试(新版)</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -216,11 +236,12 @@ $(function () {
 		  <li role="presentation"><a href="#">第一步</a></li>
 		  <li role="presentation" class="active"><a href="#">第二步</a></li>
 		  <li role="presentation"><a href="#">第三步</a></li>
+		  <li role="presentation"><a href="#">第四步</a></li>
 		</ul>
 		<br>
 			    <form action="tea_add_kaoshi_s2_f" method = "post" role="form">
 							<div class="form-group">
-                                 <!--  --><label for="exampleInputEmail1">考试名称</label>-->
+                                 <!--  <label for="exampleInputEmail1">考试名称</label>-->
                                  <input class="form-control" placeholder="" id="exampleInputName1"  type="hidden" name = "test_name" value="${test_name}"  />
                             </div>   
                             <div class="form-group">
@@ -235,9 +256,7 @@ $(function () {
 						            <!--指定 date标记-->  
 						            <div class='input-group date' id='datetimepicker1'>  
 						                <input type="hidden" class="form-control" name="begin_Time" value="${begin_timee}"/>  
-						                <span class="input-group-addon">  
-						                    <span class="glyphicon glyphicon-calendar"></span>  
-						                </span>  
+						                 
 						            </div>  
 						        </div>  
 						    </div>  
@@ -247,9 +266,7 @@ $(function () {
 						            <!--指定 date标记-->  
 						            <div class='input-group date' id='datetimepicker2'>  
 						                <input type="hidden" class="form-control" name="end_Time" value="${end_timee}"/>  
-						                <span class="input-group-addon">  
-						                    <span class="glyphicon glyphicon-calendar"></span>  
-						                </span>  
+						                 
 						            </div>  
 						        </div>  
 						    </div>  
@@ -313,7 +330,7 @@ $(function () {
 			</table>
                             <div class="row clearfix">
                                 <div class="col-md-5 column">
-                                    </div> </h1><input type = "submit" value = "提交" class="btn btn-primary btn-lg"  ></a>
+                                    </div> </h1><input type = "submit" value = "提交" class="btn btn-primary btn-lg" onclick="return check();" ></a>
                                 </div>
                                 <div class="col-md-4 column">   
                                 </div>

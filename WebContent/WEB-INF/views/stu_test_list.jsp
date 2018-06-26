@@ -127,6 +127,7 @@ $(document).ready(function () {
             <a href="overdue_list" class="list-group-item">已过期</a>
             <a href="add_test" class="list-group-item">添加考试</a>
             <a href="test_analyse" class="list-group-item">考试分析</a>
+            <a href="my_consult" class="list-group-item ">我的申诉</a>
            
           </div>
         </div><!--/.sidebar-offcanvas-->
@@ -166,39 +167,12 @@ $(document).ready(function () {
 					         		<td style="text-align:center">${test.time_long }分钟</td>
 					         		<td style="text-align:center">${test.begin_Time }</td>
 					         		<td style="text-align:center">${test.end_Time }</td>					 
-					         	<!-- 	<td style="text-align:center"><button type="button" class="btn btn-danger" onclick="location.href='enter_test?test_Id=${test.test_Id}'">进入考试</button></td> -->
-					         		<td style="text-align:center"><button class="btn btn-primary " data-toggle="modal" data-target="#myModal">进入考试</button> 
-					         		<!-- 模态框（Modal） -->
-										<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-															&times;
-														</button>
-														<h4 class="modal-title" id="myModalLabel">
-															ATTENTION!
-														</h4>
-													</div>
-													<div class="modal-body">
-														<p>您确认参加考试吗？</p>
-														<p>中途不得退出，否则按照旷考处理</p>
-														<p>请自觉遵守考试章程</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default" data-dismiss="modal">取消
-														</button>
-														<button type="button" class="btn btn-primary" onclick="location.href='test_going?test_Id=${test.test_Id}'">
-															确定参加
-														</button>
-													</div>
-												</div><!-- /.modal-content -->
-											</div><!-- /.modal -->
-										</div>
+					         		<td style="text-align:center"><button type="button" class="btn btn-danger" onclick="location.href='enter_test?test_Id=${test.test_Id}'">进入考试</button></td> 
+					         	<!--<td style="text-align:center"><button class="btn btn-primary " data-toggle="modal" data-target="#myModal">进入考试</button> 
 					         		
 					         		
 					         		
-					         		</td>
+					         		</td>  -->
 					         		
 					         																         	
 					      		</tr>

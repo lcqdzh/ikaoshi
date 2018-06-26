@@ -145,7 +145,7 @@ $(document).ready(function () {
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
           <div class="jumbotron">
-            <h2>${admin_name}管理，你好</h2>            
+            <h2 style="text-align:center">${admin_name}管理，你好</h2>            
             <h1></h1>
           </div>
           <div class="row">

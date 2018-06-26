@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -132,12 +133,13 @@ $(document).ready(function () {
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-            <a href="stu_test_list" class="list-group-item active">待参加</a>
+           <a href="stu_test_list" class="list-group-item ">待参加</a>
             <a href="stu_testd_list" class="list-group-item">已参加</a>
-            <a href="not_begin_list" class="list-group-item">未开始</a>
+            <a href="not_begin_list" class="list-group-item ">未开始</a>
             <a href="overdue_list" class="list-group-item">已过期</a>
             <a href="add_test" class="list-group-item">添加考试</a>
             <a href="test_analyse" class="list-group-item">考试分析</a>
+            <a href="my_consult" class="list-group-item active">我的申诉</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 
@@ -146,13 +148,37 @@ $(document).ready(function () {
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
+          
           <div class="row">
-            <div class="col-xs-6 col-lg-8 ">
-              <h2>考试确认</h2>
-              <p>请自觉遵守考试章程</p>
-              <p>点击进入考试即开始计时，中间不得退出，否则没有成绩</p>                       
-              <p><a class="btn btn-default" href="test_going?stu_Id=stu_id&test_Id=test_id" role="button">进入考试 &raquo;</a></p>
-            </div><!--/.col-xs-6.col-lg-4-->
+          
+               <div class="panel panel-default">
+					  <!-- Default panel contents -->
+					  <div class="panel-heading">我的申诉列表</div>
+					  <!-- Table -->
+					  <table class="table">
+					   <thead>
+					      <tr>
+					         <th width="7%" style="text-align:center">考试号</th>
+					         <th width="13%" style="text-align:center">考试名</th>
+					         <th width="40%" style="text-align:center">我的申诉</th>
+					         <th width="40%" style="text-align:center">老师回复</th>					         					        					       
+					      </tr>
+					   </thead>
+					   <tbody>
+					   <c:if test="${!empty consult_list}"> 
+		               		<c:forEach items="${consult_list}" var="consult">
+					      		<tr>
+					         		<td width="1%" style="text-align:center">${consult.test_Id}</td>
+					         		<td width="1%" style="text-align:center">${consult.test_name }</td>
+					         		<td width="40%" style="text-align:center">${consult.question}</td>
+					         		<td width="40%" style="text-align:center">${consult.answer}</td>					         		
+					      		</tr>
+					      	</c:forEach>
+		              </c:if>
+					   </tbody>
+					</table>
+			</div>
+			
             
           </div><!--/row-->
         </div><!--/.col-xs-12.col-sm-9-->
@@ -161,7 +187,9 @@ $(document).ready(function () {
 
       <hr>
 
-     
+      <footer>
+        <p>&copy;wyh&lcq</p>
+      </footer>
 
     </div><!--/.container-->
 

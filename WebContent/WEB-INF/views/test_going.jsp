@@ -186,7 +186,7 @@
 											
 												<li class="option">
 													 <input type="hidden" name="ans${ sta.index+1+question_dx_list.size()+question_pd_list.size()}" value="${question.question_Id}"> 
-													<textarea    rows="6" cols="160"  name="answer${sta.index+1+question_dx_list.size()+question_pd_list.size()}"></textarea>
+													<textarea    rows="6" cols="150"  name="answer${sta.index+1+question_dx_list.size()+question_pd_list.size()}"></textarea>
 												</li>										
 										</ul>
 									</div>

@@ -318,7 +318,7 @@ public class studentDao {
 	 * @return
 	 */
 	public List<Integer> get_test_Id_list(int stu_Id){
-		String sql="select test_Id from stu_test_info where state=2 order by test_Id asc";
+		String sql="select test_Id from stu_test_info where state=2 and stu_Id="+stu_Id+" order by test_Id asc";
 		return jdbcTemplate.query(sql, new test_Id_Mapper());
 	}
 	/**
@@ -348,7 +348,7 @@ public class studentDao {
 	 */
 	@SuppressWarnings("deprecation")
 	public int get_num_before(int stu_Id,int test_Id){
-		String sql="select count(*) from stu_test_info where state=2 and test_Id="+test_Id+" and  score>=(select score from stu_test_info where stu_Id="+stu_Id+" and test_Id="+test_Id+")";
+		String sql="select count(*) from stu_test_info where state=2 and test_Id="+test_Id+" and score>=(select score from stu_test_info where stu_Id="+stu_Id+" and test_Id="+test_Id+")";
 		return jdbcTemplate.queryForInt(sql);
 	}
 	/**
@@ -442,6 +442,78 @@ public class studentDao {
 		  String sql = "insert into stu_test_info(stu_Id,test_Id) values("+stu_Id+","+test_Id+")";
 		  return jdbcTemplate.update(sql)==1;
 	}
+	/**
+	 * 查看consult表有没有对应的申诉信息
+	 * @param stu_Id
+	 * @param test_Id
+	 * @return
+	 */
+	public List<stu_test> get_consult_list(int stu_Id,int test_Id){
+		String sql="select * from consult where stu_Id="+stu_Id+" and test_Id="+test_Id;
+		return jdbcTemplate.query(sql, new stu_test_Mapper());
+	}
+	/**
+	 * 插入申诉信息
+	 * @param stu_Id
+	 * @param test_Id
+	 * @param question
+	 * @return
+	 */
+	public boolean insert_consult(int stu_Id,int test_Id,String question){
+		String sql="insert into consult(stu_Id,test_Id,question,state) values("+stu_Id+","+test_Id+",'"+question+"',0)";
+		return (jdbcTemplate.update(sql)==1);
+	}
+	/**
+	 * 查看学生申诉信息
+	 * @param stu_Id
+	 * @return
+	 */
+	public List<consult> get_consult_list(int stu_Id){
+		String sql="select consult.test_Id,test_name,question,answer from consult,tea_test_info where consult.test_Id=tea_test_info.test_Id and stu_Id="+stu_Id;
+		return jdbcTemplate.query(sql, new consultMapper());
+	}
+	/**
+	 * 插入客观题信息
+	 * @param stu_Id
+	 * @param test_Id
+	 * @return
+	 */
+	public boolean insert_keguan(int stu_Id,int test_Id){
+		String sql="insert into shijuan_keguan(stu_Id,test_Id,tiku_Id,question_Id) select stu_Id,test_Id,shijuan.tiku_Id,shijuan.question_Id from student,shijuan,question where stu_Id="+stu_Id+" and test_Id="+test_Id+" and question.question_Id=shijuan.question_Id and question.tiku_Id=shijuan.tiku_Id and question_type<3";
+		return jdbcTemplate.update(sql)>0;
+	}
+	/**
+	 * 插入主观题信息
+	 * @param stu_Id
+	 * @param test_Id
+	 * @return
+	 */
+	public boolean insert_zhuguan(int stu_Id,int test_Id){
+		String sql="insert into shijuan_zhuguan(stu_Id,test_Id,tiku_Id,question_Id) select stu_Id,test_Id,shijuan.tiku_Id,shijuan.question_Id from student,shijuan,question where stu_Id="+stu_Id+" and test_Id="+test_Id+" and question.question_Id=shijuan.question_Id and question.tiku_Id=shijuan.tiku_Id and question_type=3";
+		return jdbcTemplate.update(sql)>0;
+	}
+	
+
+	/**
+	 * 学生客观试题信息查询
+	 * @param stu_Id
+	 * @param test_Id
+	 * @return
+	 */
+	public List<stu_test> stu_test_keguan(int stu_Id,int test_Id){
+		  String sql = "select stu_Id,test_Id from shijuan_keguan where stu_Id='"+stu_Id+"'  and test_Id='"+test_Id+"'";
+		  return jdbcTemplate.query(sql, new stu_test_Mapper());
+	}
+	/**
+	 * 学生主观试题信息查询
+	 * @param stu_Id
+	 * @param test_Id
+	 * @return
+	 */
+	public List<stu_test> stu_test_zhuguan(int stu_Id,int test_Id){
+		  String sql = "select stu_Id,test_Id from shijuan_zhuguan where stu_Id='"+stu_Id+"'  and test_Id='"+test_Id+"'";
+		  return jdbcTemplate.query(sql, new stu_test_Mapper());
+	}
 	
 	
 	
@@ -454,6 +526,24 @@ public class studentDao {
 	
 	
 	
+	
+	/**
+	 * consult的映射
+	 * @author perfect
+	 *
+	 */
+	class consultMapper implements RowMapper<consult>{
+		@Override
+		public consult mapRow(ResultSet rs, int rowNum) throws SQLException {
+			consult consult=new consult();
+			consult.setTest_Id(rs.getInt(1));
+			consult.setTest_name(rs.getString(2));
+			consult.setQuestion(rs.getString(3));
+			consult.setAnswer(rs.getString(4));
+			
+			return consult;
+		}
+	}
 	
 	
 	/**
