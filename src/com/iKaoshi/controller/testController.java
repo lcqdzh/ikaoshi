@@ -145,7 +145,8 @@ public class testController {
 	@RequestMapping("/consult_process")
 	public ModelAndView consult_process(HttpServletRequest request) throws UnsupportedEncodingException
 	{	
-		String question = new String(request.getParameter("consult").getBytes("iso-8859-1"), "utf-8"); 		
+		String question = new String(request.getParameter("consult")); 
+		//String question = new String(request.getParameter("consult").getBytes("iso-8859-1"), "utf-8"); 		
 		System.out.println("question="+question);
 		HttpSession session=request.getSession();		
 		int test_Id=(int)session.getAttribute("test_Id");

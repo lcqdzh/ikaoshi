@@ -137,6 +137,7 @@ $(document).ready(function () {
             <a href="tea_chakankaoshi" class="list-group-item active">查看考试</a>
             <a href="tea_kaoshinum" class="list-group-item">题库限制</a>
             <a href="tea_addkaoshi" class="list-group-item">添加考试</a>
+            <a href="tea_add_kaoshi_s1" class="list-group-item">添加考试(新版)</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
 

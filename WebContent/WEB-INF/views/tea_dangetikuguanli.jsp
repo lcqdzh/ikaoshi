@@ -181,7 +181,12 @@ $(document).ready(function () {
 				         		<td>${u.choice_B}</td>
 				         		<td>${u.choice_C}</td>
 				         		<td>${u.choice_D}</td>
-				         		<td>${u.answer}</td>
+				         		<td>
+				         		<c:if test="${u.answer=='1'}">A</c:if>
+				         		<c:if test="${u.answer=='2'}">B</c:if>
+				         		<c:if test="${u.answer=='3'}">C</c:if>
+				         		<c:if test="${u.answer=='4'}">D</c:if>
+				         		</td>
 				         		<td>${u.lable}</td>
 				         		<td><button type="button" class="btn btn-danger" onclick="location.href='tea_changequestion?question_Id=${u.question_Id}&tiku_ID=${tiku_ID}'">管理</button>
 				         			<button type="button" class="btn btn-danger" onclick="location.href='tea_delquestion?question_Id=${u.question_Id}&tiku_ID=${tiku_ID}'">删除</button>
@@ -216,7 +221,10 @@ $(document).ready(function () {
 			      		<tr>
 			         			<td>${u.question_Id}</td>
 				         		<td>${u.question_content}</td>
-				         		<td>${u.answer}</td>
+				         		<td>
+				         			<c:if test="${u.answer=='1'}">正确</c:if>
+				         			<c:if test="${u.answer=='2'}">错误</c:if>
+				         		</td>
 				         		<td>${u.lable}</td>
 				         		<td><button type="button" class="btn btn-danger" onclick="location.href='tea_changequestion?question_Id=${u.question_Id}&tiku_ID=${tiku_ID}'">管理</button>
 				         			<button type="button" class="btn btn-danger" onclick="location.href='tea_delquestion?question_Id=${u.question_Id}&tiku_ID=${tiku_ID}'">删除</button>

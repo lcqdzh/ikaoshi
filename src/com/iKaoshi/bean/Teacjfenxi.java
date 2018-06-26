@@ -68,7 +68,7 @@ public void setBjg(double bjg) {
 public double getYx() {
 	return yx;
 }
-public void setYx(double jg) {
+public void setYx(double yx) {
 	this.yx = yx;
 }
 

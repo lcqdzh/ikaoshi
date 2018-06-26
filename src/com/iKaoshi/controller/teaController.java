@@ -1280,7 +1280,7 @@ public class teaController {
 	//导入学生的动作
 	@RequestMapping(value = "/tea_jtkaoshixueshengdaoru_f", method = RequestMethod.POST)
     public ModelAndView tea_jtkaoshixueshengdaoru_f(@RequestParam(value="filename") MultipartFile file,
-            HttpServletRequest request,HttpServletResponse response) throws IOException{
+            HttpServletRequest request,HttpServletResponse response,Model model) throws IOException{
         
 		int tea_id=(int)request.getSession().getAttribute("sessiontea_id");
 		String test_idd = request.getParameter("test_id");
@@ -1346,7 +1346,8 @@ public class teaController {
     } catch (BiffException e) {  
         e.printStackTrace();  
     }  
-
+       String error="成功";
+       model.addAttribute("error", error);
        return new ModelAndView("tea_jtkaoshixueshengdaoru","test_id",test_id);
     }
 	

@@ -148,122 +148,17 @@ $(document).ready(function () {
           </p>
           <div class="jumbotron">
             <h1>欢迎使用在线考试系统</h1>
-            <p>下面为抽取到的试卷</p>
+            <p></p>
           </div>
           <ul class="nav nav-tabs">
 		  <li role="presentation"><a href="#">第一步</a></li>
 		  <li role="presentation"><a href="#">第二步</a></li>
-		  <li role="presentation" class="active"><a href="#">第三步</a></li>
-		  <li role="presentation"><a href="#">第四步</a></li>
+		  <li role="presentation" ><a href="#">第三步</a></li>
+		  <li role="presentation" class="active"><a href="#">第四步</a></li>
 		</ul>
 		<br>
           <div class="panel panel-default">
-			  <!-- Default panel contents -->
-			  <div class="panel-heading">单选</div>
-			  <!-- Table -->
-			  <table class="table">
-			   <thead>
-			      <tr>
-			         <th>题目编号</th>
-			         <th>题干</th>
-			         <th>选项A</th>
-			         <th>选项B</th>
-			         <th>选项C</th>
-			         <th>选项D</th>
-			         <th>答案</th>
-			         <th>难度</th>
-			      </tr>
-			   </thead>
-			   <tbody>
-			   <c:if test="${!empty question}"> 
-	               	<c:forEach items="${question}" var="u">
-	               		<c:if test="${u.question_type=='1'}">
-				      		<tr>
-				         		<td>${u.question_Id}</td>
-				         		<td>${u.question_content}</td>
-				         		<td>${u.choice_A}</td>
-				         		<td>${u.choice_B}</td>
-				         		<td>${u.choice_C}</td>
-				         		<td>${u.choice_D}</td>
-				         		<td>${u.answer}</td>
-				         		<td>${u.lable}</td>
-				         		
-				      		</tr>
-				      	</c:if>
-				     </c:forEach>
-               </c:if>
-			   </tbody>
-			</table>
-			</div>
-      
-        
-        <div class="panel panel-default">
-			  <!-- Default panel contents -->
-			  <div class="panel-heading">判断</div>
-			  <!-- Table -->
-			  <table class="table">
-			   <thead>
-			      <tr>
-			         <th>题目编号</th>
-			         <th>题干</th>
-			         <th>答案</th>
-			         <th>难度</th>
-			      </tr>
-			   </thead>
-			   <tbody>
-			   <c:if test="${!empty question}"> 
-               		<c:forEach items="${question}" var="u">
-               		<c:if test="${u.question_type==2}">
-			      		<tr>
-			         			<td>${u.question_Id}</td>
-				         		<td>${u.question_content}</td>
-				         		<td>${u.answer}</td>
-				         		<td>${u.lable}</td>
-				         		
-			      		</tr>
-			      	</c:if>
-			      	</c:forEach>
-              </c:if>
-			   </tbody>
-			</table>
-			</div>
-
-        <div class="panel panel-default">
-			  <!-- Default panel contents -->
-			  <div class="panel-heading">简答题</div>
-			  <!-- Table -->
-			  <table class="table">
-			   <thead>
-			      <tr>
-			         <th>题目编号</th>
-			         <th>题干</th>
-			         <th>难度</th>
-			         <th>操作</th>
-			      </tr>
-			   </thead>
-			   <tbody>
-			   <c:if test="${!empty question}"> 
-               		<c:forEach items="${question}" var="u">
-               		<c:if test="${u.question_type==3}">
-			      		<tr>
-			         		<td>${u.question_Id}</td>
-			         		<td>${u.question_content}</td>
-			         		<td>${u.lable}</td>
-			         		
-			      		</tr>
-			      	</c:if>
-			      	</c:forEach>
-              </c:if>
-			   </tbody>
-			</table>
-			</div>
-        </div><!--/.col-xs-12.col-sm-9-->
-        <nav aria-label="...">
-		  <ul class="pager">
-		    <li><a href="tea_add_kaoshi_s3_r?test_id=${test_id}">重新生成</a></li>
-		    <li><a href="tea_add_kaoshi_s3_y?test_id=${test_id}">确认</a></li>
-		  </ul>
-		</nav>
+			 <h2>您已经成功添加考试，请将考试号${test_id }通知学生或导入学生名单。</h2>
 			
       </div><!--/row-->
 

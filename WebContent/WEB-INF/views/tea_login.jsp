@@ -78,7 +78,7 @@ body {
       <form class="form-signin" action="tea_login">
         <h2 class="form-signin-heading"  >iTest</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="text" id="inputEmail" name="username" class="form-control" placeholder="teacher number" required autofocus>
+        <input type="text" id="inputEmail" name="username" class="form-control" placeholder="teacher number" onkeyup="value=value.replace(/[^\d]/g,'')" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword"  name="password" class="form-control" placeholder="Password" required>
         <div class="checkbox">

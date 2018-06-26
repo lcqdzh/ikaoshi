@@ -532,7 +532,7 @@ public class teacherService {
 		 if(t.getNnum()!=0) 
 		 {
 		 t.setBjg(1.0*t.getNbnum()/t.getNnum()*100);System.out.println("bjg="+t.getNbnum()+"/"+t.getNnum());System.out.print(t.getBjg());
-		 t.setYx(1.0*t.getNynum()/t.getNnum()*100);System.out.println("yx="+t.getNynum()+"/"+t.getNnum());System.out.println(t.getYx());
+		 t.setYx(1.0*t.getNynum()/t.getNnum()*100);System.out.println("yx="+t.getNynum()+"/"+t.getNnum()+"="+t.getYx());System.out.println(t.getYx());
 		 }
 		 return t;
 	 }

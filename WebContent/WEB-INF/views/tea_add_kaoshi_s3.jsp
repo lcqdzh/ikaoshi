@@ -185,7 +185,10 @@ $(document).ready(function () {
 				         		<td>${u.choice_B}</td>
 				         		<td>${u.choice_C}</td>
 				         		<td>${u.choice_D}</td>
-				         		<td>${u.answer}</td>
+				         		<td><c:if test="${u.answer=='1'}">A</c:if>
+				         		<c:if test="${u.answer=='2'}">B</c:if>
+				         		<c:if test="${u.answer=='3'}">C</c:if>
+				         		<c:if test="${u.answer=='4'}">D</c:if></td>
 				         		<td>${u.lable}</td>
 				         		
 				      		</tr>
@@ -217,7 +220,8 @@ $(document).ready(function () {
 			      		<tr>
 			         			<td>${u.question_Id}</td>
 				         		<td>${u.question_content}</td>
-				         		<td>${u.answer}</td>
+				         		<td><c:if test="${u.answer=='1'}">正确</c:if>
+				         			<c:if test="${u.answer=='2'}">错误</c:if></td>
 				         		<td>${u.lable}</td>
 				         		
 			      		</tr>
@@ -238,7 +242,6 @@ $(document).ready(function () {
 			         <th>题目编号</th>
 			         <th>题干</th>
 			         <th>难度</th>
-			         <th>操作</th>
 			      </tr>
 			   </thead>
 			   <tbody>

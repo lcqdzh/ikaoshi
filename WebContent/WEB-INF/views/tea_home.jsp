@@ -138,7 +138,7 @@ $(document).ready(function () {
             <a href="tea_pigai_kaoshi" class="list-group-item">批改试卷</a>
             <a href="tea_chengji_kaoshilist" class="list-group-item">考试信息</a>
             <a href="tea_consult_list" class="list-group-item">答疑功能</a>
-            <a href="tea_get_shijuan_f" class="list-group-item">抽取试卷</a>
+           <!--   <a href="tea_get_shijuan_f" class="list-group-item">抽取试卷</a>  -->
             
           </div>
         </div><!--/.sidebar-offcanvas-->
