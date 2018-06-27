@@ -389,7 +389,7 @@ public class studentDao {
 	 * @return
 	 */
 	public List<question_dt> get_dt_list(int stu_Id,int test_Id){
-		String sql="select question_content,choice_A,choice_B,choice_C,choice_D,answer,stu_answer,dt_score from shijuan_zhuguan,question,tea_test_info where question_type='3' and stu_Id="+stu_Id+"  and tea_test_info.test_Id="+test_Id+" and tea_test_info.test_Id=shijuan_zhuguan.test_Id and shijuan_zhuguan.question_Id=question.question_Id and shijuan_zhuguan.tiku_Id=question.tiku_Id";
+		String sql="select question_content,choice_A,choice_B,choice_C,choice_D,answer,stu_answer,dt_score,score from shijuan_zhuguan,question,tea_test_info where question_type='3' and stu_Id="+stu_Id+"  and tea_test_info.test_Id="+test_Id+" and tea_test_info.test_Id=shijuan_zhuguan.test_Id and shijuan_zhuguan.question_Id=question.question_Id and shijuan_zhuguan.tiku_Id=question.tiku_Id";
 		return jdbcTemplate.query(sql, new question_dt_Mapper());
 	}
 	/**
@@ -700,7 +700,8 @@ public class studentDao {
 			question.setChoice_D(rs.getString(5));
 			question.setAnswer(rs.getInt(6));
 			question.setStu_answer(rs.getString(7));
-			question.setQuestion_score(rs.getInt(8));			
+			question.setQuestion_score(rs.getInt(8));		
+			question.setScore(rs.getInt(9));
 			return question;
 		  }
 		 

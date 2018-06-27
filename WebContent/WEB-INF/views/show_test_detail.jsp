@@ -229,7 +229,8 @@ $(document).ready(function () {
 					         <th>题号</th>
 					         <th>题设</th>					         
 					         <th>你的答案</th>
-					         <th>分值</th>					     
+					         <th>分值</th>
+					         <th>得分</th>					     
 					      </tr>
 					   </thead>
 					   <tbody>
@@ -240,6 +241,7 @@ $(document).ready(function () {
 					         		<td>${u.question_content}</td>					         		
 					         		<td>${u.stu_answer}</td>
 					         		<td>${u.question_score}</td>
+					         		<td>${u.score}</td>
 					      		</tr>
 					      	</c:forEach>
 		              </c:if>

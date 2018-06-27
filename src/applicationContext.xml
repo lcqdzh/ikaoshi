@@ -14,11 +14,18 @@
       <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
       <!--数据库访问地址-->
        
-      <property name="url" value="jdbc:mysql://123.206.83.147:3306/ikaoshi?useUnicode=true&amp;characterEncoding=UTF-8"></property>
+        <property name="url" value="jdbc:mysql://123.206.83.147:3306/ikaoshi?useUnicode=true&amp;characterEncoding=UTF-8"></property>
       <!--数据库访问用户名-->
-      <property name="username" value="ruanjian"></property>
+       <property name="username" value="ruanjian"></property>
       <!--数据库访问密码-->
-      <property name="password" value="hitwh"></property>
+      <property name="password" value="hitwh"></property>  
+      
+      <!-- <property name="url" value="jdbc:mysql://localhost:3306/ikaoshi?useUnicode=true&amp;characterEncoding=UTF-8"></property>-->
+      <!--数据库访问用户名-->
+       <!--<property name="username" value="root"></property>-->
+      <!--数据库访问密码-->
+      <!--<property name="password" value="lichenqi123"></property>    -->
+      
     </bean>
     <!-- spring 提供的数据库事务管理 -->
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

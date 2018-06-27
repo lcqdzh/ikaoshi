@@ -858,9 +858,9 @@ public class teacherService {
 			 temp=qdao.quarybytikuidquestiontypelable(t.getTiku_id(), 3, 3);
 			 int[] a=new int[t.getDt_hard()];
 			 a= suiji.getRandomFromArray(temp.size(),t.getDt_hard());
-			 System.out.println("here");
+			 System.out.println("here a=a");
 			 System.out.println(t.getDt_hard());
-			 for(int i=0;i<t.getDt_easy();i++)
+			 for(int i=0;i<t.getDt_hard();i++)
 			 {
 				 Question1 qq=new Question1();
 				 qq=temp.get(a[i]);

@@ -12,7 +12,14 @@ public class question_dt {
 	String choice_D;
 	int answer;
 	int tiku_id;
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
 	String stu_answer;
+	int score;
 	public String getStu_answer() {
 		return stu_answer;
 	}
